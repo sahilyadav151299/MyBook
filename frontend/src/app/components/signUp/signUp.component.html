@@ -1,0 +1,46 @@
+<div class = "main-card ">
+  <div class = "row">
+          <div class="card mt-5 content" style="width: 40rem;">
+              <form #signInForm = "ngForm" (ngSubmit)="signUpUser(signInForm); " >
+                  <div class = "form-gruop row">
+                      <div class="mb-3 px-4 mt-4 form-group col-md-10">
+                          <h2>Create your account on Mybook</h2>
+                      </div>
+                      <div class="mb-3 px-4 col-xs-3 form-group col-md-12">
+                          <label for="exampleInputEmail1" class="form-label">Full Name</label>
+                          <input type="text" class="form-control name " name ="name" ngModel required #name = "ngModel" minlength="2">
+                          <small class="danger" *ngIf= "name.touched && !name.valid">Name is Required</small>
+                          
+                      </div>
+                      <div class="mb-3 px-4 col-xs-3">
+                          <label for="exampleInputEmail1" class="form-label">Email address</label>
+                          <input type="email" class="form-control" name = "email" ngModel required #email = "ngModel">
+                          <small class="danger" *ngIf= "email.touched && !email.valid">Email is Required</small>
+
+                      </div>
+                      <div class="mb-3 px-4 col-xs-3">
+                      <label for="exampleInputPassword1" class="form-label">Password</label>
+                      <input type="password" class="form-control" name="password" ngModel required #password = "ngModel">
+                      <small class="danger" *ngIf= "password.touched && !password.valid">Password is Required</small>
+
+                      </div>
+                      <div class="mb-3 px-4 col-xs-3">
+                          <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                          <input type="password" class="form-control" name="confirmPassword" ngModel required #confirmPassword = "ngModel">
+                          <small class="danger" *ngIf= "confirmPassword.value != password.value">Password must be same</small>
+
+                      </div>
+                      <div class="mb-3 px-4 col-xs-3">
+                          <label for="exampleInputPassword1" class="form-label">Contact Number</label>
+                          <input type="number" class="form-control" name="contactNumber" ngModel required #contactNumber = "ngModel">
+                          <small class="danger" *ngIf= "contactNumber.touched && !contactNumber.valid">Contact Number is Required</small>
+
+                      </div>
+                      <div class="mb-4 mt-4 px-4 col-xs-3">
+                          <button type="submit" class="btn btn-primary" [disabled]="!signInForm.valid">SignUp</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+  </div>
+</div>
