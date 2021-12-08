@@ -1,0 +1,29 @@
+.outer-box{
+    width: 850px;
+    margin-top: 20px;
+}
+
+.package-box{
+    width: 14em;
+    border: 2px solid grey;
+}
+
+.center{
+    text-align: center;
+}
+
+.pack-col{
+    padding: 35px 28px 30px 28px;
+}
+
+@media screen and (min-width: 0px) and (max-width: 600px){
+
+    .outer-box{
+        width: 300px;
+        margin-bottom: 50px;
+    }
+    
+    .pack-col{
+        padding: 35px 34px 10px 34px;
+    }
+}

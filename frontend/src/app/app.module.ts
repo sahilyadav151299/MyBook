@@ -1,3 +1,4 @@
+import { PackageDataComponent } from './components/package-data/package-data.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OrdersComponent } from './components/orders/orders.component';
 import { NgModule } from '@angular/core';
@@ -12,7 +13,8 @@ import { OrderDataService } from './services/order-data.service';
 
   declarations: [
     AppComponent,
-    OrdersComponent
+    OrdersComponent,
+    PackageDataComponent
   ],
 
   imports: [
