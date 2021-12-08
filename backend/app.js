@@ -1,7 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 const { port, database, db_host } = require("./config/config");
+
+const orderRoutes = require("./routes/order");
+const packageRoutes = require("./routes/package")
 
 const app = express();
 
@@ -19,6 +22,14 @@ app.use((req, res, next) => {
 
 next()
 });
+
+
+// Routes
+
+app.use('/orders', orderRoutes);
+app.use('/packages', packageRoutes);
+
+
 
 // Database creation and connection
 mongoose.connect(`${database}`)

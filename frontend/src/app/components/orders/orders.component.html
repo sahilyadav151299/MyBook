@@ -1,0 +1,42 @@
+<button (click)="fetchOrderData()">My Orders</button>
+
+<p *ngIf="orderData.length == 0 else elseBlock" class="no-order">
+  You haven't placed any order yet !
+</p>
+
+<ng-template #elseBlock>
+  
+  <table class="table-striped order-table">
+
+    <thead class="table-dark">
+      <tr>
+        <th>No.</th>
+        <th>Cover</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Buy</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let order of orderData" class="order-box">
+
+        <th>{{ order.count }}</th>
+        <td>
+          <img src="../../../assets/DemoBook.jpg" alt="Invisible Planets" class="book-cover">
+        </td>
+        <td>{{ order.bookName }}</td>
+        <td>{{ order.author }}</td>
+        <td>{{ order.category }}</td>
+        <td>{{ order.orderDate }}</td>
+        <td [style.color]="order.orderStatus === 'Placed' ? 'red' : 'green' ">{{ order.orderStatus }}</td>
+        <td><button type="button" class="btn btn-success btn-sm">Buy Again</button></td>
+  
+      </tr>
+    </tbody>
+
+  </table>
+</ng-template>

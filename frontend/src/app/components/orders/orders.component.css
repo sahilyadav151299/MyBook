@@ -1,0 +1,37 @@
+.no-order{
+    text-align: center;
+    font-size: xx-large;
+}
+
+.order-table{
+    width: 100%;
+}
+
+.book-cover{
+    width: 5em;
+    height: 7em;
+}
+
+th, td{
+    text-align: center;
+    font-weight: 500;
+    padding: 10px;
+}
+
+@media screen and (min-width: 0px) and (max-width: 600px){
+    .no-order{
+        text-align: center;
+        font-size: x-large;
+    }
+
+    .book-cover{
+        width: 3em;
+        height: 5em;
+    }
+    
+    th, td{
+        font-size: 12px;
+        text-align: center;
+        padding: 5px;   
+    }
+} 
