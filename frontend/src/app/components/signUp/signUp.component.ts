@@ -1,13 +1,17 @@
+import { UserService } from './../../services/user.service';
 import { Component, OnInit, } from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {FormGroup, FormControl, Validators, NgForm} from '@angular/forms';
+import { NgModule } from '@angular/core';
 
 
 @Component({
   selector: 'app-signUp',
   templateUrl: './signUp.component.html',
-  styleUrls: ['./signUp.component.css']
+  styleUrls: ['./signUp.component.css'],
+  providers: [UserService]
 })
 export class SignUpComponent implements OnInit {
+  constructor(public userService: UserService){}
   ngOnInit(): void {
   }
 
@@ -43,5 +47,8 @@ export class SignUpComponent implements OnInit {
     }
 
     this.success = JSON.stringify(this.signUpForm.value);
+
+    
+    
   }
 }
