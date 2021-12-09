@@ -1,0 +1,38 @@
+<div class = "main-card ">
+  <div class = "row">
+          <div class="card mt-5 content" style="width: 40rem;">
+              <form [formGroup]="logInForm" (ngSubmit)="onSignUp()">
+                  <div class = "form-gruop row">
+                      <div class="mb-3 px-4 mt-4 form-group col-md-10">
+                          <h2>Login to your Mybook account</h2>
+                      </div>
+                      <div class="mb-3 px-4 col-xs-3 form-group">
+                          <label for="email" class="form-label">Email address</label>
+                          <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                          <!-- <span class="danger" *ngIf="email?.touched && email?.invalid" >Email is Invalid</span> -->
+                          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                            <div *ngIf="f['email'].errors['required']">Email is required.</div>
+                            <div *ngIf="f['email'].errors['email']">Email must be a valid email address.</div>
+                          </div>
+                      </div>
+                      <div class="mb-3 px-4 col-xs-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" >
+                      <!-- <small class="danger" *ngIf= "password?.touched && !password?.valid">Password is Required</small> -->
+                      <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                        <div *ngIf="f['password'].errors['required']">Password is required.</div>
+                        <div *ngIf="f['password'].errors['pattern']">Password must include a uppercase letter, lowercase letter, number, special character & atleast 8 alphanumeric in length .</div>
+                      </div>
+
+                      </div>
+                      
+                      
+                      <div class="mb-4 mt-4 px-4 col-xs-3">
+                          <!-- <button type="submit" class="btn btn-primary" [disabled]="signUpForm.invalid">SignUp</button> -->
+                          <button type="submit" class="btn btn-primary">LogIn</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+  </div>
+</div>
