@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserPackagesService } from 'src/app/services/user-packages.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-package-data',
@@ -11,7 +12,8 @@ export class PackageDataComponent implements OnInit {
 
   packageData : any [] = []
 
-  constructor( private userPackagesService : UserPackagesService ) { }
+  constructor( private userPackagesService : UserPackagesService,
+               private modalService: NgbModal ) { }
 
   fetchPackageData(){
 
@@ -32,6 +34,10 @@ export class PackageDataComponent implements OnInit {
           this.packageData.push(packageObj)
         }
     })
+  }
+
+  openVerticallyCentered(content : any) {
+    this.modalService.open(content, { size: 'sm' });
   }
 
   ngOnInit() {

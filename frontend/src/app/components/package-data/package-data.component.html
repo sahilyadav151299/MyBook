@@ -13,9 +13,53 @@
                     <p class="card-text center">Validity : {{ pack.validity }} Days</p>
                 </div>
                 <div class="card-body center">
-                    <a href="#" class="btn btn-success">Purchase</a>
+                    <button type="button" class="btn btn-success" (click)="openVerticallyCentered(content)">Purchase</button>
                 </div>
             </div>
         </div>    
     </div>
 </div>
+
+
+    
+<ng-template #content let-modal>
+
+    <div class="modal-header">
+        
+        <h4 class="modal-title">Payment</h4>
+      
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      
+    </div>
+      
+    <div class="modal-body">
+      
+        <div class="mb-3">    
+            <label class="form-label label-box">Full Name</label>
+            <input type="text" class="form-control input-box" placeholder="Card Holder's Name">
+        </div>
+      
+        <div class="mb-3">
+            <label class="form-label label-box">Card Number</label>
+            <input type="text" class="form-control input-box" placeholder="XXXX XXXX XXXX XXXX">
+        </div>
+      
+        <div class="mb-3">
+            <label class="form-label label-box">Month/Year</label>
+            <input type="" class="form-control input-box" placeholder="MM/YY">
+        </div>
+      
+        <div class="mb-3">
+            <label class="form-label label-box">CVV Number</label>
+            <input type="text" class="form-control input-box" placeholder="XXX">
+        </div>
+      
+        <div class="mb-3 center btn-checkout">
+            <button type="submit" class="btn btn-danger">Confirm Purchase</button>
+        </div>
+      
+    </div>
+   
+</ng-template>

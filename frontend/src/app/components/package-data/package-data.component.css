@@ -5,7 +5,10 @@
 
 .package-box{
     width: 14em;
-    border: 2px solid grey;
+    height: 20em;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 40px;
+    box-shadow: 0 4px 8px 0 rgb(238, 238, 238), 0 6px 20px 0 rgb(238, 238, 238);
 }
 
 .center{
@@ -26,4 +29,18 @@
     .pack-col{
         padding: 35px 34px 10px 34px;
     }
+}
+
+.label-box{
+    margin-left: 21px;
+}
+
+.input-box{
+    width: 220px;
+    height: 35px;
+    margin-left: 21px;
+}
+
+.btn-checkout{
+    margin: 25px 0px 25px 0px;
 }
