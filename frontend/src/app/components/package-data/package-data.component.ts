@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserPackagesService } from 'src/app/services/user-packages.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
