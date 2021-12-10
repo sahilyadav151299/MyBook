@@ -6,27 +6,27 @@ const mongoose = require("mongoose");
 const { port, database, db_host } = require("./config/config");
 
 const orderRoutes = require("./routes/order");
+
 const packageRoutes = require("./routes/package")
 const authRoutes = require("./routes/authentication")
 
-const app = express();
 
 // Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-// app.use((req, res, next) => {
+app.use((req, res, next) => {
 
-//     res.setHeader("Access-Control-Allow-Origin", "*");
-//     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//     res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "OPTIONS, GET, POST, PUT, PATCH, DELETE"
-//     );
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    // res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader(
+    "Access-Control-Allow-Methods",
+    "OPTIONS, GET, POST, PUT, PATCH, DELETE"
+    );
 
-//next()
-//});
+next()
+});
 
 
 //My routes

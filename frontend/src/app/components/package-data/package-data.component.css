@@ -19,6 +19,13 @@
     padding: 35px 28px 30px 28px;
 }
 
+.close{
+    border: none;
+    background-color: white;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
 @media screen and (min-width: 0px) and (max-width: 600px){
 
     .outer-box{
