@@ -30,9 +30,20 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required, Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=.*[$@$!%*#?&^])(?=[^A-Z]*[A-Z]).{8,30}$/)]],
       confirmPassword: ['', Validators.required],
       contactNumber: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
-    })
+    },{validator: this.checkIfMatchingPasswords('password', 'confirmPassword')})
   }
-
+  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      let passwordInput = group.controls[passwordKey],
+          passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput.value !== passwordConfirmationInput.value) {
+        return passwordConfirmationInput.setErrors({notEquivalent: true})
+      }
+      else {
+          return passwordConfirmationInput.setErrors(null);
+      }
+    }
+  }
   ngOnInit(): void {
   }
 
@@ -68,47 +79,18 @@ export class SignUpComponent implements OnInit {
     }
 
     this.success = JSON.stringify(this.signUpForm.value);
-    // console.log(this.signUpForm.value.name);
-    // this.userService.addUser(
-    //   this.signUpForm.value.name,
-    //   this.signUpForm.value.email,
-    //   this.signUpForm.value.password,
-    //   this.signUpForm.value.confirmPassword,
-    //   this.signUpForm.value.contactNumber
-    // ).subscribe((event: HttpEvent<any>) => {
-    //   switch (event.type) {
-    //     case HttpEventType.Sent:
-    //       console.log('Request has been made!');
-    //       break;
-    //     case HttpEventType.ResponseHeader:
-    //       console.log('Response header has been received!');
-    //       break;
-    //     case HttpEventType.Response:
-    //       console.log('User successfully created!', event.body);
-    //   }
-    // })
 
     this.userService.register(this.signUpForm.value)
       .subscribe((response) => {
-      //  alert('Congratulations, You have successfully Created user Account.')
-      // alert(response['msg']);
       var msg = response['msg'];
-      // alert(msg);
       if(msg == 'Email Already Exists'){
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: msg,
-          // footer: '<a href="">Why do I have this issue?</a>'
         })
       }
       if(msg == 'User Created Successfully'){
-      // Swal.fire(
-      //     'Congratulations!!',
-      //     // 'You have successfully Created user Account.',
-      //     response['msg'],
-      //     'success'
-      //   )
         Swal.fire({
           icon: 'success',
           title: 'Congratulations!!',
@@ -118,6 +100,5 @@ export class SignUpComponent implements OnInit {
       }
           console.log(response);
       });
-      // alert("Congratulations, You have successfully Created user Account.");
   }
 }
