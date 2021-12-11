@@ -19,3 +19,14 @@ input.ng-touched.ng-invalid{
 input.ng-valid{
     border-left: 5px solid green;
 }
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #5082dd, #3666eb, #1b1fe0, #1c0792);
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #5082dd, #3666eb, #1b1fe0, #1c0792);
+  }
