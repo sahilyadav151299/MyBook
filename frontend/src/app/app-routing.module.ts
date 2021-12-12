@@ -1,3 +1,5 @@
+import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/signUp/signUp.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -6,9 +8,13 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
 
 const routes: Routes = [
 
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent},
+  { path: 'signup', component: SignUpComponent},
   { path: 'orders', component: OrdersComponent },
   { path: 'packages', component: PackageDataComponent },
   { path: 'cart', component: AddToCartComponent}
+
 ];
 
 @NgModule({
@@ -16,3 +22,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+export const routingComponents ={LoginComponent,SignUpComponent}

@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   logInForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=.*[$@$!%*#?&^])(?=[^A-Z]*[A-Z]).{8,30}$/)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=.*[$@$!%*#?&^])(?=[^A-Z]*[A-Z]).{8,30}$/)]),
   })
   get email(){return this.logInForm.get('email')}
   get password(){return this.logInForm.get('password')}
@@ -41,7 +41,9 @@ export class LoginComponent implements OnInit {
 
     this.success = JSON.stringify(this.logInForm.value);
 
-    
+    console.log(this.success);
+
+
     
   }
 

@@ -1,5 +1,5 @@
 
-<div>
+<!-- <div>
 
   <a routerLink="orders">My Orders</a>
   <a routerLink="packages">Packages</a>
@@ -7,6 +7,27 @@
   
 </div>
 
-<router-outlet>
-<!-- decide where to load the component -->
-</router-outlet>
+<router-outlet></router-outlet> -->
+
+
+<nav class="navbar navbar-expand-lg   fixed-top ">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" routerLink="login">My Book</a>
+    <div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <button class="btn purple-gradient nav-link text-white"  aria-current="page" routerLink="login">Login</button>    
+          </li>
+          <li class="nav-item">
+            <button class="btn purple-gradient nav-link text-white" routerLink="signup">SignUp</button>
+          </li>
+        </ul> 
+      </div>
+    </div>
+  </div>
+</nav>

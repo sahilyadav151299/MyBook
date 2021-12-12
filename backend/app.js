@@ -12,9 +12,13 @@ const cartRoutes = require("./routes/cart")
 const userRoutes = require("./routes/user")
 
 
+var cors = require('cors')
+
 // Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors())
+
 
 
 app.use((req, res, next) => {
@@ -44,7 +48,7 @@ app.use('/packages', packageRoutes);
 
 
 // Database creation and connection
-mongoose.connect(`${database}`)
+mongoose.connect(`${database}`, {  useNewUrlParser: true, useUnifiedTopology: true })
         .then(() => {
             console.log('Database created and connected successfully!')
         })
@@ -55,3 +59,16 @@ mongoose.connect(`${database}`)
         })
         .catch((err) =>  console.log(err))
 
+// Error
+app.use((req, res, next) => {
+    // Error goes via `next()` method
+    setImmediate(() => {
+      next(new Error('Something went wrong'));
+    });
+  });
+  
+  app.use(function (err, req, res, next) {
+    console.error(err.message);
+    if (!err.statusCode) err.statusCode = 500;
+    res.status(err.statusCode).send(err.message);
+  });
