@@ -81,7 +81,7 @@ export class SignUpComponent implements OnInit {
     this.success = JSON.stringify(this.signUpForm.value);
 
     this.userService.register(this.signUpForm.value)
-      .subscribe((response) => {
+      .subscribe((response : any) => {
       var msg = response['msg'];
       if(msg == 'Email Already Exists'){
         Swal.fire({
@@ -97,8 +97,17 @@ export class SignUpComponent implements OnInit {
           text: 'You have successfully Created your Account.',
           footer: '<a href="">Please click on the link to Login</a>'
         })
+
+        // After 5 seconds it will automatically redirect to the login page
+        var redirect = function(){
+          return window.location.replace("http://localhost:4200/login");
+        }
+
+        setTimeout(redirect, 5000);
       }
           console.log(response);
+          
+          
       });
   }
 }

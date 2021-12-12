@@ -5,10 +5,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-  {path: 'signup', component: SignUpComponent},
 
-  {path: 'login', component: LoginComponent}
-
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent},
+  { path: 'signup', component: SignUpComponent}
 
 ];
 
