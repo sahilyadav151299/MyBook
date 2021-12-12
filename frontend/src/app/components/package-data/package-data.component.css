@@ -3,6 +3,10 @@
     margin-top: 20px;
 }
 
+.outer-pack-box{
+    padding: 30px;
+}
+
 .package-box{
     width: 14em;
     height: 20em;
@@ -13,6 +17,7 @@
 
 .center{
     text-align: center;
+    /* margin: 40px; */
 }
 
 .pack-col{

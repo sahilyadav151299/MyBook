@@ -1,9 +1,12 @@
-import { PackageDataComponent } from './components/package-data/package-data.component';
+import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
-import { OrdersComponent } from './components/orders/orders.component';
 
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/signUp/signUp.component';
+
+import { OrdersComponent } from './components/orders/orders.component';
+import { PackageDataComponent } from './components/package-data/package-data.component';
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component'
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,7 +27,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     OrdersComponent,
     PackageDataComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    AddToCartComponent,
+    HeaderComponent
   ],
 
   imports: [

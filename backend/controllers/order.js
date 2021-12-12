@@ -5,10 +5,12 @@ exports.getOrderHistory = (req, res, next) => {
 
     const orderDetails = []
 
+    const customerId = req.query.customerId
+
     // const customerId = "61ae03486c0db019cc97a623"       // rohit
     // const customerId = "61ae03486c0db019cc97a622"       // sahil
     // const customerId = "61ae03486c0db019cc97a625"       // savita  
-    const customerId = "61ae03486c0db019cc97a626"       // tushar
+    // const customerId = "61ae03486c0db019cc97a626"       // tushar
     // const customerId = "61ae03486c0db019cc97a624"       // vishal
 
     OrderSchema.find({ customerId : customerId }, "book_rented flag create_at")

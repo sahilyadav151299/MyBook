@@ -1,5 +1,3 @@
-<button (click)="fetchOrderData()">My Orders</button>
-
 <p *ngIf="orderData.length == 0 else elseBlock" class="no-order">
   You haven't placed any order yet !
 </p>
@@ -33,7 +31,7 @@
         <td>{{ order.category }}</td>
         <td>{{ order.orderDate }}</td>
         <td [style.color]="order.orderStatus === 'Placed' ? 'red' : 'green' ">{{ order.orderStatus }}</td>
-        <td><a href="#"><button type="button" class="btn btn-success btn-sm">Order</button></a></td>
+        <td><button type="button" class="btn btn-success btn-sm" (click)="sendDataToCart(order.bookId)">AddToCart</button></td>
   
       </tr>
     </tbody>

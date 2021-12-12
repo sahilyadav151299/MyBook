@@ -1,22 +1,22 @@
-<button (click)="fetchPackageData()">Get Packages</button>
+<div class="outer-pack-box">
+    <h2 class="center">Get subscription & Order now!</h2>
 
-<h2 class="center">Get subscription & Order now!</h2>
-
-<div class="container outer-box">
-    <div class="row">
-        <div class="col pack-col" *ngFor="let pack of packageData">
-            <div class="card package-box">
-                <div class="card-body">            
-                    <h4 class="card-title center">{{ pack.packageName }}</h4>
-                    <p class="card-text center">Purchase upto {{ pack.maxBook }} books at once in every order.</p>
-                    <p class="card-text center">Price : {{ pack.price | currency : 'INR' }}</p>
-                    <p class="card-text center">Validity : {{ pack.validity }} Days</p>
+    <div class="container outer-box">
+        <div class="row">
+            <div class="col pack-col" *ngFor="let pack of packageData">
+                <div class="card package-box">
+                    <div class="card-body">            
+                        <h4 class="card-title center">{{ pack.packageName }}</h4>
+                        <p class="card-text center">Purchase upto {{ pack.maxBook }} books at once in every order.</p>
+                        <p class="card-text center">Price : {{ pack.price | currency : 'INR' }}</p>
+                        <p class="card-text center">Validity : {{ pack.validity }} Days</p>
+                    </div>
+                    <div class="card-body center">
+                        <button type="button" class="btn btn-success" (click)="purchase2(content)" (click)="purchase1(pack.packageId)">Purchase</button>
+                    </div>
                 </div>
-                <div class="card-body center">
-                    <button type="button" class="btn btn-success" (click)="openVerticallyCentered(content)">Purchase</button>
-                </div>
-            </div>
-        </div>    
+            </div>    
+        </div>
     </div>
 </div>
 
@@ -57,7 +57,7 @@
         </div>
       
         <div class="mb-3 center btn-checkout">
-            <button type="submit" class="btn btn-danger">Confirm Purchase</button>
+            <button type="submit" class="btn btn-danger" (click)="confirmOrder()" (click)="modal.dismiss('Cross click')">Confirm Purchase</button>
         </div>
       
     </div>

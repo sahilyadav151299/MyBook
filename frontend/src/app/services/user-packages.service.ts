@@ -15,4 +15,15 @@ export class UserPackagesService {
     return this.http.get(`http://localhost:${PORT_NO}/packages`)
   }
 
+  buyPackage( packageId : any){
+
+    const data = {
+
+      packageId : packageId,
+      customerId : '61ae03486c0db019cc97a622'
+    }
+
+    return this.http.post(`http://localhost:${PORT_NO}/packages`, data)
+  }
+
 }

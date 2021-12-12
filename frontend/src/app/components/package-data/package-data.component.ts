@@ -11,11 +11,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class PackageDataComponent implements OnInit {
 
   packageData : any [] = []
+  packId : any 
 
   constructor( private userPackagesService : UserPackagesService,
                private modalService: NgbModal ) { }
 
-  fetchPackageData(){
+    ngOnInit() {
 
     this.userPackagesService
       .getPackageData()
@@ -25,6 +26,7 @@ export class PackageDataComponent implements OnInit {
 
           const packageObj = {
 
+            packageId : pack._id,
             packageName : pack.package_name,
             maxBook : pack.max_book,
             price : pack.price,
@@ -36,11 +38,30 @@ export class PackageDataComponent implements OnInit {
     })
   }
 
-  openVerticallyCentered(content : any) {
+  purchase1(packID : any){
+    this.packId = packID
+  }
+
+  purchase2(content : any) {
     this.modalService.open(content, { size: 'sm' });
   }
 
-  ngOnInit() {
-  }
+  confirmOrder(){
+
+    this.userPackagesService
+      .buyPackage(this.packId)
+      .subscribe(( res : any ) => {
+
+        if(res.status === 200){
+          alert(res.message)
+        }
+
+        if(res.errCode === 500){
+          alert(res.message)
+        }
+
+      })
+    
+  } 
 
 }
