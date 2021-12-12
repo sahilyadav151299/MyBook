@@ -14,10 +14,14 @@ var customerSchema = new Schema({
         type: String,
         trim: true,
         required: true,
-        unique: true
+        index: {
+            unique: true, 
+        },
+        match:/[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    
     },
 
-    encry_password:{
+    password:{
         type: String,
         required: true,
     },

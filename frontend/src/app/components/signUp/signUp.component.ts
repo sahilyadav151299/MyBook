@@ -1,7 +1,13 @@
 import { UserService } from './../../services/user.service';
 import { Component, OnInit, } from '@angular/core';
-import {FormGroup, FormControl, Validators, NgForm} from '@angular/forms';
-import { NgModule } from '@angular/core';
+import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+import { Router } from '@angular/router';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
+
+import Swal from 'sweetalert2';
+
+
+
 
 
 @Component({
@@ -11,7 +17,33 @@ import { NgModule } from '@angular/core';
   providers: [UserService]
 })
 export class SignUpComponent implements OnInit {
-  constructor(public userService: UserService){}
+
+  constructor(
+    public fb: FormBuilder,
+    public router: Router,
+    private userService: UserService
+  ) {
+    // Reactive Form
+    this.signUpForm = this.fb.group({
+      name:[ '', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=.*[$@$!%*#?&^])(?=[^A-Z]*[A-Z]).{8,30}$/)]],
+      confirmPassword: ['', Validators.required],
+      contactNumber: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
+    },{validator: this.checkIfMatchingPasswords('password', 'confirmPassword')})
+  }
+  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      let passwordInput = group.controls[passwordKey],
+          passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput.value !== passwordConfirmationInput.value) {
+        return passwordConfirmationInput.setErrors({notEquivalent: true})
+      }
+      else {
+          return passwordConfirmationInput.setErrors(null);
+      }
+    }
+  }
   ngOnInit(): void {
   }
 
@@ -48,7 +80,25 @@ export class SignUpComponent implements OnInit {
 
     this.success = JSON.stringify(this.signUpForm.value);
 
-    
-    
+    this.userService.register(this.signUpForm.value)
+      .subscribe((response) => {
+      var msg = response['msg'];
+      if(msg == 'Email Already Exists'){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: msg,
+        })
+      }
+      if(msg == 'User Created Successfully'){
+        Swal.fire({
+          icon: 'success',
+          title: 'Congratulations!!',
+          text: 'You have successfully Created your Account.',
+          footer: '<a href="">Please click on the link to Login</a>'
+        })
+      }
+          console.log(response);
+      });
   }
 }

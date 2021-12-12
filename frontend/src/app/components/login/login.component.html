@@ -1,38 +1,74 @@
-<div class = "main-card ">
-  <div class = "row">
-          <div class="card mt-5 content" style="width: 40rem;">
-              <form [formGroup]="logInForm" (ngSubmit)="onSignUp()">
-                  <div class = "form-gruop row">
-                      <div class="mb-3 px-4 mt-4 form-group col-md-10">
-                          <h2>Login to your Mybook account</h2>
-                      </div>
-                      <div class="mb-3 px-4 col-xs-3 form-group">
-                          <label for="email" class="form-label">Email address</label>
-                          <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
-                          <!-- <span class="danger" *ngIf="email?.touched && email?.invalid" >Email is Invalid</span> -->
-                          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                            <div *ngIf="f['email'].errors['required']">Email is required.</div>
-                            <div *ngIf="f['email'].errors['email']">Email must be a valid email address.</div>
-                          </div>
-                      </div>
-                      <div class="mb-3 px-4 col-xs-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" >
-                      <!-- <small class="danger" *ngIf= "password?.touched && !password?.valid">Password is Required</small> -->
-                      <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                        <div *ngIf="f['password'].errors['required']">Password is required.</div>
-                        <div *ngIf="f['password'].errors['pattern']">Password must include a uppercase letter, lowercase letter, number, special character & atleast 8 alphanumeric in length .</div>
-                      </div>
 
-                      </div>
-                      
-                      
-                      <div class="mb-4 mt-4 px-4 col-xs-3">
-                          <!-- <button type="submit" class="btn btn-primary" [disabled]="signUpForm.invalid">SignUp</button> -->
-                          <button type="submit" class="btn btn-primary">LogIn</button>
-                      </div>
+<section class="h-100 gradient-form mb-5" style="background-color: #eee;">
+  <div class="container py-5 h-100 mt-5">
+
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black content">
+          <div class="row g-0">
+
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white text-center px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">Rent your Favorite Books!!!</h4>
+                <p class="small mb-0">Knowledge is power and comes through learning and education. Knowledge comes through book and here we provides you a wide range of books to rent. Login to our website, search your books and rent it to get delivered to your place, have fun :)</p>
+              </div>
+            </div>
+            <div class="col-lg-6 ">
+              <div class="card-body p-md-5 mx-md-4">
+
+
+                <div class="text-center">
+                  <img src="https://www.logolynx.com/images/logolynx/aa/aa3993182ad88a047d21fbcc09b44d04.png" style="width: 185px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">Welcome to MyBook</h4>
+                </div>
+
+                <form  [formGroup]="logInForm" (ngSubmit)="onSignUp()">
+                  <p>Please login to your account</p>
+
+                  <div class="form-outline mb-4">
+                    <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" placeholder="Email address">
+                    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                      <div *ngIf="f['email'].errors['required']">Email is required.</div>
+                      <div *ngIf="f['email'].errors['email']">Email must be a valid email address.</div>
+                    </div>
+                    <label class="form-label" for="form2Example11">Username</label>
                   </div>
-              </form>
+
+                  <div class="form-outline mb-4">
+                    <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" >
+                    <!-- <small class="danger" *ngIf= "password?.touched && !password?.valid">Password is Required</small>-->
+                    <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                      <div *ngIf="f['password'].errors['required']">Password is required.</div>
+                      <div *ngIf="f['password'].errors['minlength']">Password is not valid</div>
+
+                      <!-- <div *ngIf="f['password'].errors['pattern']">Password must include a uppercase letter, lowercase letter, number, special character & atleast 8 alphanumeric in length .</div> -->
+                    </div>
+                                        <label class="form-label" for="form2Example22">Password</label>
+
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log in</button>
+                  </div>
+                  <!-- <a class="text-muted" href="#!">Forgot password?</a> -->
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <a class="text-muted" href="#!">Forgot password?</a>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <p class="mb-0 me-2">Don't have an account?</p>
+
+                    <button type="button" class="btn btn-outline-primary" routerLink="../signup" routerLinkActive="active"> Create new</button>
+
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+            
           </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
