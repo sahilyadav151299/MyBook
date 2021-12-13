@@ -1,3 +1,4 @@
+import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -29,7 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SignUpComponent,
     LoginComponent,
     AddToCartComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
 
   imports: [

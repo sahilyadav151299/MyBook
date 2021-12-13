@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators, NgForm} from '@angular/forms';
 
@@ -9,7 +10,7 @@ import {FormGroup, FormControl, Validators, NgForm} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor( private userService : UserService  ) { }
 
   ngOnInit() {
   }
@@ -42,8 +43,6 @@ export class LoginComponent implements OnInit {
     this.success = JSON.stringify(this.logInForm.value);
 
     console.log(this.success);
-
-
     
   }
 

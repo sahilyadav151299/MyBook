@@ -5,4 +5,6 @@ const orderController = require('../controllers/order');
 
 router.get('/', orderController.getOrderHistory);
 
+router.post('/', orderController.placeOrder);
+
 module.exports = router;

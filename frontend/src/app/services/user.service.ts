@@ -29,7 +29,6 @@ export class UserService {
   register(userData: User){
     return this.http.post<any>(this.baseURL, userData);
   }
-
   
   changeAddress(newAddress : any){
 

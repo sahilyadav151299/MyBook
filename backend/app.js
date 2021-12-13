@@ -34,12 +34,9 @@ next()
 });
 
 
-//My routes
+// routes
+
 app.use("/",authRoutes);
-
-
-// Routes
-
 app.use('/user', userRoutes)
 app.use('/cart', cartRoutes)
 app.use('/orders', orderRoutes);

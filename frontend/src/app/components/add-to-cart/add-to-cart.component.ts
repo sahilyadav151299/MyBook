@@ -90,15 +90,65 @@ export class AddToCartComponent implements OnInit {
     }
   }
 
-  removeItem(){
+  removeItem( bookId : any ){
+
+    const status = confirm('Do you really want to remove the product?')
+
+    if(status){
+      
+      const newCartBookId = []
+      let flag = true
+
+      for(const data of this.cartBookdata){
+
+        if(bookId === data.id && flag === true){
+          flag = false
+          continue
+        }
+
+        newCartBookId.push(data.id)
+      }
+
+      localStorage.setItem("cartBookId", JSON.stringify(newCartBookId) )
+      window.location.reload();
+    }    
   }
 
   placeOrder(){
 
-    alert("You have successfully placed the order!")
+    this.orderDataService
+      .placeOrder(this.cartBookdata)
+      .subscribe(( res : any ) => {
+        
+        console.log(res)
 
-    localStorage.removeItem("cartBookId")
-    localStorage.removeItem("flag")
-    window.location.reload();
+        if(res.status === 406){
+          alert(res.message)
+        }
+        
+        if(res.status === 200){
+          alert(res.message)
+
+          // After 5 seconds it will automatically reload the page
+          var reload = function(){
+            return window.location.reload();
+          }
+
+          localStorage.removeItem("cartBookId")
+          localStorage.removeItem("flag")
+          setTimeout(reload, 1000);
+        }
+
+        if(res.errCode === 500){
+          alert(res.message)
+        }
+
+        if(res.errCode === 404){
+          alert(res.message)
+        }
+      })
+
+
+    
   }
 }

@@ -98,12 +98,6 @@ export class SignUpComponent implements OnInit {
           footer: '<a href="">Please click on the link to Login</a>'
         })
 
-        // After 5 seconds it will automatically redirect to the login page
-        var redirect = function(){
-          return window.location.replace("http://localhost:4200/login");
-        }
-
-        setTimeout(redirect, 5000);
       }
           console.log(response);
           

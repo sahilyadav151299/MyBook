@@ -1,72 +1,3 @@
-// const Customer = require("../models/customer")
-// const bcrypt = require("bcrypt")
-// const {validationResult} = require("express-validator");
-// const router = require("../routes/authentication");
-
-// exports.signout = (req, res) =>{
-//     res.json({
-//         message: "User signout"
-//     })
-// };
-// exports.signup = (req, res,next) =>{
-   
-//     const errors = validationResult(req)
-//     if(!errors.isEmpty()){
-//         return res.status(422).json({
-//           error: errors.array()[0].msg
-//         })
-//     }
-
-//     var name  =req.body.name;
-//     var email = req.body.email
-//     var password = req.body.password
-//     var confirmPassword = req.body.confirmPassword
-//     var role = req.body.role
-//     var contact = req.body.contact
-
-    
-    
-// if(password !== confirmPassword){
-//     res.json({
-//     message:"Password not matched",
-//  })
-// }else{
-//     bcrypt.hash(password, 10,function(err, hash){
-//         if(err){
-//             return res.json({
-//                 err:"Something went wrong",
-//                 error : err
-//             })
-//         }else {
-//             var userDetails = new Customer({
-//                 name: name,
-//                 email: email,
-//                 password: hash,
-//                 role: role,
-//                 contact: contact
-//             })
-//             userDetails.save()
-//             .then(doc=>{
-//                 res.status(201).json({
-//                     message: "User Registered Successfully",
-//                     results: doc
-//                 })
-//             })
-//             .catch(err=>{
-//                 res.json(err)
-//             })
-//         }
-//     })    
-// }
-// }
-
-
-
-
-// Code by simran
-
-
-
 const Customer = require("../models/customer")
 const bcrypt = require("bcrypt")
 const {validationResult} = require("express-validator");
@@ -125,7 +56,8 @@ exports.signup = (req, res,next) =>{
     })       
 }
 
-exports.login = (req, res,next) =>{
+exports.login = (req, res,next) =>{s
+
     Customer.find({email:req.body.email})
     .exec()
     .then(userDetails=>{
@@ -141,9 +73,10 @@ exports.login = (req, res,next) =>{
                 });
             }
             if(result){
-                const token =jwt.sign({
+                const token = jwt.sign({
                     email:userDetails[0].email,
-                    userDetailsId:userDetails[0]._id
+                    userDetailsId:userDetails[0]._id,
+                    auth: true
                 },
                 "process.env.JWT_KEY",  //its a secret key!
                 {
@@ -151,7 +84,7 @@ exports.login = (req, res,next) =>{
                 }
                 );
                 return res.status(200).json({
-                    message:'Auth successful',//password+ email both match
+                    message:'Auth successful',//password + email both match
                     token:token
                 });
             }

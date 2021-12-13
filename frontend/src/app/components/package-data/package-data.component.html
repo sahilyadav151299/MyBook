@@ -18,9 +18,23 @@
             </div>    
         </div>
     </div>
+
+    <div class="user-packs">
+        <div class="pack" *ngFor="let pack of userPacks">
+            <h2 class="pack-name">{{ pack.packData.package_name }}</h2>
+            <div class="pack-data">
+                <p class="data">Buy At : {{ pack.buyAt }}</p>
+                <p class="data">Validity : {{ pack.packData.validity }} Days</p>
+                <p class="data">Status : <span [style.color]="pack.status === 'Active' ? 'green' : 'red' " style="font-weight: bold;">{{ pack.status }}</span></p>
+                <p class="data">Days Left : XY Days </p> 
+            </div>
+            <div class="card-body center">
+                <button type="button" class="btn btn-success btn-sm" (click)="purchase2(content)" (click)="purchase1(pack.packData._id)">Buy Again</button>
+            </div>
+        </div>
+    </div>
+    
 </div>
-
-
     
 <ng-template #content let-modal>
 

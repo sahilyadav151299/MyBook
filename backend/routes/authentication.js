@@ -32,17 +32,6 @@ router.get('/signup',(req,res)=>{
 });
 
 
-// router.post("/signup",[
-//        check("name","name should be atleast 3 characters").isLength({min:3}),
-//        check("email","email is required").isEmail(),
-//       // check("contact","Phone number should contain 10 digits").isLength({min:10}),
-//         check("password","password should be atleast 5 char").isLength({min:5})
-// ],signup)
-// router.get("/signout", signout)
-
-
-//Post request created By rohit
-
 router.post('/signup',checkEmail, (req,res)=> {
 
   bcrypt.hash(req.body.password, 10, function(err, hash) {
@@ -81,6 +70,8 @@ router.post('/signup',checkEmail, (req,res)=> {
     }
   });
 });
+
+
 
 // router.post("/login",[
 //     check("email","email is required").isEmail(),

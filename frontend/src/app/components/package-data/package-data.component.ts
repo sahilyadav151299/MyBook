@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class PackageDataComponent implements OnInit {
 
+  userPacks : any [] = []
   packageData : any [] = []
   packId : any 
 
@@ -21,6 +22,8 @@ export class PackageDataComponent implements OnInit {
     this.userPackagesService
       .getPackageData()
       .subscribe( (data : any ) => { 
+
+        this.userPacks = data.userAllPackData
 
         for(const pack of data.packageData){
 
@@ -56,6 +59,10 @@ export class PackageDataComponent implements OnInit {
           alert(res.message)
         }
 
+        if(res.status === 409){
+          alert(res.message)
+        }
+        
         if(res.errCode === 500){
           alert(res.message)
         }

@@ -1,5 +1,6 @@
 .outer-container{
     width: 100%;
+    height: 700px;
 }
 
 .no-order{
@@ -11,6 +12,7 @@
 .outer-left-box{
     float: left;
     width: 600px;
+    margin-bottom: 150px;
 }
 
 .left-box{
@@ -99,7 +101,7 @@
 
     .right-box{
         float: left;
-        margin: 40px 90px 0px 90px;
+        margin: 0px 90px 120px 90px;
     }
     
 }

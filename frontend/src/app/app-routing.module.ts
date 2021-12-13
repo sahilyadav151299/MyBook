@@ -8,7 +8,7 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
 
 const routes: Routes = [
 
-  { path: '', component: LoginComponent },
+  // { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignUpComponent},
   { path: 'orders', component: OrdersComponent },
