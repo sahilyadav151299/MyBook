@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../components/models/user.model';
 import { PORT_NO } from '../util/config';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -30,6 +30,7 @@ export class UserService {
     return this.http.post<any>(this.baseURL, userData);
   }
   
+  
   changeAddress(newAddress : any){
 
     const data = {
@@ -42,4 +43,10 @@ export class UserService {
 
   }
 
+  getAddress(){
+
+    const params = new HttpParams().set('customerId', JSON.stringify('61ae03486c0db019cc97a622'))
+    
+    return this.http.get(`http://localhost:${PORT_NO}/user/address`, {params : params} )
+  }
 }

@@ -56,7 +56,14 @@ export class PackageDataComponent implements OnInit {
       .subscribe(( res : any ) => {
 
         if(res.status === 200){
+          
           alert(res.message)
+          // After 1 seconds it will automatically reload the page
+          var reload = function(){
+            return window.location.reload();
+          }
+
+          setTimeout(reload, 1000);
         }
 
         if(res.status === 409){

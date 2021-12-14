@@ -23,7 +23,7 @@
         <div class="pack" *ngFor="let pack of userPacks">
             <h2 class="pack-name">{{ pack.packData.package_name }}</h2>
             <div class="pack-data">
-                <p class="data">Buy At : {{ pack.buyAt }}</p>
+                <p class="data">Buy On : {{ pack.buyAt }}</p>
                 <p class="data">Validity : {{ pack.packData.validity }} Days</p>
                 <p class="data">Status : <span [style.color]="pack.status === 'Active' ? 'green' : 'red' " style="font-weight: bold;">{{ pack.status }}</span></p>
                 <p class="data">Days Left : XY Days </p> 

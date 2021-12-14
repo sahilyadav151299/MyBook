@@ -5,4 +5,6 @@ const userController = require('../controllers/user');
 
 router.post('/address', userController.changeAddres);
 
+router.get('/address', userController.getAddress);
+
 module.exports = router;

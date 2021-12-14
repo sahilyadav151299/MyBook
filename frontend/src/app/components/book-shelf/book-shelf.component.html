@@ -1,0 +1,123 @@
+<div>
+
+  <div class="button-box">
+    <button class="type" class="btn btn-success btn-sm btn-s" (click)="getData('d')">Delivered Books</button>
+    <button class="type" class="btn btn-success btn-sm btn-s" (click)="getData('r')">Returned Books</button>
+  </div>
+
+  <ng-template [ngIf]=" bookType == 'd' ">
+
+    <div *ngIf=" deliveredBookData.length === 0 else elseBlock" class="no-data-box">
+      <p class="no-data">You don't have any delivered books!</p>
+    </div>
+
+    <ng-template #elseBlock>
+
+      <div class="outer-container">
+
+        <div class="outer-left-box">
+          <div class="left-box" *ngFor="let book of deliveredBookData">
+  
+            <div class="inner-box">
+              <img src="../../../assets/DemoBook.jpg" class="card-img-top book-cover" alt="...">
+            </div>
+          
+            <div class="inner-box">
+              <p class="book-data"><strong>Book Name</strong></p>
+              <p class="book-data">{{ book.bookName }}</p>
+              <p class="book-data"><strong>Author</strong></p>
+              <p class="book-data">{{ book.author }}</p>
+              <p class="book-data"><strong>Category</strong></p>
+              <p class="book-data">{{ book.category }}</p>
+            </div>
+          
+            <div class="inner-box">
+              <p class="book-data"><strong>Published Date</strong></p>
+              <p class="book-data">{{ book.publishDate }}</p>
+              <p class="book-data"><strong>Order Date</strong></p>
+              <p class="book-data">{{ book.orderDate }}</p>
+              <p class="book-data"><strong>Order Status</strong></p>
+              <p class="book-data"><b style="color: green;">{{ book.orderStatus }}</b></p> 
+            </div>
+          </div>
+        </div>
+
+        <div class="right-box">
+
+          <h2 class="address-title">Pickup Address</h2>
+    
+          <form #addressForm="ngForm" (ngSubmit)="onSubmit(addressForm.value)">
+    
+            <div class="mb-3">
+              <input type="text" [(ngModel)]="custAddress.address" name="address" class="form-control input-box address-input" placeholder="House No, Colony">
+            </div>
+            <div class="mb-3">
+              <input type="text" [(ngModel)]="custAddress.city" name="city" class="form-control input-box address-input" placeholder="City">
+            </div>
+            <div class="mb-3">
+              <input type="text" [(ngModel)]="custAddress.state" name="state"  class="form-control input-box address-input" placeholder="State">
+            </div>
+            <div class="mb-3">
+              <input type="text" [(ngModel)]="custAddress.pincode" name="pincode" class="form-control input-box address-input" placeholder="Pincode">
+            </div>
+    
+            <button type="submit" [disabled]="disabledBox" class="btn btn-success btn-sm btn-return">Apply For Return</button>
+            
+          </form>
+          
+        </div>
+
+      </div>
+
+    </ng-template>
+    
+  </ng-template>
+  
+  <ng-template [ngIf]=" bookType == 'r' ">
+    
+    <div *ngIf=" returnedBookData.length == 0 else elseBlock" class="no-data-box">
+      <p class="no-data">You don't have any rented books!</p>
+    </div>
+
+    <ng-template #elseBlock>
+      <div class="outer-left-box">
+    
+        <div class="left-box" *ngFor="let book of returnedBookData">
+
+          <div class="inner-box">
+            <img src="../../../assets/DemoBook.jpg" class="card-img-top book-cover" alt="...">
+          </div>
+        
+          <div class="inner-box">
+            <p class="book-data"><strong>Book Name</strong></p>
+            <p class="book-data">{{ book.bookName }}</p>
+            <p class="book-data"><strong>Author</strong></p>
+            <p class="book-data">{{ book.author }}</p>
+            <p class="book-data"><strong>Category</strong></p>
+            <p class="book-data">{{ book.category }}</p>
+          </div>
+        
+          <div class="inner-box">
+            <p class="book-data"><strong>Published Date</strong></p>
+            <p class="book-data">{{ book.publishDate }}</p>
+            <p class="book-data"><strong>Order Date</strong></p>
+            <p class="book-data">{{ book.orderDate }}</p>
+            <p class="book-data"><strong>Order Status</strong></p>
+            <p class="book-data"><b style="color: grey;">{{ book.orderStatus }}</b></p> 
+          </div>
+        
+          <div class="inner-box-right">
+            <button class="btn btn-success btn-sm btn-buy" (click)="sendDataToCart(book.bookId)">Buy Again</button>
+          </div>
+        </div>
+      
+      </div>
+    </ng-template>
+
+  </ng-template>    
+
+</div>
+
+
+
+

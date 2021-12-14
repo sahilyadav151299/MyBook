@@ -1,3 +1,4 @@
+import { BookShelfComponent } from './components/book-shelf/book-shelf.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/signUp/signUp.component';
 import { NgModule } from '@angular/core';
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'signup', component: SignUpComponent},
   { path: 'orders', component: OrdersComponent },
   { path: 'packages', component: PackageDataComponent },
-  { path: 'cart', component: AddToCartComponent}
+  { path: 'cart', component: AddToCartComponent},
+  { path: 'book-shelf', component: BookShelfComponent}
 
 ];
 

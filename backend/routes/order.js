@@ -7,4 +7,6 @@ router.get('/', orderController.getOrderHistory);
 
 router.post('/', orderController.placeOrder);
 
+router.post('/return-book', orderController.returnOrderedBooks);
+
 module.exports = router;

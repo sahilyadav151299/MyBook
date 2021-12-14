@@ -1,3 +1,4 @@
+import { BookShelfComponent } from './components/book-shelf/book-shelf.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -31,7 +32,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     AddToCartComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    BookShelfComponent
   ],
 
   imports: [

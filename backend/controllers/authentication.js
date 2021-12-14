@@ -56,7 +56,7 @@ exports.signup = (req, res,next) =>{
     })       
 }
 
-exports.login = (req, res,next) =>{s
+exports.login = (req, res,next) =>{
 
     Customer.find({email:req.body.email})
     .exec()

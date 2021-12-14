@@ -1,0 +1,135 @@
+.button-box{
+    text-align: center;
+    margin: 20px;
+}
+
+.btn-s{
+    margin: 20px;
+}
+
+.no-data-box{
+    text-align: center;
+}
+
+.no-data{
+    margin: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: xx-large;
+    text-align: center;
+}
+
+
+
+
+.outer-left-box{
+    margin-bottom: 150px;
+    float: left;
+    width: 750px;
+}
+
+.left-box{
+    height: 180px;
+    float: left;
+    width: 650px;
+    margin: 25px 0px 25px 45px;
+    border: 1px solid rgb(238, 238, 238);
+    box-shadow: 0 1px 2px 0 rgb(238, 238, 238);
+}
+
+.book-cover{
+    width: 7em;
+    height: 9em;
+}
+
+.inner-box{
+    float: left;
+    width: auto;
+    margin: 15px 25px 15px 25px;
+    height: 10em;  
+    padding: 0px;
+}
+
+.inner-box-right{
+    margin: 25px;
+    padding-top: 100px;
+    float: right;
+    height: 7em;
+}
+
+.book-data{
+    margin: 0px;
+    padding: 1px;
+    font-size: 14px;
+}
+
+
+
+
+
+.right-box{
+    float: right;
+    margin: 25px 50px 0px 0px;
+    height: 420px;
+    width: 310px;
+    border: 1px solid rgb(238, 238, 238);
+    box-shadow: 0 1px 2px 0 rgb(238, 238, 238);
+}
+
+.address-title{
+    padding: 20px 0px 0px 27px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.address-input{
+    width: 12em;
+    height: 2em;
+    margin: 27px;
+    background-color: rgb(250, 250, 250);
+}
+
+.btn-return{
+    margin-left: 27px;
+    margin-top: 10px;
+}
+
+@media screen and (min-width: 0px) and (max-width: 600px){
+    
+    .left-box{
+        margin: 20px 20px 20px 20px;
+        height: 140px;
+        width: 440px;
+        padding: 5px;
+    }
+
+    .inner-box{
+        float: left;
+        margin: 5px 15px 5px 15px;
+        height: 7em;  
+    }
+
+    .book-cover{
+        width: 5em;
+        height: 7em;
+    }
+    
+    .book-data{
+        font-size: 10px;
+    }
+
+    .inner-box-right{
+        float: right;
+        margin: 5px;
+        padding: 0px;
+        height: 7em;
+        width: 5em;
+    }
+
+    .right-box{
+        float: left;
+        margin: 0px 90px 120px 90px;
+    }
+    
+    .btn-buy{
+        font-size: 12px;
+    }
+}

@@ -2,6 +2,7 @@ const OrderSchema = require("../models/order")
 const BookSchema = require("../models/book")
 const CustomerPackage = require("../models/customer_package")
 const PackageScema = require("../models/package")
+const ReturnOrder = require("../models/return_order")
 
 exports.getOrderHistory = (req, res, next) => {
 
@@ -34,7 +35,7 @@ exports.getOrderHistory = (req, res, next) => {
                                 orderStatus : orderStatus,
                                 orderDate : orderDate
                             }
-
+                            
                             orderDetails.push(order)
 
                             if(orderDetails.length === counter){
@@ -49,7 +50,6 @@ exports.getOrderHistory = (req, res, next) => {
         })
         .catch( err => console.log(err) )
 } 
-
 
 
 exports.placeOrder = (req, res, next) => {
@@ -101,7 +101,7 @@ exports.placeOrder = (req, res, next) => {
                                 customerId : customerId,
                                 customerPackageId : activePackageId,
                                 book_rented : book_rented,
-                                flag : true
+                                flag : "Placed"
                             })
 
                             newOrder.save(err => {
@@ -119,6 +119,34 @@ exports.placeOrder = (req, res, next) => {
         .catch(err => {
             res.json({ errCode : 404, message : "You don't have any active subscription!"})
         })
+}
 
+exports.returnOrderedBooks = (req, res, next) => {
 
+    const bookData = req.body.bookData
+    const customerId = JSON.parse(req.body.customerId)
+    const address = req.body.address
+    const bookIds = []
+
+    for(const book of bookData){
+
+        const Id = {
+            bookId : book.bookId
+        }
+
+        bookIds.push(Id)
+    }
+        
+
+    const newReturnOrder = new ReturnOrder({
+
+        customerId : customerId,
+        return_book_Id : bookIds,
+        status : 'Open',
+        pickup_address : address
+    })
+
+    newReturnOrder.save()
+        .then(() => res.json({ status : 200, message : 'You have successfully applied for return order!'}))
+        .catch(err => res.json({ errCode : 500, message : 'Internal Server Error' })) 
 }

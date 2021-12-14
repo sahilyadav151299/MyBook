@@ -1,25 +1,24 @@
 var mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-var orderSchema = new Schema({
+var returnOrderSchema = new Schema({
 
     customerId:{
         type: Schema.Types.ObjectId,
         ref: 'Customer'
     },
 
-    customerPackageId:{
-        type: Schema.Types.ObjectId,
-        ref: 'Customer_Package'
-    },
-
-    book_rented:[ 
+    return_book_Id:[ 
           
         { bookId: { type: Schema.Types.ObjectId, ref: 'Book' } } 
     ],
 
-    flag:{
+    status:{
         type: String
+    },
+
+    pickup_address:{
+        type: Object
     },
 
     create_at:{
@@ -28,4 +27,4 @@ var orderSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Order',orderSchema)
+module.exports = mongoose.model('Return_Order',returnOrderSchema)

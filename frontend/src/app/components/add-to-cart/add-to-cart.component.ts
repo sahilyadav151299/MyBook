@@ -129,7 +129,7 @@ export class AddToCartComponent implements OnInit {
         if(res.status === 200){
           alert(res.message)
 
-          // After 5 seconds it will automatically reload the page
+          // After 1 seconds it will automatically reload the page
           var reload = function(){
             return window.location.reload();
           }

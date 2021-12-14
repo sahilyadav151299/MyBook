@@ -28,16 +28,27 @@ constructor( private http : HttpClient ) { }
 
     return this.http.get(`http://localhost:${PORT_NO}/cart`, { params : params })
   }
-
+  
   placeOrder( orderData : any ){
 
     const body = {
-
       orderData : orderData,
       customerId : JSON.stringify('61ae03486c0db019cc97a622')
     }
 
     return this.http.post(`http://localhost:${PORT_NO}/orders`, body )
+  }
+
+  returnBooks( bookData : any, address : any ){
+
+    const body = {
+      bookData : bookData,
+      address : address,
+      customerId : JSON.stringify('61ae03486c0db019cc97a622')
+    }
+
+    return this.http.post(`http://localhost:${PORT_NO}/orders/return-book`, body )
+
   }
 
 }
