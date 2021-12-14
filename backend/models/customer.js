@@ -1,5 +1,8 @@
-var mongoose = require('mongoose')
-const Schema = mongoose.Schema
+var mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require("../config/config");
 
 var customerSchema = new Schema({
 
@@ -41,5 +44,14 @@ var customerSchema = new Schema({
         default: new Date()
     }
 })
+
+customerSchema.methods.isValid = function (password) {
+    return bcrypt.compareSync(password, this.password);
+};
+
+customerSchema.methods.generateJwt = function(){
+    return jwt.sign({_id: this._id},
+        `${JWT_SECRET}`);
+}
 
 module.exports = mongoose.model('Customer',customerSchema)

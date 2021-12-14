@@ -73,6 +73,7 @@ const {validationResult} = require("express-validator");
 const { Mongoose } = require("mongoose");
 const config = require("../config/config")
 const jwt = require('jsonwebtoken')
+const passport = require('passport');
 
 
 
@@ -125,42 +126,53 @@ exports.signup = (req, res,next) =>{
     })       
 }
 
-exports.login = (req, res,next) =>{
-    Customer.find({email:req.body.email})
-    .exec()
-    .then(userDetails=>{
-       if(userDetails.length< 1){
-           return res.status(401).json({
-               message:"Auth failed"
-           });
-       }
-       bcrypt.compare(req.body.password,userDetails[0].password,(err,result)=>{
-            if(err){
-                return res.status(401).json({
-                    message:'Auth failed'//password is different
-                });
-            }
-            if(result){
-                const token =jwt.sign({
-                    email:userDetails[0].email,
-                    userDetailsId:userDetails[0]._id
-                },
-                "process.env.JWT_KEY",  //its a secret key!
-                {
-                    expiresIn:"1h"
-                }
-                );
-                return res.status(200).json({
-                    message:'Auth successful',//password+ email both match
-                    token:token
-                });
-            }
-            res.status(401).json({
-                message:'Auth failed'//if email is incorrect
-            });
-       });
-    })
-}
+// module.exports.login = (req, res,next) =>{
+//     Customer.find({email:req.body.email})
+//     .exec()
+//     .then(userDetails=>{
+//        if(userDetails.length< 1){
+//            return res.status(401).json({
+//                message:"Auth failed"
+//            });
+//        }
+//        bcrypt.compareSync(req.body.password,userDetails[0].password,(err,result)=>{
+//             if(err){
+//                 return res.status(401).json({
+//                     message:'Auth failed'//password is different
+//                 });
+//             }
+//             if(result){
+//                 const token =jwt.sign({
+//                     email:userDetails[0].email,
+//                     userDetailsId:userDetails[0]._id
+//                 },
+//                 "process.env.JWT_KEY",  //its a secret key!
+//                 {
+//                     expiresIn:"1h"
+//                 }
+//                 );
+//                 return res.status(200).json({
+//                     message:'Auth successful',//password+ email both match
+//                     token:token
+//                 });
+//             }
+//             res.status(401).json({
+//                 message:'Auth failed'//if email is incorrect
+//             });
+//        });
+//     })
+// }
 
+// module.exports.authenticate = (req, res, next) => {
+//     //call for passport authentication
+//     passport.authenticate('local', (err,customer,info)=>{
+//         //error from passport middleware
+//         if(err) return res.status(400).json(err);
+//         //register user
+//         else if (customer) return res.status(200).json({"token": customer.generateJwt()});
+//         //unknown user or wrong password
+//         else return res.status(404).json(info);
+//     })
+// }
 
 

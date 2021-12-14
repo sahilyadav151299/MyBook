@@ -8,7 +8,7 @@ import { HttpHeaders, HttpErrorResponse, HttpClient } from '@angular/common/http
   providedIn: 'root'
 })
 export class UserService {
-  baseURL = "http://localhost:3000/signup";
+  baseURL = "http://localhost:3000/";
 
 
   constructor(private http: HttpClient) { }
@@ -18,7 +18,11 @@ export class UserService {
   }
 
   register(userData: User){
-    return this.http.post<any>(this.baseURL, userData);
+    return this.http.post<any>(this.baseURL +'signup', userData);
+  }
+
+  login(userData: User){
+    return this.http.post<any>(this.baseURL+'login', userData);
   }
 
 }

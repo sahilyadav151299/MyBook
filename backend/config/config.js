@@ -10,5 +10,5 @@ database: process.env.DATABASE,
 db_user: process.env.DB_USER,
 db_pass: process.env.DB_PASS,
 db_host: process.env.DB_HOST,
-
+JWT_SECRET: process.env.JWT_SECRET
 };
