@@ -3,7 +3,7 @@ const ReturnOrders = require("../models/return_order")
 
 exports.changeAddres = (req, res, next) => {
 
-    const customerId = JSON.parse(req.body.customerId)
+    const customerId = req.body.customerId
     const newAddress = req.body.newAddress
 
     AddressModel.findOneAndUpdate( { customerId : customerId },
@@ -23,7 +23,7 @@ exports.changeAddres = (req, res, next) => {
 
 exports.getAddress = (req, res, next) => {
 
-    const customerId = JSON.parse(req.query.customerId)
+    const customerId = req.query.customerId
 
     AddressModel.findOne({ customerId : customerId })
         .then( address => {

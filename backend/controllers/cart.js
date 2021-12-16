@@ -4,7 +4,7 @@ const AddressSchema = require("../models/address")
 exports.getCartData = (req, res, next) => {
 
     const cartBookId = JSON.parse(req.query.cartBookId)
-    const customerId = JSON.parse(req.query.customerId)
+    const customerId = req.query.customerId
     const totalBooks = cartBookId.length
     const cartBookData = []
 

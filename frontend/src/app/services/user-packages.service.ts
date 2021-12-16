@@ -1,3 +1,4 @@
+import { userToken } from './../util/config';
 import { PORT_NO } from './../util/config';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -12,7 +13,7 @@ export class UserPackagesService {
 
   getPackageData()  {
 
-    const params = new HttpParams().set('customerId', JSON.stringify('61ae03486c0db019cc97a622'))
+    const params = new HttpParams().set('customerId', userToken.userId)
 
     return this.http.get(`http://localhost:${PORT_NO}/packages`, { params : params })
   }
@@ -22,7 +23,7 @@ export class UserPackagesService {
     const data = {
 
       packageId : packageId,
-      customerId : '61ae03486c0db019cc97a622'
+      customerId : userToken.userId
     }
 
     return this.http.post(`http://localhost:${PORT_NO}/packages`, data)

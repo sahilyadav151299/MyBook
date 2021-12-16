@@ -1,99 +1,82 @@
-const Customer = require("../models/customer")
-const bcrypt = require("bcrypt")
-const {validationResult} = require("express-validator");
-const { Mongoose } = require("mongoose");
-const config = require("../config/config")
-const jwt = require('jsonwebtoken')
+const CustomerSchema = require('../models/customer')
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+exports.signup = (req, res, next) => {
+        
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const contact = req.body.contactNumber;
+
+    CustomerSchema.findOne({ email: email })
+
+        .then((user) => {
+
+            if(user) {
+              res.json({ errCode: 409, errMessage: "Email Already Exists!" })
+            }else{
+
+                bcrypt
+                    .hash(password, 12)
+                    .then((hashedPw) => {
+
+                        const user = new CustomerSchema({
+
+                        name : name,
+                        email: email,
+                        encry_password: hashedPw,
+                        contact : contact
+                        })
+
+                        user.save()
+
+                        res.json({ status : 200, message: "User Registered Successfully!" })
+                    })
+                    .catch(err => console.log(err)) 
+                }  
+            })
+            .catch(err => console.log(err))                  
+}
 
 
+exports.login = (req, res, next) => {
 
-exports.signup = (req, res,next) =>{
+    const email = req.body.email;
+    const password = req.body.password;
 
-    var name  =req.body.name;
-    var email = req.body.email
-    var password = req.body.password
-    var cpassword = req.body.confirmpassword
-    var role = req.body.role
-    var contact = req.body.contact
+    let loadedUser;
 
-    Customer.find({email:req.body.email})
-    .exec()
-    .then(userDetails=>{
-       if(userDetails.length>= 1){
-           return res.status(409).json({
-               message:"Mail already exists"
-           });
-       }else{
-        bcrypt.hash(password, 10,function(err, hash){
-            if(err){
-               return res.json({
-                    err:"Something went wrong..........",
-                    error : err
-                 });
-               
-             }else {
-                var userDetails = new Customer({
+    CustomerSchema.findOne({ email: email })
+        .then((user) => {
+        
+            if (!user) {
+                res.json({ errCode: 422, errMessage: "Email Couldn't Be Found!" })
+            }else{
+                loadedUser = user;
+                
+                bcrypt.compare(password, user.encry_password)
+                    .then((isEqual) => {
             
-                    name: name,
-                    email: email,
-                    password: hash,
-                    role: role,
-                    contact: contact
-                });
-                userDetails.save()
-                .then(doc=>{
-                    res.status(201).json({
-                        message: "User Registered Successfully",
-                        results: doc
-                    });
-                })
-                .catch(err=>{
-                    res.json(err);
-                });
-            }
-        })
-       }
-    })       
+                        if (!isEqual) {
+                            res.json({ errCode: 401, errMessage: "Wrong password!" });
+                        }else{
+                            console.log(loadedUser)    
+                            const token = jwt.sign(
+                                {
+            
+                                    userId: loadedUser._id,
+                                    name: loadedUser.name,
+                                    auth: true,
+                                    role: loadedUser.role
+                                },
+                                "thisisthesupersecretkey", 
+                                { expiresIn: '1h' }
+                            )
+                            
+                            res.json({ status : 200, userToken : token, message : 'You have successfully logged in!'})
+                        }
+                    }).catch((err) => console.log(err))
+            }        
+        }).catch((err) => console.log(err))
 }
-
-exports.login = (req, res,next) =>{
-
-    Customer.find({email:req.body.email})
-    .exec()
-    .then(userDetails=>{
-       if(userDetails.length< 1){
-           return res.status(401).json({
-               message:"Auth failed"
-           });
-       }
-       bcrypt.compare(req.body.password,userDetails[0].password,(err,result)=>{
-            if(err){
-                return res.status(401).json({
-                    message:'Auth failed'//password is different
-                });
-            }
-            if(result){
-                const token = jwt.sign({
-                    email:userDetails[0].email,
-                    userDetailsId:userDetails[0]._id,
-                    auth: true
-                },
-                "process.env.JWT_KEY",  //its a secret key!
-                {
-                    expiresIn:"1h"
-                }
-                );
-                return res.status(200).json({
-                    message:'Auth successful',//password + email both match
-                    token:token
-                });
-            }
-            res.status(401).json({
-                message:'Auth failed'//if email is incorrect
-            });
-       });
-    })
-}
-
-
-

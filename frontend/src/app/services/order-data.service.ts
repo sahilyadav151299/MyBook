@@ -1,3 +1,4 @@
+import { userToken } from './../util/config';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { PORT_NO } from '../util/config';
@@ -8,23 +9,19 @@ import { PORT_NO } from '../util/config';
 
 export class OrderDataService {
 
+
 constructor( private http : HttpClient ) { }
 
-
   getOrderData(){
-
-    // const params = new HttpParams().set('customerId', '61ae03486c0db019cc97a623')   // rohit
-    const params = new HttpParams().set('customerId', '61ae03486c0db019cc97a622')   // sahil
-    // const params = new HttpParams().set('customerId', '61ae03486c0db019cc97a625')   // savita
-    // const params = new HttpParams().set('customerId', '61ae03486c0db019cc97a626')   // tushar 
-    // const params = new HttpParams().set('customerId', '61ae03486c0db019cc97a624')   // vishal 
+   
+    const params = new HttpParams().set('customerId', userToken.userId)
     
     return this.http.get(`http://localhost:${PORT_NO}/orders`, { params : params })
   }
 
   getCartData( cartBookId : any ){
 
-    const params = new HttpParams().set('cartBookId', cartBookId).set('customerId', JSON.stringify('61ae03486c0db019cc97a622'))
+    const params = new HttpParams().set('cartBookId', cartBookId).set('customerId', userToken.userId)
 
     return this.http.get(`http://localhost:${PORT_NO}/cart`, { params : params })
   }
@@ -33,7 +30,7 @@ constructor( private http : HttpClient ) { }
 
     const body = {
       orderData : orderData,
-      customerId : JSON.stringify('61ae03486c0db019cc97a622')
+      customerId : userToken.userId
     }
 
     return this.http.post(`http://localhost:${PORT_NO}/orders`, body )
@@ -44,7 +41,7 @@ constructor( private http : HttpClient ) { }
     const body = {
       bookData : bookData,
       address : address,
-      customerId : JSON.stringify('61ae03486c0db019cc97a622')
+      customerId : userToken.userId
     }
 
     return this.http.post(`http://localhost:${PORT_NO}/orders/return-book`, body )

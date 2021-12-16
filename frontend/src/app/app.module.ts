@@ -10,6 +10,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { PackageDataComponent } from './components/package-data/package-data.component';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component'
 
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -21,6 +22,7 @@ import { OrderDataService } from './services/order-data.service';
 
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
 
@@ -33,7 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AddToCartComponent,
     HeaderComponent,
     FooterComponent,
-    BookShelfComponent
+    BookShelfComponent,
+    PageNotFoundComponent
   ],
 
   imports: [

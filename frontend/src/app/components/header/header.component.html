@@ -1,37 +1,72 @@
 
-<div class="full-nav">
-   
-    <a class="title" routerLink="/home">MyBook</a>
-    
-    <div class="right-links">
-      <a class="link" routerLink="packages">Packages</a>
-      <a class="link" routerLink="orders">Orders</a>
-      <a class="link" routerLink="cart">Cart</a>
-      <a class="link" routerLink="book-shelf">Book Shelf</a>
-      <a class="link" routerLink="#">User</a>
-    </div> 
+<ng-template [ngIf]=" auth === false ">
+  
+  <nav class="navbar navbar-expand-lg">
 
-</div>
-<!-- 
-
-<nav class="navbar navbar-expand-lg   fixed-top ">
-  <div class="container-fluid">
-    <a class="navbar-brand text-white title" routerLink="login">MyBook</a>
-    <div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color: white; color: white;">
-        <span class="navbar-toggler-icon"><img src="../../../assets/Home.png" style="width: 30px; height: 30px;"></span>
-      </button>
-
-      <div class="collapse navbar-collapse " id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-          <li class="nav-item">
-            <button class="btn purple-gradient nav-link text-white nav-obj"  aria-current="page" routerLink="login">Login</button>    
-          </li>
-          <li class="nav-item">
-            <button class="btn purple-gradient nav-link text-white nav-obj" routerLink="signup">Sign Up</button>
-          </li>
-        </ul> 
+    <div class="container-fluid">
+      <a class="title">My Book</a>
+      <div>
+        <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="../../../assets/Home.png" style="width: 30px; height: 30px; background-color: white;"> 
+        </button>
+  
+        <div class="collapse navbar-collapse " id="navbarSupportedContent" >
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+            <li class="nav-item">
+              <a class="peach-gradient nav-link text-white link" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="peach-gradient nav-link text-white link" routerLink="/signup">Sign Up</a>
+            </li> 
+          </ul>  
+        </div>
       </div>
     </div>
-  </div>
-</nav> -->
+  </nav>
+</ng-template>
+
+
+
+<ng-template [ngIf]=" auth === true && role === 0 ">
+  
+  <nav class="navbar navbar-expand-lg">
+
+    <div class="container-fluid">
+      <a class="title" routerLink="/dashboard">My Book</a>
+      <div>
+        <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="../../../assets/Home.png" style="width: 30px; height: 30px; background-color: white;"> 
+        </button>
+
+        <div class="collapse navbar-collapse " id="navbarSupportedContent" >
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+            <li class="nav-item">
+              <a class="peach-gradient nav-link text-white link"  aria-current="page" routerLink="/dashboard">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="peach-gradient nav-link text-white link" routerLink="/packages">Package</a>
+            </li>
+            <li class="nav-item">
+              <a class="peach-gradient nav-link text-white link" routerLink="/orders">Orders</a>
+            </li>
+            <li class="nav-item">
+              <a class="peach-gradient nav-link text-white link" routerLink="/cart">Cart</a>
+            </li>
+            <li class="nav-item dropdown ">
+              <a class="nav-link dropdown-toggle text-white drop-box link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                User</a>
+              <ul class="dropdown-menu py-0 drop-link-box " aria-labelledby="navbarDropdown " >
+                <li class="py-0  "><a class="dropdown-item text-white" routerLink="/user-profile" >Profile</a></li>
+                <li class="py-0  "><a class="dropdown-item text-white" routerLink="/book-shelf">Book-Shelf</a></li>
+                <li class="py-0  "><a class="dropdown-item text-white" routerLink="/reset-password">Reset Password</a></li>
+                <li><button class="dropdown-item text-white" (click)="onLogout()">Logout</button></li>
+              </ul>
+            </li>
+          </ul>  
+        </div>
+      </div>
+    </div>
+  </nav>
+
+</ng-template>
+

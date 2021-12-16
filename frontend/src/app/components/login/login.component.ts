@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators, NgForm} from '@angular/forms';
-
+import Swal from 'sweetalert2';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,8 @@ import {FormGroup, FormControl, Validators, NgForm} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor( private userService : UserService  ) { }
+  constructor( private userService : UserService,
+               private router: Router ) { }
 
   ngOnInit() {
   }
@@ -31,8 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSignUp(){
-    console.warn(this.logInForm.value);
-
+    
     this.submitted = true;
 
     // stop here if form is invalid
@@ -40,10 +42,49 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.success = JSON.stringify(this.logInForm.value);
+    this.success = this.logInForm.value
 
-    console.log(this.success);
-    
+    this.userService
+      .authenticateUser(this.success)
+      .subscribe((res : any) => {
+
+        if(res.errCode === 422){
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops !',
+            text: res.errMessage,
+            footer: '<a href="/signup">Please click on the link to signup</a>'
+          })
+        }
+
+        if(res.errCode === 401){
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops !',
+            text: res.errMessage,
+            footer: '<a href="/">Forget Password</a>'
+          })
+        }
+        
+        if(res.status === 200){
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Congratulations!!',
+            text: res.message
+          })
+          
+          const userToken = jwt_decode(JSON.stringify(res.userToken));
+      
+          localStorage.setItem('userToken', JSON.stringify(userToken))
+
+          var reload = () => {
+            window.location.href = './index.html'
+          }
+  
+          setTimeout(reload, 2000)
+        }
+      })
   }
-
 }

@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 exports.getPackage = (req, res, next) => {
 
-    const customerId = mongoose.Types.ObjectId(JSON.parse(req.query.customerId))
+    const customerId = mongoose.Types.ObjectId(req.query.customerId)
 
     Package.find()
         .then( packageData => {

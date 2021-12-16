@@ -36,7 +36,7 @@ next()
 
 // routes
 
-app.use("/",authRoutes);
+app.use('/auth',authRoutes);
 app.use('/user', userRoutes)
 app.use('/cart', cartRoutes)
 app.use('/orders', orderRoutes);

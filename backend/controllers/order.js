@@ -54,7 +54,7 @@ exports.getOrderHistory = (req, res, next) => {
 
 exports.placeOrder = (req, res, next) => {
 
-    const customerId = JSON.parse(req.body.customerId)
+    const customerId = req.body.customerId
     const orderData = req.body.orderData
 
     CustomerPackage.find({ customerId : customerId, status : true })
@@ -124,7 +124,7 @@ exports.placeOrder = (req, res, next) => {
 exports.returnOrderedBooks = (req, res, next) => {
 
     const bookData = req.body.bookData
-    const customerId = JSON.parse(req.body.customerId)
+    const customerId = req.body.customerId
     const address = req.body.address
     const bookIds = []
 
