@@ -41,10 +41,6 @@ export class UserService {
     return this.http.get(`http://localhost:${PORT_NO}/user/address`, {params : params} )
   }
 
-  
-
-  URL="http://localhost:3000/user/profile/61ae03486c0db019cc97a622";
- 
 
   getUserById(){
 
@@ -60,7 +56,7 @@ export class UserService {
       data : data,
       id : userToken.userId
     }
-
+    console.log(data)
     return this.http.put(`http://localhost:${PORT_NO}/user/profile-update`, body )
  
   }

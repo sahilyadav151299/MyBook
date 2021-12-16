@@ -73,10 +73,11 @@ exports.updateProfile = (req, res, next) => {
     const city = userData.city
     const state = userData.state
     const pincode = userData.pincode
+    console.log(req.body)
 
-    CustomerModel.findByIdAndUpdate( customerId, { name : name, contact, contact } )
+    CustomerModel.findByIdAndUpdate( customerId, { name : name, contact : contact } )
         .then( () => {
-            
+        
             AddressModel.findOneAndUpdate( { customerId : customerId }, { address, city, state, pincode } )
                 .then( () => {
                     

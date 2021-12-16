@@ -1,3 +1,6 @@
+import { EditBookComponent } from './components/admin-components/edit-book/edit-book.component';
+import { AddBookComponent } from './components/admin-components/add-book/add-book.component';
+import { BookListComponent } from './components/admin-components/book-list/book-list.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { BookShelfComponent } from './components/book-shelf/book-shelf.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -38,7 +41,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     FooterComponent,
     BookShelfComponent,
     PageNotFoundComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    BookListComponent,
+    AddBookComponent,
+    EditBookComponent
   ],
 
   imports: [

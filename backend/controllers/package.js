@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 exports.getPackage = (req, res, next) => {
 
     const customerId = mongoose.Types.ObjectId(req.query.customerId)
+    let totoalPack = 0
 
     Package.find()
         .then( packageData => {
@@ -12,14 +13,14 @@ exports.getPackage = (req, res, next) => {
             CustomerPackage.find({customerId : customerId})
                 .then( userPackData => {
 
-                    const totoalPack = userPackData.length
+                    totoalPack = userPackData.length
                     const userAllPackData = []
 
                     for(const pack of userPackData){
 
                         Package.findById({ _id : pack.packageId})
                             .then( packDeatails => {
-
+        
                                 const userPack = {
                                     packData : packDeatails,
                                     status : pack.status === true ? 'Active' : 'Expired',
@@ -33,6 +34,12 @@ exports.getPackage = (req, res, next) => {
                                 }
                             })
                             .catch(err => console.log(err))
+                    }
+                })
+                .then( () => {
+
+                    if(totoalPack == 0){
+                        res.json({ packageData : packageData, userAllPackData : [] })
                     }
                 })   
         })

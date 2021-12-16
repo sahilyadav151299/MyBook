@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -31,12 +32,15 @@ export class HeaderComponent implements OnInit {
 
     this.auth = false
     
-    alert('You have successfully logged out!')
+    Swal.fire({
+      icon: 'success',
+      text: 'You have successfully logged out!' 
+    })
     
     var reload = () => {
       window.location.href = './index.html'
     }
 
-    setTimeout(reload, 500)
+    setTimeout(reload, 2000)
   }
 }

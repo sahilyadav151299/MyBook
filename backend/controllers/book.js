@@ -1,0 +1,70 @@
+const BookModel = require('../models/book')
+
+
+exports.getAllBooks = (req, res, next) => {
+
+    BookModel.find()
+        .then( data => res.json(data))
+        .catch(err => console.log(err))
+ }
+
+exports.getOneBook = (req, res, next) => { 
+
+    const bookId = req.params.id
+
+    BookModel.findById(bookId,(error,data)=>{
+                if(error){
+                    return next (error)
+                }else{
+                    res.json(data)
+                }  
+            });
+}
+
+exports.addBook = (req, res, next) => {
+
+    const data = req.body
+
+    const bookObj = new BookModel({
+
+        book_name : data.name,
+        author : data.author,
+        publish_date : data.category,
+        category_name : data.publishDate,
+        total_book_rented: 0,
+        total_book_quantity : data.totalQuantity,
+    })
+    
+    bookObj.save()
+        .then(() => res.json({status : 200, message : 'Book Added Succssefully!'}))
+        .catch(() => res.json({status: 500, message: 'Internal Server Error'}))
+}
+
+exports.updateBook = (req, res, next) => {
+
+    const id = req.params.id
+    const bookData = req.body
+    const book_name = bookData.name
+    const author = bookData.author
+    const category_name = bookData.category
+    const publish_date = bookData.publishDate
+    const total_book_quantity = bookData.totalQuantity    
+
+    BookModel.findByIdAndUpdate( id, { book_name, author, category_name, publish_date, total_book_quantity } )
+        .then( () => res.json({ status : 200, message : 'Book Updated Successfully!' }))
+        .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Address!' }))
+
+}
+
+exports.deleteBook = (req, res, next) => {
+
+    const bookId = req.params.id
+    
+    BookModel.findByIdAndDelete({ _id : bookId })
+        .then(() => res.json({ status : 200, message : 'Book Deleted Successfully!'}))
+        .catch(() => res.json({ status : 500, message : 'Internal Server Error' })) 
+ }
+
+
+
+

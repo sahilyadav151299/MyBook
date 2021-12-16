@@ -10,6 +10,7 @@ const packageRoutes = require("./routes/package")
 const authRoutes = require("./routes/authentication")
 const cartRoutes = require("./routes/cart")
 const userRoutes = require("./routes/user")
+const bookRoutes = require("./routes/book")
 
 
 var cors = require('cors')
@@ -41,6 +42,7 @@ app.use('/user', userRoutes)
 app.use('/cart', cartRoutes)
 app.use('/orders', orderRoutes);
 app.use('/packages', packageRoutes);
+app.use('/admin/book', bookRoutes);
 
 
 
