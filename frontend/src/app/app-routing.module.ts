@@ -1,3 +1,4 @@
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditBookComponent } from './components/admin-components/edit-book/edit-book.component';
 import { AddBookComponent } from './components/admin-components/add-book/add-book.component';
 import { BookListComponent } from './components/admin-components/book-list/book-list.component';
@@ -26,7 +27,8 @@ if(token){
 if(auth && role === 0){
 
   routes = [
-    { path: '', component: OrdersComponent, pathMatch : 'full' },
+    { path: '', component: DashboardComponent, pathMatch : 'full' },
+    { path: 'dashboard', component: DashboardComponent },
     { path: 'packages', component: PackageDataComponent },
     { path: 'orders', component: OrdersComponent },
     { path: 'cart', component: AddToCartComponent },

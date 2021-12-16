@@ -19,9 +19,10 @@ export class OrdersComponent implements OnInit {
       .getOrderData()
       .subscribe( (data : any ) => { 
 
+        console.log(data)
         let counter = 0
         data = data.orderDetails
-
+        
         for(const order of data){
         
           if(order.orderStatus === 'Placed'){

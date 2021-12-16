@@ -11,6 +11,7 @@ const authRoutes = require("./routes/authentication")
 const cartRoutes = require("./routes/cart")
 const userRoutes = require("./routes/user")
 const bookRoutes = require("./routes/book")
+const homeRoutes = require("./routes/dashboard")
 
 
 var cors = require('cors')
@@ -37,12 +38,13 @@ next()
 
 // routes
 
-app.use('/auth',authRoutes);
+app.use('/auth',authRoutes)
+app.use('/home', homeRoutes)
 app.use('/user', userRoutes)
 app.use('/cart', cartRoutes)
-app.use('/orders', orderRoutes);
-app.use('/packages', packageRoutes);
-app.use('/admin/book', bookRoutes);
+app.use('/orders', orderRoutes)
+app.use('/packages', packageRoutes)
+app.use('/admin/book', bookRoutes)
 
 
 

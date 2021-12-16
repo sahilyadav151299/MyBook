@@ -20,8 +20,7 @@ var addressSchema = new Schema({
 
     pincode:{
         type: Number,
-        trim: true,
-        required: true,
+        trim: true
     },
 
     create_at:{

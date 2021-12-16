@@ -63,7 +63,7 @@ exports.deleteBook = (req, res, next) => {
     BookModel.findByIdAndDelete({ _id : bookId })
         .then(() => res.json({ status : 200, message : 'Book Deleted Successfully!'}))
         .catch(() => res.json({ status : 500, message : 'Internal Server Error' })) 
- }
+}
 
 
 

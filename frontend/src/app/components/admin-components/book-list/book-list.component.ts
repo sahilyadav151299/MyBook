@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from 'src/app/services/crud.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book-list',
@@ -26,7 +27,11 @@ export class BookListComponent implements OnInit {
       this.cruidApi.deleteBook(id).subscribe((res:any)=>{
 
         if(res.status == 200){
-          alert(res.message)
+
+          Swal.fire({
+            icon: 'success',
+            text: res.message
+          })
 
           var reload = () => {
             return window.location.reload()

@@ -56,7 +56,7 @@ export class UserService {
       data : data,
       id : userToken.userId
     }
-    console.log(data)
+
     return this.http.put(`http://localhost:${PORT_NO}/user/profile-update`, body )
  
   }

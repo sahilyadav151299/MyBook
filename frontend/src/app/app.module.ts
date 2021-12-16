@@ -1,3 +1,4 @@
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditBookComponent } from './components/admin-components/edit-book/edit-book.component';
 import { AddBookComponent } from './components/admin-components/add-book/add-book.component';
 import { BookListComponent } from './components/admin-components/book-list/book-list.component';
@@ -44,7 +45,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     UserProfileComponent,
     BookListComponent,
     AddBookComponent,
-    EditBookComponent
+    EditBookComponent,
+    DashboardComponent
   ],
 
   imports: [

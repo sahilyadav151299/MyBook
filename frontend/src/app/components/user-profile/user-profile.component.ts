@@ -61,6 +61,7 @@ export class UserProfileComponent implements OnInit {
     this.submitted = true;
     // stop here if form is invalid
     if (this.manageprofileForm.invalid) {
+      // alert('Form values are invalid')
       return;
     }
     

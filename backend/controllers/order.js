@@ -39,7 +39,6 @@ exports.getOrderHistory = (req, res, next) => {
                             orderDetails.push(order)
 
                             if(orderDetails.length === counter){
-                                
                                 res.json({ orderDetails : orderDetails })
                             }
                                 
@@ -76,43 +75,43 @@ exports.placeOrder = (req, res, next) => {
 
                             for(const order of userOrders){
 
-                                if(order.flag === true)
+                                if(order.flag === 'Placed')
                                     placedBookCount++
-                                else
+                                if(order.flag === 'Delivered')
                                     deliveredBookCount++
                             }
 
-                            // if(max_book === deliveredBookCount || max_book === placedBookCount){
-                            //     res.json({ status : 406, message : `You can only order upto ${max_book} books at once with your ${pack} pack. Either reduce the books in cart or return the books before!`})
-                            // }
+                            if(max_book === deliveredBookCount || max_book === placedBookCount){
+                                res.json({ status : 406, message : `You can only order upto ${max_book} books at once with your ${pack} pack. Either reduce the books in cart or return the books before!`})
+                            }else{
 
-                            const book_rented = []
+                                const book_rented = []
 
-                            for(const order of orderData){
+                                for(const order of orderData){
                                 
-                                const bookId = {
-                                    bookId : order.id
+                                    const bookId = {
+                                        bookId : order.id
+                                    }
+
+                                    book_rented.push(bookId)
                                 }
 
-                                book_rented.push(bookId)
+                                const newOrder = OrderSchema({
+                                    customerId : customerId,
+                                    customerPackageId : activePackageId,
+                                    book_rented : book_rented,
+                                    flag : "Placed"
+                                })
+
+                                newOrder.save(err => {
+                                
+                                    if(err === null){
+                                        res.json({ status : 200, message : "You have successfully placed the order!" })
+                                    }else{
+                                        res.json({ errCode : 500, message : 'Internal Server Error' })
+                                    }
+                                })
                             }
-
-                            const newOrder = OrderSchema({
-                                customerId : customerId,
-                                customerPackageId : activePackageId,
-                                book_rented : book_rented,
-                                flag : "Placed"
-                            })
-
-                            newOrder.save(err => {
-                                
-                                if(err === null){
-                                    res.json({ status : 200, message : "You have successfully placed the order!" })
-                                }else{
-                                    res.json({ errCode : 500, message : 'Internal Server Error' })
-                                }
-                            })
-
                         })
                 })
         })

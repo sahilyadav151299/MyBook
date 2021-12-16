@@ -6,15 +6,31 @@ exports.changeAddres = (req, res, next) => {
 
     const customerId = req.body.customerId
     const newAddress = req.body.newAddress
-
+    
     AddressModel.findOneAndUpdate( { customerId : customerId },
         { address : newAddress.address ,
           city : newAddress.city,
           state : newAddress.state,
           pincode : newAddress.pincode,
           create_at : new Date() } )
-        .then( () => {
-            res.json({ status : 200 ,message : "Address updated successfully!" })
+        .then( (data) => {
+
+            if(data == null){
+                
+                const newAdd = new AddressModel({
+                    address : newAddress.address ,
+                    city : newAddress.city,
+                    state : newAddress.state,
+                    pincode : newAddress.pincode,
+                    customerId : customerId
+                })
+
+                newAdd.save()
+                    .then(() => res.json({ status : 200 ,message : "Address updated successfully!" }))
+                    .catch(() =>  res.json({ errCode : 500, message : "Internal Server Error" }))
+            } else {
+                res.json({ status : 200 ,message : "Address updated successfully!" })
+            }
         })
         .catch( err => {
             res.json({ errCode : 500, message : "Internal Server Error" })
@@ -65,7 +81,7 @@ exports.updateProfile = (req, res, next) => {
 
     const body = req.body
     const userData = body.data
-
+    
     const customerId = body.id
     const name = userData.name
     const contact = userData.contact
@@ -73,8 +89,7 @@ exports.updateProfile = (req, res, next) => {
     const city = userData.city
     const state = userData.state
     const pincode = userData.pincode
-    console.log(req.body)
-
+    
     CustomerModel.findByIdAndUpdate( customerId, { name : name, contact : contact } )
         .then( () => {
         
@@ -83,6 +98,22 @@ exports.updateProfile = (req, res, next) => {
                     
                     res.json({ status : 200, message : 'Profile Updated Successfully!' })
                 })
+                // .then(() => {
+                //     console.log('hey')
+                //     const newAddress = new AddressModel({
+
+                //         address : address,
+                //         city : city,
+                //         state : state,
+                //         pincode : pincode,
+                //         customerId : customerId
+                //     })
+
+                //     newAddress.save()
+                       
+
+                //     res.json({ status : 200, message : 'Profile Updated Successfully!' })
+                // })
                 .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Address!' }))
         } )
         .catch( err => res.json({ errCode : 500, errMessage : 'Error In Updating User Details!' }) )

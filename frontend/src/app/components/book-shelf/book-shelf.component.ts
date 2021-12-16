@@ -85,7 +85,7 @@ export class BookShelfComponent implements OnInit {
   sendDataToCart(bookId : string){
 
     this.cartBookId.push(bookId)
-
+    
     const flag = localStorage.getItem("flag")
     const previousData = localStorage.getItem("cartBookId")
 

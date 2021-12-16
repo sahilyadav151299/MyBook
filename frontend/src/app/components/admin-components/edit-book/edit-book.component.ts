@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/services/crud.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-book',
@@ -52,7 +53,11 @@ export class EditBookComponent implements OnInit {
       }
 
       if(res.status == 200){
-        alert(res.message)
+
+        Swal.fire({
+          icon: 'success',
+          text: res.message
+        })
 
         this.ngZone.run(()=>{
           this.router.navigateByUrl('/book-list')

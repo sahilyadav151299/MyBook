@@ -123,8 +123,6 @@ export class AddToCartComponent implements OnInit {
     this.orderDataService
       .placeOrder(this.cartBookdata)
       .subscribe(( res : any ) => {
-        
-        console.log(res)
 
         if(res.status === 406){
           alert(res.message)
