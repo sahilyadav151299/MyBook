@@ -7,6 +7,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { PackageDataComponent } from './components/package-data/package-data.component';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 
 let token = localStorage.getItem('userToken')
@@ -26,6 +27,7 @@ if(auth && role === 0){
     { path: 'orders', component: OrdersComponent },
     { path: 'cart', component: AddToCartComponent},
     { path: 'book-shelf', component: BookShelfComponent},
+    { path: 'user-profile', component: UserProfileComponent},
     { path: '**', component: PageNotFoundComponent} 
   ] 
 }else{

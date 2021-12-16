@@ -40,4 +40,30 @@ export class UserService {
     
     return this.http.get(`http://localhost:${PORT_NO}/user/address`, {params : params} )
   }
+
+  
+
+  URL="http://localhost:3000/user/profile/61ae03486c0db019cc97a622";
+ 
+
+  getUserById(){
+
+    const params = new HttpParams().set('customerId', userToken.userId)
+    
+    return this.http.get(`http://localhost:${PORT_NO}/user/profile`, {params : params} )
+    
+  }
+ 
+  onSave(data:User){
+     
+    const body = {
+      data : data,
+      id : userToken.userId
+    }
+
+    return this.http.put(`http://localhost:${PORT_NO}/user/profile-update`, body )
+ 
+  }
+ 
+   
 }

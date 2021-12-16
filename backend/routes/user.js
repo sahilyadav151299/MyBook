@@ -7,4 +7,8 @@ router.post('/address', userController.changeAddres);
 
 router.get('/address', userController.getAddress);
 
+router.get('/profile', userController.getUserProfile);
+
+router.put('/profile-update', userController.updateProfile);
+
 module.exports = router;
