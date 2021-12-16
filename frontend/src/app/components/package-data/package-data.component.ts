@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserPackagesService } from 'src/app/services/user-packages.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-package-data',
@@ -56,14 +57,18 @@ export class PackageDataComponent implements OnInit {
       .subscribe(( res : any ) => {
 
         if(res.status === 200){
+
+          Swal.fire({
+            icon: 'success',
+            text: res.message
+          })
           
-          alert(res.message)
           // After 1 seconds it will automatically reload the page
           var reload = function(){
             return window.location.reload();
           }
 
-          setTimeout(reload, 1000);
+          setTimeout(reload, 2000);
         }
 
         if(res.status === 409){

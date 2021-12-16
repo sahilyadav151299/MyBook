@@ -1,6 +1,7 @@
 import { UserService } from 'src/app/services/user.service';
 import { OrderDataService } from 'src/app/services/order-data.service';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -78,7 +79,11 @@ export class AddToCartComponent implements OnInit {
         .subscribe( ( res : any ) => {
           
           if(res.status === 200){
-            alert(res.message)
+
+            Swal.fire({
+              icon: 'success',
+              text: res.message
+            })
           }
 
           if(res.errCode === 500){
@@ -86,7 +91,6 @@ export class AddToCartComponent implements OnInit {
           }
             
         })
-    
     }
   }
 
@@ -127,8 +131,12 @@ export class AddToCartComponent implements OnInit {
         }
         
         if(res.status === 200){
-          alert(res.message)
 
+          Swal.fire({
+            icon: 'success',
+            text: res.message
+          })
+  
           // After 1 seconds it will automatically reload the page
           var reload = function(){
             return window.location.reload();

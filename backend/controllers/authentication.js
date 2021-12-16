@@ -61,7 +61,7 @@ exports.login = (req, res, next) => {
                         if (!isEqual) {
                             res.json({ errCode: 401, errMessage: "Wrong password!" });
                         }else{
-                            console.log(loadedUser)    
+                              
                             const token = jwt.sign(
                                 {
             

@@ -1,6 +1,7 @@
 import { UserService } from 'src/app/services/user.service';
 import { OrderDataService } from 'src/app/services/order-data.service';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book-shelf',
@@ -95,7 +96,10 @@ export class BookShelfComponent implements OnInit {
 
     localStorage.setItem("cartBookId", JSON.stringify(this.cartBookId))
 
-    alert('Book added in cart successfully!')
+    Swal.fire({
+      icon: 'success',
+      text: 'Book added in cart!'
+    })
   }
 
 
@@ -111,9 +115,18 @@ export class BookShelfComponent implements OnInit {
           alert(res.message)
           
         if(res.status === 200){
-          alert(res.message)
 
-          window.location.reload()
+          Swal.fire({
+            icon: 'success',
+            text: res.message
+          })
+          
+          // After 1 seconds it will automatically reload the page
+          var reload = function(){
+            return window.location.reload();
+          }
+
+          setTimeout(reload, 2000);
         }
       })
   }
