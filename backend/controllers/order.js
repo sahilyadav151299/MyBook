@@ -82,7 +82,7 @@ exports.placeOrder = (req, res, next) => {
                             }
 
                             if(max_book === deliveredBookCount || max_book === placedBookCount){
-                                res.json({ status : 406, message : `You can only order upto ${max_book} books at once with your ${pack} pack. Either reduce the books in cart or return the books before!`})
+                                res.json({ status : 406, message : `You can only order upto ${max_book} books at once with your ${pack} pack. Either reduce the books in cart or return the delivered books before!`})
                             }else{
 
                                 const book_rented = []

@@ -125,7 +125,10 @@ export class AddToCartComponent implements OnInit {
       .subscribe(( res : any ) => {
 
         if(res.status === 406){
-          alert(res.message)
+          
+          Swal.fire({
+            text: res.message
+          })
         }
         
         if(res.status === 200){
