@@ -19,7 +19,7 @@ export class UserProfileComponent implements OnInit {
     private router:ActivatedRoute,
   ){}
 
-   manageprofileForm=new FormGroup({
+  manageprofileForm=new FormGroup({
     name:new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
     email:new FormControl('', [Validators.required, Validators.email]),
     contact:new FormControl('', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]),
@@ -42,6 +42,7 @@ export class UserProfileComponent implements OnInit {
     
     this.userSignupService.getUserById().subscribe((data : any) =>{ 
       this.userData=data  
+      console.log(data);
      })
    }
 
