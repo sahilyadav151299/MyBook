@@ -61,5 +61,14 @@ export class UserService {
  
   }
  
-   
+  changePassword(data:User){
+     
+    const body = {
+      data : data,
+      id : userToken.userId
+    }
+
+    return this.http.put(`http://localhost:${PORT_NO}/auth/changepassword`, body )
+ 
+  }
 }
