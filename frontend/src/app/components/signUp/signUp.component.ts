@@ -3,6 +3,7 @@ import { Component, OnInit, } from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
 
+//Import For responsive alerts
 import Swal from 'sweetalert2';
 
 
@@ -15,12 +16,16 @@ import Swal from 'sweetalert2';
 
 export class SignUpComponent implements OnInit {
 
+
+  //Declaring form of FormGroup Type
+  signUpForm = new FormGroup({});
   constructor(
     public fb: FormBuilder,
     public router: Router,
     private userService: UserService
   ) {
     // Reactive Form
+    // Form validations
     this.signUpForm = this.fb.group({
       name:[ '', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
       email: ['', [Validators.required, Validators.email]],
@@ -29,7 +34,8 @@ export class SignUpComponent implements OnInit {
       contactNumber: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
     },{validator: this.checkIfMatchingPasswords('password', 'confirmPassword')})
   }
-  
+
+  //Custom Validator for password and confirm password
   checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
     return (group: FormGroup) => {
       let passwordInput = group.controls[passwordKey],
@@ -47,25 +53,21 @@ export class SignUpComponent implements OnInit {
 
   success = '';
 
-  signUpForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=.*[$@$!%*#?&^])(?=[^A-Z]*[A-Z]).{8,30}$/)]),
-    confirmPassword: new FormControl('', Validators.required),
-    contactNumber: new FormControl('', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)])
-  })
-  get email(){return this.signUpForm.get('email')}
-  get name(){return this.signUpForm.get('name')}
+  
+
+  //short hand index getters
+
   get password(){return this.signUpForm.get('password')}
   get confirmPassword(){return this.signUpForm.get('confirmPassword')}
-  get contactNumber(){return this.signUpForm.get('contactNumber')}
 
   submitted = false;
 
+  //For accessing form controls with ease.
   get f() {
     return this.signUpForm.controls;
   }
 
+  //Fuction which will called after submitting signUp form
   onSignUp(){
     console.warn(this.signUpForm.value);
 
@@ -76,12 +78,14 @@ export class SignUpComponent implements OnInit {
       return;
     }
 
+    //form value in string format
     this.success = JSON.stringify(this.signUpForm.value);
 
     this.userService.register(this.signUpForm.value)
       .subscribe((response : any) => {
 
       if(response.errCode === 409){
+        //Email Already Exists
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -90,11 +94,11 @@ export class SignUpComponent implements OnInit {
       }
 
       if(response.status === 200){
+        //Registered successfully
         Swal.fire({
           icon: 'success',
           title: 'Congratulations!!',
           text: 'You have successfully Created your Account.',
-          footer: '<a href="/login">Please click on the link to Login</a>'
         })
 
         var reload = () => {

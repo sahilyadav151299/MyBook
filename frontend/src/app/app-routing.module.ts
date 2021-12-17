@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './components/changePassword/changePassword.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditBookComponent } from './components/admin-components/edit-book/edit-book.component';
 import { AddBookComponent } from './components/admin-components/add-book/add-book.component';
@@ -34,6 +35,8 @@ if(auth && role === 0){
     { path: 'cart', component: AddToCartComponent },
     { path: 'book-shelf', component: BookShelfComponent },
     { path: 'user-profile', component: UserProfileComponent },
+    { path: 'changePassword', component: ChangePasswordComponent},
+
     { path: '**', component: PageNotFoundComponent } 
   ] 
 

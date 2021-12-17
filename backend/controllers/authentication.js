@@ -80,3 +80,57 @@ exports.login = (req, res, next) => {
             }        
         }).catch((err) => console.log(err))
 }
+
+exports.changePassword = async (req, res, next) => {
+
+
+    const body = req.body
+    const userData = body.data
+
+    const customerId = body.id
+    const oldPass = userData.oldPass
+    const newPass = userData.newPass
+    const confirmNewPass = userData.confirmNewPass
+
+    CustomerSchema.findById(customerId, (err,user)=>{
+        if(user){
+            var hash = user.encry_password;
+            
+                bcrypt.compare(oldPass,hash)
+                    .then((isEqual) => {
+
+                        if(isEqual){
+
+                            if(oldPass == newPass){
+                                //Old password and New password is same
+                                res.json({errCode: 422, errMessage:'Old Password can not be same as New Password'})
+                                        
+                            }else{
+                                //Password Match
+                                if(newPass == confirmNewPass){
+
+                                    bcrypt.hash(newPass, 12, function(err,hash){
+                                        user.encry_password = hash;
+                                        user.save(function(err,hash){
+                                            if(err) return console.error(err);
+                                                res.json({ status : 200, message:'Password Upated Successfully.'});
+                                            });
+                                        });
+                                    }else{
+                                        //confirmPassword and Confirm New password don't match
+                                        res.json({errCode: 403, errMessage: 'New Password and New confirm password don\'t match'})
+                                    }
+                            }
+
+                        }else{
+                            //Password don't match
+                            res.json({errCode: 401, errMessage: 'Please enter correct password.'});
+                            }
+                            
+                                
+                    }).catch((err) => console.log(err))
+                
+            }
+            
+    })        
+}
