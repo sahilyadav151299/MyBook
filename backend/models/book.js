@@ -3,13 +3,14 @@ const Schema = mongoose.Schema
 
 var bookSchema = new Schema({
 
-    author: {
+    book_name: {
         type: String,
         trim: true,
     },
 
-    quantity: {
-        type: Number,
+    author: {
+        type: String,
+        trim: true,
     },
 
     publish_date:{
@@ -20,20 +21,22 @@ var bookSchema = new Schema({
         type: Buffer
     },
 
-    flag:{               
-        type: Boolean
+    total_book_quantity: {
+        type: Number,
     },
 
+    total_book_rented: {
+        type: Number,
+    },
+
+    category_name:{
+        type: String
+    },
+   
     create_at :{
         type: String,
         default: new Date()
     },
-
-    categoryId:{
-        type: Schema.Types.ObjectId,
-        ref: 'Category'
-    }
-
 })
 
 module.exports = mongoose.model('Book',bookSchema);

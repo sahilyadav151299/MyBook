@@ -1,0 +1,108 @@
+.outer-container{
+    width: 100%;
+    height: 700px;
+}
+
+.no-order{
+    padding-top: 100px;
+    text-align: center;
+    font-size: xx-large;
+}
+
+.outer-left-box{
+    float: left;
+    width: 600px;
+    margin-bottom: 150px;
+}
+
+.left-box{
+    height: 150px;
+    width: 600px;
+    margin: 45px 0px 0px 50px;
+    border: 1px solid rgb(238, 238, 238);
+    box-shadow: 0 1px 2px 0 rgb(238, 238, 238);
+    float: left;
+}
+
+.book-cover{
+    width: 5em;
+    height: 7em;
+}
+
+.inner-box{
+    float: left;
+    margin: 15px;
+    height: 7em;   
+}
+
+.inner-box-right{
+    margin: 15px;
+    padding-top: 70px;
+    float: right;
+    height: 7em;
+}
+
+.book-data{
+    margin: 0px;
+    font-size: 14px;
+}
+
+
+.right-box{
+    float: right;
+    margin: 40px 50px 0px 0px;
+    height: 460px;
+    width: 310px;
+    border: 1px solid rgb(238, 238, 238);
+    box-shadow: 0 1px 2px 0 rgb(238, 238, 238);
+}
+
+.address-title{
+    padding: 20px 0px 0px 27px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.address-input{
+    width: 12em;
+    height: 2em;
+    margin: 27px;
+    background-color: rgb(250, 250, 250);
+}
+
+.btn-sm{
+    margin: 10px 0px 30px 27px;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 600px){
+    
+    .left-box{
+        margin: 30px 30px 30px 30px;
+        height: 140px;
+        width: 420px;
+        padding: 5px;
+    }
+
+    .inner-box{
+        float: left;
+        margin: 5px;
+        height: 7em;  
+    }
+    
+    .book-data{
+        font-size: 10px;
+    }
+
+    .inner-box-right{
+        float: right;
+        margin: 5px;
+        height: 7em;
+    }
+
+    .right-box{
+        float: left;
+        margin: 0px 90px 120px 90px;
+    }
+    
+}
+

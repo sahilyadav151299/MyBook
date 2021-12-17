@@ -1,0 +1,133 @@
+.outer-box{
+    width: 850px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.outer-pack-box{
+    padding: 30px;
+}
+
+.package-box{
+    width: 13em;
+    height: 18em;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 40px;
+    box-shadow: 0 4px 8px 0 rgb(238, 238, 238), 0 6px 20px 0 rgb(238, 238, 238);
+}
+
+.center{
+    text-align: center;
+}
+
+.pack-col{
+    padding: 35px 28px 30px 28px;
+}
+
+.close{
+    border: none;
+    background-color: white;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.user-packs{
+    padding: 20px 250px 20px 250px;
+    margin-bottom: 100px;
+}
+
+.pack{
+    border: 1px solid red;
+    width: 600px;
+    height: 150px;
+    padding-bottom: 60px;
+    margin: 40px;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgb(238, 238, 238), 0 6px 20px 0 rgb(238, 238, 238);
+}
+
+.pack-name{
+    width: 160px;
+    float: left;
+    margin: 50px 25px 50px 20px;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.pack-data{
+    width: 250px;
+    font-size: 14px;
+    float: left;
+    margin: 15px;
+}
+
+.data{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 5px;
+    width: 250px;
+}
+
+.btn-sm{
+    margin-top: 3px;
+}
+
+@media screen and (min-width: 0px) and (max-width: 600px){
+
+    .outer-box{
+        width: 300px;
+        margin-bottom: 50px;
+    }
+    
+    .pack-col{
+        padding: 35px 34px 10px 34px;
+    }
+
+    .user-packs{
+        padding: 0px;
+    }
+
+    .pack{
+        width: 350px;
+        height: 180px;
+    }
+
+    .pack-name{
+        margin: 10px 20px 0px 20px;
+        font-size: 20px;
+        font-weight: bold;
+        width: 305px;
+        text-align: center;
+    }
+
+    .pack-data{
+        width: 210px;
+        font-size: 12px;
+        float: left;
+    }
+
+    .data{
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 5px;
+        width: 190px;
+    }
+
+    .btn-sm{
+        float: left;
+        margin-top: 90px;
+    }
+}
+
+.label-box{
+    margin-left: 21px;
+}
+
+.input-box{
+    width: 220px;
+    height: 35px;
+    margin-left: 21px;
+}
+
+.btn-checkout{
+    margin: 25px 0px 25px 0px;
+}

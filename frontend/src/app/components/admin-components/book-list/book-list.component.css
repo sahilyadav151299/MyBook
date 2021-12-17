@@ -1,0 +1,15 @@
+.outer{
+    margin-bottom: 100px;
+}
+
+@media screen and (min-width: 0px) and (max-width: 600px){
+
+    td, th{
+        font-size: 12px;
+    }
+
+    .btn-opr{
+        height: 30px;
+        margin: 5px;
+    }
+}

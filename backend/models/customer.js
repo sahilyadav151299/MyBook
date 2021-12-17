@@ -21,7 +21,7 @@ var customerSchema = new Schema({
     
     },
 
-    password:{
+    encry_password:{
         type: String,
         required: true,
     },

@@ -1,5 +1,23 @@
 nav{
-  background-color: #1b1fe0;
+  background-color: #000272;
+}
 
+.title{
+  font-weight: bolder;
+  font-size: x-large;
+  text-decoration: none;
+  color: white;
+}
 
+.link{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.drop-box{
+  margin-right: 90px
+}
+
+.drop-link-box{
+  background-color: darkgray;
 }

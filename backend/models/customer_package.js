@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-const Schema = Schema
+const Schema = mongoose.Schema
 
 var customerPackageSchema = new Schema({
 
@@ -11,6 +11,10 @@ var customerPackageSchema = new Schema({
     packageId:{
         type: Schema.Types.ObjectId,
         ref: 'Package'
+    },
+
+    status:{
+        type: Boolean
     },
 
     create_at:{

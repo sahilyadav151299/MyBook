@@ -1,0 +1,37 @@
+<p *ngIf="orderData.length == 0 else elseBlock" class="no-order">
+  You haven't placed any order yet !
+</p>
+
+<ng-template #elseBlock>
+  
+  <table class="order-table">
+
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">No.</th>
+        <th>Cover</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Order Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let order of orderData" class="order-box">
+
+        <th>{{ order.count }}</th>
+        <td>
+          <img src="../../../assets/DemoBook.jpg" alt="Invisible Planets" class="book-cover">
+        </td>
+        <td>{{ order.bookName }}</td>
+        <td>{{ order.author }}</td>
+        <td>{{ order.category }}</td>
+        <td>{{ order.orderDate }}</td>
+        <td style="color: red;">{{ order.orderStatus }}</td>  
+      </tr>
+    </tbody>
+
+  </table>
+</ng-template>

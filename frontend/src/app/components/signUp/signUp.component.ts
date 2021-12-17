@@ -2,12 +2,8 @@ import { UserService } from './../../services/user.service';
 import { Component, OnInit, } from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 import Swal from 'sweetalert2';
-
-
-
 
 
 @Component({
@@ -16,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./signUp.component.css'],
   providers: [UserService]
 })
+
 export class SignUpComponent implements OnInit {
 
   constructor(
@@ -32,6 +29,7 @@ export class SignUpComponent implements OnInit {
       contactNumber: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
     },{validator: this.checkIfMatchingPasswords('password', 'confirmPassword')})
   }
+  
   checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
     return (group: FormGroup) => {
       let passwordInput = group.controls[passwordKey],
@@ -81,24 +79,32 @@ export class SignUpComponent implements OnInit {
     this.success = JSON.stringify(this.signUpForm.value);
 
     this.userService.register(this.signUpForm.value)
-      .subscribe((response) => {
-      var msg = response['msg'];
-      if(msg == 'Email Already Exists'){
+      .subscribe((response : any) => {
+
+      if(response.errCode === 409){
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: msg,
+          text: response.errMessage,
         })
       }
-      if(msg == 'User Created Successfully'){
+
+      if(response.status === 200){
         Swal.fire({
           icon: 'success',
           title: 'Congratulations!!',
           text: 'You have successfully Created your Account.',
-          footer: '<a href="">Please click on the link to Login</a>'
+          footer: '<a href="/login">Please click on the link to Login</a>'
         })
+
+        var reload = () => {
+          this.router.navigate(['/login']);
+        }
+  
+        setTimeout(reload, 2000)
       }
-          console.log(response);
-      });
+
+      
+    });
   }
 }

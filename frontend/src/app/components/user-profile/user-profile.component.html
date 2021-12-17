@@ -1,0 +1,98 @@
+<div class="main-outer">
+
+  <div class="title">
+    <h2>My Profile</h2>
+  </div>
+
+  <div class="row dara-row">
+    
+    <div class="col-sm-4 col-1">
+        <div class="card-header bg-transparent text-center">
+          <img src="../../../assets/User.png" alt="Profile" style="width:25%">
+          <h3 class="user-name">Welcome {{userData.customer.name}}</h3>
+        </div>
+    </div>
+
+    <div class="col-sm-4 col-2">
+    
+      <form [formGroup]="manageprofileForm">
+        <fieldset  [disabled]="disabledBox">
+          <div class="form-group">
+            <label for="Fullname">Name:</label>
+            <input    type="text"  class="form-control"  formControlName="name" [ngModel]="userData.customer.name" placeholder="Enter Fullname" [ngClass]="{ 'is-invalid': submitted && f['name'].errors}">
+            <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                <div *ngIf="f['name'].errors['required']">Full Name is required.</div>
+                <div *ngIf="f['name'].errors['minlength']">This name is not valid.</div>
+            </div>
+          </div>
+        </fieldset> 
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input  type="text"  class="form-control"  [readonly]="true" formControlName="email"  [ngModel]="userData.customer.email" placeholder="Enter Email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors}">
+            
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">Email is required.</div>
+                <div *ngIf="f['email'].errors['email']">Email must be a valid email address.</div>
+            </div>
+       
+        </div>
+
+        <fieldset  [disabled]="disabledBox">
+          <div class="form-group">
+              <label for="Contact">Contact:</label>
+              <input  type="text"  class="form-control"  formControlName="contact"  placeholder="Enter Contact No."   [ngModel]="userData.customer.contact" [ngClass]="{ 'is-invalid': submitted && f['contact'].errors}">
+                <div *ngIf="submitted && f['contact'].errors" class="invalid-feedback">
+                    <span *ngIf="f['contact'].errors['required']">Contact Number is required.</span>
+                    <span *ngIf="f['contact'].errors['min'] || f['contact'].errors['max']">Contact Number must be of 10 digits.</span>     
+                </div>
+          </div >
+        </fieldset> 
+  
+    </form>
+   </div>
+
+   
+   
+    <div class="col-sm-4 col-3">
+        <form [formGroup]="manageprofileForm" >
+       <fieldset  [disabled]="disabledBox">
+        <div class="form-group" class="data-box" >
+            <label for="Address">Address:</label>
+            <input   type="text"    class="form-control" formControlName="add"  placeholder="Address"  [ngModel]="userData.address.address" [ngClass]="{ 'is-invalid': submitted && f['add'].errors}"><br>
+            <div *ngIf="submitted && f['add'].errors" class="invalid-feedback">
+                <span *ngIf="f['add'].errors['required']">Address is required.</span>   
+            </div>
+        </div>
+        <div class="form-group" class="data-box">
+            <label for="City">City:</label>
+            <input  type="text"   class="form-control" formControlName="city" placeholder="City"   [ngModel]="userData.address.city" [ngClass]="{ 'is-invalid': submitted && f['city'].errors}"><br>
+            <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
+                <span *ngIf="f['city'].errors['required']">City is required.</span>   
+            </div>
+        </div>
+        <div class="form-group" class="data-box">
+            <label for="State">State:</label>
+            <input  type="text"  class="form-control"  formControlName="state"  placeholder="State"   [ngModel]="userData.address.state" [ngClass]="{ 'is-invalid': submitted && f['state'].errors}"><br>
+            <div *ngIf="submitted && f['state'].errors" class="invalid-feedback">
+                <span *ngIf="f['state'].errors['required']">State is required.</span>   
+            </div>
+        </div>
+        <div class="form-group" class="data-box">
+            <label for="Pincode">Pincode:</label>
+            <input  type="text"   class="form-control"  formControlName="pincode" placeholder="Pincode"    [ngModel]="userData.address.pincode" [ngClass]="{ 'is-invalid': submitted && f['pincode'].errors}"><br>
+            <div *ngIf="submitted && f['pincode'].errors" class="invalid-feedback">
+                <span *ngIf="f['pincode'].errors['required']">Pincode is required.</span>   
+                <span *ngIf="f['pincode'].errors['pattern']">Invalid Values.</span>
+            </div>
+        </div>
+        </fieldset>
+        </form>
+
+        <div class="text-right">
+          <button type="Save" (click)="onSave()" class="btn btn-primary btn-sm btn-opr" >Save</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="Edit" (click)="enableBox()"  class="btn btn-primary btn-sm btn-opr">Edit</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div> 
+</div>
+</div>

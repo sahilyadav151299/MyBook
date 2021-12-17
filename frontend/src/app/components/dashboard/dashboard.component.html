@@ -1,0 +1,74 @@
+<!-- This displays the suggested books(best sellers) -->
+
+<div class="outer">
+  
+  <!-- This displays the search-box -->
+
+  <div class="container">
+    <div class="row height d-flex justify-content-center align-items-center">
+        <div class="col-md-8">
+            <div class="search"> <i class="bi bi-search"></i> 
+              <input  id="searchfilter" #filter type="text" name="searchTerm" class="form-control" placeholder="Search Books By Name, Author, Category"  > 
+              <button class="btn btn-primary" (click)="getValue(filter.value)" >Search</button> 
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <ng-template [ngIf]=" filterStatus === false && isData">
+      
+    <h2 id="main-book">Best Seller</h2>
+    <div class="card-top container-fluid">
+    </div>
+
+    <div class="container">
+      <div class="row">
+        
+          <ng-container *ngFor="let item of bestSellerList">
+              <div class="card col-md-2 book-box" style="background-color: wheat;">
+                  <img src="../../../assets/b7.jpg" alt="" >
+                  <h5 class="bname">{{item.book_name}}</h5>
+                  <p class="aname">Author: {{item.author}}</p>
+                  <p class="cname">Category: {{item.category_name}}</p>
+                  <p class="yname">Published Year: {{item.publish_date}}</p>
+                  <button class="btn btn-primary btn-sm" (click)="sendDataToCart(item._id)"> Add to cart </button>
+              </div>
+
+          </ng-container>
+      </div> 
+    </div>
+
+  </ng-template>
+
+  <ng-template [ngIf]=" filterStatus === true && isData ">
+
+    <div class="container">
+      <div class="row">
+        
+          <ng-container *ngFor="let item of bookList">
+              <div class="card col-md-2" style="background-color: wheat;">
+                  <img src="../../../assets/b7.jpg" alt="" >
+                  <h5 class="bname">{{item.book_name}}</h5>
+                  <p class="aname">Author: {{item.author}}</p>
+                  <p class="cname">Category: {{item.category_name}}</p>
+                  <p class="yname">Published Year: {{item.publish_date}}</p>
+                  <button class="btn btn-primary btn-sm" (click)="sendDataToCart(item._id)"> Add to cart </button>
+              </div>
+
+          </ng-container>
+      </div> 
+    </div>
+
+  </ng-template>
+
+
+  <ng-template [ngIf]=" isData === false ">
+    <div style="width: 100%; text-align: center;">
+      <h1 style="margin-top: 60px;">There is no data with this filter!</h1>
+    </div>
+  </ng-template>
+  
+ 
+  
+
+</div>

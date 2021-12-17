@@ -1,0 +1,50 @@
+.no-order{
+    text-align: center;
+    font-size: xx-large;
+    margin-top: 100px;
+}
+
+.order-table{
+    width: 100%;
+    margin-bottom: 200px;
+}
+
+.book-cover{
+    width: 5em;
+    height: 7em;
+}
+
+th, td{
+    text-align: center;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.table-dark{
+    color: white;
+    background-color:rgb(49, 49, 49);
+}
+
+.order-box{
+    border: 1px solid rgb(238, 238, 238);
+    box-shadow: 1px rgb(238, 238, 238);
+}
+
+@media screen and (min-width: 0px) and (max-width: 600px){
+    
+    .no-order{
+        text-align: center;
+        font-size: x-large;
+    }
+
+    .book-cover{
+        width: 3em;
+        height: 5em;
+    }
+    
+    th, td{
+        font-size: 12px;
+        text-align: center;
+        padding: 5px;   
+    }
+} 

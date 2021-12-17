@@ -1,10 +1,18 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose")
-const { port,database, db_host } = require("./config/config");
 
+const mongoose = require("mongoose");
+const { port, database, db_host } = require("./config/config");
+
+const orderRoutes = require("./routes/order");
+const packageRoutes = require("./routes/package")
 const authRoutes = require("./routes/authentication")
+const cartRoutes = require("./routes/cart")
+const userRoutes = require("./routes/user")
+const bookRoutes = require("./routes/book")
+const homeRoutes = require("./routes/dashboard")
+
 
 var cors = require('cors')
 
@@ -28,8 +36,17 @@ next()
 });
 
 
-//My routes
-app.use("/",authRoutes);
+// routes
+
+app.use('/auth',authRoutes)
+app.use('/home', homeRoutes)
+app.use('/user', userRoutes)
+app.use('/cart', cartRoutes)
+app.use('/orders', orderRoutes)
+app.use('/packages', packageRoutes)
+app.use('/admin/book', bookRoutes)
+
+
 
 // Database creation and connection
 mongoose.connect(`${database}`, {  useNewUrlParser: true, useUnifiedTopology: true })

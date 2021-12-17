@@ -13,8 +13,13 @@ var orderSchema = new Schema({
         ref: 'Customer_Package'
     },
 
+    book_rented:[ 
+          
+        { bookId: { type: Schema.Types.ObjectId, ref: 'Book' } } 
+    ],
+
     flag:{
-        type : Boolean
+        type: String
     },
 
     create_at:{
