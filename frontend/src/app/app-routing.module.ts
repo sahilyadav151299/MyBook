@@ -1,3 +1,4 @@
+import { AcceptOrdersComponent } from './components/admin-components/accept-orders/accept-orders.component';
 import { ChangePasswordComponent } from './components/changePassword/changePassword.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditBookComponent } from './components/admin-components/edit-book/edit-book.component';
@@ -48,8 +49,10 @@ if(auth && role === 0){
     { path: 'book-list', component: BookListComponent },
     { path: 'add-book', component: AddBookComponent },
     { path: 'edit-book/:id', component: EditBookComponent},
+    { path: 'user-orders', component: AcceptOrdersComponent },
     {path: 'return-orders', component: ReturnOrdersComponent},
     { path: '**', component: PageNotFoundComponent }
+
   ] 
 
 }else{
