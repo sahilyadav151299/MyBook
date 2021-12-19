@@ -13,6 +13,10 @@ const userRoutes = require("./routes/user")
 const bookRoutes = require("./routes/book")
 const homeRoutes = require("./routes/dashboard")
 const accept_order_byAdminRoutes = require("./routes/accept_order_byAdmin");
+<<<<<<< HEAD
+=======
+
+>>>>>>> d4179739a704c147dbbba88db875446614b632f6
 const returnOrdersRoutes = require("./routes/returnOrders")
 
 
@@ -49,7 +53,10 @@ app.use('/packages', packageRoutes)
 app.use('/admin/book', bookRoutes)
 app.use('/accept_order_byAdmin', accept_order_byAdminRoutes)
 app.use('/returnOrders', returnOrdersRoutes)
+<<<<<<< HEAD
 
+=======
+>>>>>>> d4179739a704c147dbbba88db875446614b632f6
 
 
 // Database creation and connection
