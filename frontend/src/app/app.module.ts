@@ -51,7 +51,7 @@ import { ReturnOrdersComponent } from './components/admin-components/returnOrder
     EditBookComponent,
     DashboardComponent,
     ChangePasswordComponent,
-    AcceptOrdersComponent
+    AcceptOrdersComponent,
     ReturnOrdersComponent
   ],
 
