@@ -14,6 +14,7 @@ import { PackageDataComponent } from './components/package-data/package-data.com
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ReturnOrdersComponent } from './components/admin-components/returnOrders/returnOrders.component';
 
 
 let token = localStorage.getItem('userToken')
@@ -49,6 +50,7 @@ if(auth && role === 0){
     { path: 'add-book', component: AddBookComponent },
     { path: 'edit-book/:id', component: EditBookComponent},
     { path: 'user-orders', component: AcceptOrdersComponent },
+    {path: 'return-orders', component: ReturnOrdersComponent},
     { path: '**', component: PageNotFoundComponent }
 
   ] 

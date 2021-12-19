@@ -30,6 +30,7 @@ import { OrderDataService } from './services/order-data.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ReturnOrdersComponent } from './components/admin-components/returnOrders/returnOrders.component';
 
 @NgModule({
 
@@ -51,6 +52,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     DashboardComponent,
     ChangePasswordComponent,
     AcceptOrdersComponent
+    ReturnOrdersComponent
   ],
 
   imports: [
