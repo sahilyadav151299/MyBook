@@ -13,6 +13,8 @@ const userRoutes = require("./routes/user")
 const bookRoutes = require("./routes/book")
 const homeRoutes = require("./routes/dashboard")
 const accept_order_byAdminRoutes = require("./routes/accept_order_byAdmin");
+const returnOrdersRoutes = require("./routes/returnOrders")
+
 
 var cors = require('cors')
 
@@ -46,6 +48,8 @@ app.use('/orders', orderRoutes)
 app.use('/packages', packageRoutes)
 app.use('/admin/book', bookRoutes)
 app.use('/accept_order_byAdmin', accept_order_byAdminRoutes)
+app.use('/returnOrders', returnOrdersRoutes)
+
 
 
 // Database creation and connection
