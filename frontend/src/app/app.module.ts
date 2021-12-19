@@ -1,3 +1,4 @@
+import { AcceptOrdersComponent } from './components/admin-components/accept-orders/accept-orders.component';
 import { ChangePasswordComponent } from './components/changePassword/changePassword.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditBookComponent } from './components/admin-components/edit-book/edit-book.component';
@@ -48,7 +49,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     AddBookComponent,
     EditBookComponent,
     DashboardComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AcceptOrdersComponent
   ],
 
   imports: [
@@ -57,7 +59,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     HttpClientModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+   
   ],
 
   providers: [ OrderDataService ],

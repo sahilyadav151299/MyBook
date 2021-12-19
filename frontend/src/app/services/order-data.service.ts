@@ -48,4 +48,10 @@ constructor( private http : HttpClient ) { }
 
   }
 
+  getplacedOrders()
+    {
+       return this.http.get("http://localhost:3000/accept_order_byAdmin")
+
+    }
+
 }
