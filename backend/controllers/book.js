@@ -1,5 +1,6 @@
 const BookModel = require('../models/book')
-
+const fs = require('fs')
+const path = require('path')
 
 exports.getAllBooks = (req, res, next) => {
 
@@ -24,6 +25,7 @@ exports.getOneBook = (req, res, next) => {
 exports.addBook = (req, res, next) => {
 
     const data = req.body
+    // console.log(req.file)
 
     const bookObj = new BookModel({
 
@@ -31,6 +33,10 @@ exports.addBook = (req, res, next) => {
         author : data.author,
         publish_date : data.category,
         category_name : data.publishDate,
+        // book_cover : {
+        //     data: fs.readFileSync(path.join(__dirname.split('controllers')[0] + '/uploads/' + req.file.filename)),
+        //     contentType: 'image/png'
+        // },
         total_book_rented: 0,
         total_book_quantity : data.totalQuantity,
     })

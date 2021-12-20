@@ -15,7 +15,6 @@ export class BookListComponent implements OnInit {
  //book
   ngOnInit(): void {
     this.cruidApi.getBooks().subscribe(( res: any)=>{
-      console.log(res);
       this.Books = res;
     })
   }

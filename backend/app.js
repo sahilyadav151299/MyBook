@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-
+const multer = require('multer')
 const mongoose = require("mongoose");
 const { port, database, db_host } = require("./config/config");
 
@@ -13,15 +13,12 @@ const userRoutes = require("./routes/user")
 const bookRoutes = require("./routes/book")
 const homeRoutes = require("./routes/dashboard")
 
-
-var cors = require('cors')
+const cors = require('cors')
 
 // Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors())
-
-
 
 app.use((req, res, next) => {
 
@@ -35,8 +32,17 @@ app.use((req, res, next) => {
 next()
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      console.log(file)
+      cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname)
+  }
+});
 
-// routes
+app.use(multer({ storage: storage }).single('image'));
 
 app.use('/auth',authRoutes)
 app.use('/home', homeRoutes)
@@ -68,7 +74,7 @@ app.use((req, res, next) => {
     });
   });
   
-  app.use(function (err, req, res, next) {
+app.use(function (err, req, res, next) {
     console.error(err.message);
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
