@@ -18,7 +18,7 @@ exports.openReturnOrders = async (req, res) => {
 
     try {
 
-        const returnorders = await returnOrderSchema.find({ status: "Closed" })
+        const returnorders = await returnOrderSchema.find({ status: "Open" })
         // returnorders.forEach()
         var result = [];
         for (let i = 0; i < returnorders.length; i++) {

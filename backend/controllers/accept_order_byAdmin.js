@@ -28,20 +28,24 @@ exports.openOrders = async(req, res) => {
                 const month = date_ob.getMonth() + 1;
                 const year = date_ob.getFullYear();
 
+                // console.log(openorders[i]._id)
+                // console.log(openorders[i].customerId)
+                // console.log(customer_name._id)
+
                 let newdata = {
                     customer: customer_name.name,
                     book_rented: rented_book,
                     address: add,
-                    create_at: date + "-" + month + "-" + year
-
+                    create_at: date + "-" + month + "-" + year,
+                    orderId : openorders[i]._id
                 }
-                result.push(newdata)
 
+                result.push(newdata)
             }
 
+            
         }
         res.send(result)
-
 
         console.log(openorders.length)
             // console.log(openorders[0].book_rented[0].bookId)
