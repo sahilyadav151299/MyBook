@@ -1,18 +1,11 @@
 const returnOrderSchema = require('../models/return_order');
-
 const CustomerSchema = require('../models/customer')
-
 const bookSchema = require('../models/book');
-
 const addressSchema = require('../models/address')
-
+const orderSchema = require('../models/order')
 const { Mongoose } = require('mongoose');
 
-//                working part               //
-
-
-
-
+//get return orders data.
 exports.openReturnOrders = async (req, res) => {
 
 
@@ -22,10 +15,12 @@ exports.openReturnOrders = async (req, res) => {
         // returnorders.forEach()
         var result = [];
         for (let i = 0; i < returnorders.length; i++) {
-
+        
             const customer_name = await CustomerSchema.findById(returnorders[i].customerId)
 
             const add = await addressSchema.find({customerId:returnorders[i].customerId})
+
+        
             for (let j = 0; j < returnorders[i].return_book_Id.length; j++) {
 
               const return_book_Id = await bookSchema.findById(returnorders[i].return_book_Id[j].bookId)
