@@ -1,3 +1,5 @@
+import { AcceptOrdersComponent } from './components/admin-components/accept-orders/accept-orders.component';
+import { ChangePasswordComponent } from './components/changePassword/changePassword.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditBookComponent } from './components/admin-components/edit-book/edit-book.component';
 import { AddBookComponent } from './components/admin-components/add-book/add-book.component';
@@ -28,6 +30,7 @@ import { OrderDataService } from './services/order-data.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ReturnOrdersComponent } from './components/admin-components/returnOrders/returnOrders.component';
 
 @NgModule({
 
@@ -46,7 +49,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     BookListComponent,
     AddBookComponent,
     EditBookComponent,
-    DashboardComponent
+    DashboardComponent,
+    ChangePasswordComponent,
+    AcceptOrdersComponent,
+    ReturnOrdersComponent
   ],
 
   imports: [
@@ -55,7 +61,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     HttpClientModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+   
   ],
 
   providers: [ OrderDataService ],

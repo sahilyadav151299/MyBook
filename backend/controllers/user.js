@@ -68,10 +68,26 @@ exports.getUserProfile = (req, res, next) => {
     CustomerModel.findById({ _id : customerId })
     .then( customer =>{
 
+
           AddressModel.findOne({ customerId : customerId })
             .then( address => {
-
-                    return res.json({customer, address}) 
+                if(address == null){
+                
+                    const address = new AddressModel({
+                        address :'' ,
+                        city : '',
+                        state : '',
+                        pincode : '',
+                        customerId : customerId
+                    })
+    
+                    address.save()
+                    res.json({ status : 200, message : 'Address Updated Successfully!' })
+                }  
+                else{
+                    res.json({customer, address}) 
+                }  
+                 
             })
     })
     .catch( err => console.log(err) );
@@ -91,30 +107,14 @@ exports.updateProfile = (req, res, next) => {
     const pincode = userData.pincode
     
     CustomerModel.findByIdAndUpdate( customerId, { name : name, contact : contact } )
-        .then( () => {
+        .then( (customer) => {
         
             AddressModel.findOneAndUpdate( { customerId : customerId }, { address, city, state, pincode } )
-                .then( () => {
-                    
+                .then( (address) => {
+                   
                     res.json({ status : 200, message : 'Profile Updated Successfully!' })
                 })
-                // .then(() => {
-                //     console.log('hey')
-                //     const newAddress = new AddressModel({
-
-                //         address : address,
-                //         city : city,
-                //         state : state,
-                //         pincode : pincode,
-                //         customerId : customerId
-                //     })
-
-                //     newAddress.save()
-                       
-
-                //     res.json({ status : 200, message : 'Profile Updated Successfully!' })
-                // })
-                .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Address!' }))
+               .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Address!' }))
         } )
         .catch( err => res.json({ errCode : 500, errMessage : 'Error In Updating User Details!' }) )
 }
