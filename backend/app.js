@@ -19,6 +19,7 @@ const returnOrdersRoutes = require("./routes/returnOrders")
 const cors = require('cors')
 
 // Middlewares
+app.use(express.static(__dirname + '/uploads'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors())
@@ -37,15 +38,14 @@ app.use((req, res, next) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      console.log(file)
-      cb(null, 'uploads')
+    cb(null, 'uploads')
   },
   filename: (req, file, cb) => {
-      cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname)
+    cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname)
   }
 });
 
-app.use(multer({ storage: storage }).single('image'));
+app.use(multer({ storage: storage }).single('file'));
 
 app.use('/auth', authRoutes)
 app.use('/home', homeRoutes)

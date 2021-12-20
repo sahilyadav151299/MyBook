@@ -1,29 +1,51 @@
 <div class="row justify-content-center mt-5">
-  <div class="col-md-6 outer">
-      <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
-          <div class="form-Group">
-              <label for="name" class="data-box">Book Name</label>
-              <input type="text" class="form-control data-box" formControlName="name" required>
+    <div class="col-md-6 outer">
+  
+      <form #bookDataForm="ngForm" (ngSubmit)="onSubmit()" autocomplete="off">
+  
+        <div class="form-data">
+  
+          <div class="mb-3">
+            <label for="author" class="data-box">Book Name</label>
+            <input type="text" [(ngModel)]="bookData.bookName" name="bookName" class="form-control data-box">
           </div>
-          <div class="formGroup">
-              <label for="author" class="data-box">Author</label>
-              <input type="text" class="form-control data-box" formControlName="author" required>
+        
+          <div class="mb-3">
+            <label for="author" class="data-box">Author</label>
+            <input type="text" [(ngModel)]="bookData.author" name="author" class="form-control data-box">
           </div>
-          <div class="form-Group">
-              <label for="category" class="data-box">Category</label>
-              <input type="text" class="form-control data-box" formControlName="category" required>
+        
+          <div class="mb-3">
+            <label for="author" class="data-box">Category</label>
+            <input type="text" [(ngModel)]="bookData.category" name="category" class="form-control data-box">
           </div>
-          <div class="form-Group">
-              <label for="publishDate" class="data-box">Publish_Date</label>
-              <input type="text" class="form-control data-box" formControlName="publishDate" required>
+        
+          <div class="mb-3">
+            <label for="author" class="data-box">Publish Date</label>
+            <input type="text" [(ngModel)]="bookData.publishDate" name="publishDate" class="form-control data-box">
           </div>
-          <div class="form-Group">
-            <label for="totalQuantity" class="data-box">Total Quantity</label>
-            <input type="text" class="form-control data-box" formControlName="totalQuantity" required>
+        
+          <div class="mb-3">
+            <label for="author" class="data-box">Total Quantity</label>
+            <input type="number" [(ngModel)]="bookData.totalQuantity" name="totalQuantity" class="form-control data-box">
+          </div>
+  
         </div>
-          <div class="form-Group btn-box">
-              <button class="btn btn-primary btn-block btn-update" type="submit">Update</button>
-          </div>
+  
+        <div class="image-data-box">
+  
+          <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+          <div class="image-box"><img [src]="url" *ngIf="url" style="width:9em; height: 12em;"></div>
+          <input type="file" name="image" (change)="selectFile($event)">
+    
+        </div>
+  
+        <div class="btn-box">
+          <button class="btn btn-primary btn-block btn-add" type="submit">Update Book</button>
+        </div>
+        
       </form>
-  </div>
-</div>
+  
+    </div>  
+   </div>
+  

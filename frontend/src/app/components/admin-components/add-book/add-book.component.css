@@ -9,11 +9,13 @@
 }
 
 .btn-box{
+    float: left;
+    width: 100%;
     text-align: center;
 }
 
 .data-box{
-    margin: 2px;
+    margin: 1px;
     width: 300px;
 }
 
@@ -26,7 +28,7 @@
 .image-data-box{
     float: left;
     width: 13em;
-    height: 360px;
+    height: 400px;
     margin: 0px 30px 0px 30px;
 }
 
@@ -35,7 +37,7 @@
     background-color: rgb(238, 238, 238);
     height: 12em;
     width: 9em;
-    margin-top: 30px;
+    margin: 23px 0px 30px 0px;
 }
 
 .img-file{
@@ -47,5 +49,10 @@
     .outer{
         margin-bottom: 150px;
         padding: 0px 80px 0px 80px;
+    }
+
+    .image-data-box{
+        width: 300px;
+        height: 320px;
     }
 }

@@ -2,7 +2,7 @@ const BookModel = require('../models/book')
 
 exports.getSuggestedBooks = (req, res, next) => {
 
-    BookModel.find({ $where: "this.total_book_quantity !==0 " })
+    BookModel.find({ $where: " this.total_book_quantity != this.total_book_rented " })
         .then( allBooks => {
             res.status(200).send(allBooks);
         })
@@ -12,15 +12,14 @@ exports.getSuggestedBooks = (req, res, next) => {
 
 
 exports.getFilteredBooks = (req,res,next) => {
-    const filter = req.params.filterby
 
+    const filter = req.params.filterby
 
     BookModel.find( { $text: { $search:filter} }, (err,filtered_books) => {
         if(err){
             res.send("No results for search");
         }
         else{
-            console.log(filtered_books);
             res.send(filtered_books);
         }
 

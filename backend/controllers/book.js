@@ -25,18 +25,17 @@ exports.getOneBook = (req, res, next) => {
 exports.addBook = (req, res, next) => {
 
     const data = req.body
-    // console.log(req.file)
-
+    
     const bookObj = new BookModel({
 
-        book_name : data.name,
+        book_name : data.bookName,
         author : data.author,
-        publish_date : data.category,
-        category_name : data.publishDate,
-        // book_cover : {
-        //     data: fs.readFileSync(path.join(__dirname.split('controllers')[0] + '/uploads/' + req.file.filename)),
-        //     contentType: 'image/png'
-        // },
+        publish_date : data.publishDate,
+        category_name : data.category,
+        book_cover : {
+            data: fs.readFileSync(path.join(__dirname.split('controllers')[0] + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        },
         total_book_rented: 0,
         total_book_quantity : data.totalQuantity,
     })
@@ -50,15 +49,31 @@ exports.updateBook = (req, res, next) => {
 
     const id = req.params.id
     const bookData = req.body
-    const book_name = bookData.name
+    
+    const book_name = bookData.bookName
     const author = bookData.author
     const category_name = bookData.category
     const publish_date = bookData.publishDate
-    const total_book_quantity = bookData.totalQuantity    
+    const total_book_quantity = bookData.totalQuantity
 
-    BookModel.findByIdAndUpdate( id, { book_name, author, category_name, publish_date, total_book_quantity } )
+    
+    if(req.file === undefined){
+               
+        BookModel.findByIdAndUpdate( id, { book_name, author, category_name, publish_date, total_book_quantity } )
+            .then( () => res.json({ status : 200, message : 'Book Updated Successfully!' }))
+            .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Address!' }))
+
+    }else{
+        
+        const book_cover = {
+            data: fs.readFileSync(path.join(__dirname.split('controllers')[0] + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+
+        BookModel.findByIdAndUpdate( id, { book_name, author, category_name, publish_date, total_book_quantity, book_cover } )
         .then( () => res.json({ status : 200, message : 'Book Updated Successfully!' }))
         .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Address!' }))
+    }
 
 }
 
