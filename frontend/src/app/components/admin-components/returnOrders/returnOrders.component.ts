@@ -23,19 +23,10 @@ export class ReturnOrdersComponent implements OnInit {
   }
    
 
-  closed_order(id:any )
-  {
-    console.log(id);
-    this.retOrders.getclosedorder(id).subscribe(()=>{
-
-
-      // console.log(id);
-      // var reload = () => {
-      //   this.router.navigate(['/user-orders']);
-      // }
-
-      // setTimeout(reload, 2000)
-
+  closed_order(returnOrderId : any ){
+    
+    this.retOrders.getclosedorder(returnOrderId)
+      .subscribe(()=>{
 
       var reload = () => {
         return window.location.reload()
@@ -43,7 +34,5 @@ export class ReturnOrdersComponent implements OnInit {
       setTimeout(reload, 1000)
 
     }) 
-   
-
-}
+  }
 }

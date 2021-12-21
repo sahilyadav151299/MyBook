@@ -13,7 +13,7 @@ exports.getPackage = (req, res, next) => {
             CustomerPackage.find({customerId : customerId})
                 .then( userPackData => {
 
-                    totoalPack = userPackData.length
+                    totalPack = userPackData.length
                     const userAllPackData = []
 
                     for(const pack of userPackData){
@@ -24,12 +24,13 @@ exports.getPackage = (req, res, next) => {
                                 const userPack = {
                                     packData : packDeatails,
                                     status : pack.status === true ? 'Active' : 'Expired',
-                                    buyAt : new Date(pack.create_at).toLocaleDateString()
+                                    buyAt : new Date(pack.create_at).toLocaleDateString(),
+                                    packId : pack._id
                                 }
 
                                 userAllPackData.push(userPack)
                             
-                                if(totoalPack == userAllPackData.length){
+                                if(totalPack == userAllPackData.length){
                                     res.json({ packageData : packageData, userAllPackData : userAllPackData })
                                 }
                             })
@@ -38,7 +39,7 @@ exports.getPackage = (req, res, next) => {
                 })
                 .then( () => {
 
-                    if(totoalPack == 0){
+                    if(totalPack == 0){
                         res.json({ packageData : packageData, userAllPackData : [] })
                     }
                 })   
@@ -76,3 +77,42 @@ exports.buyPackage = (req, res, next) => {
         })
         .catch(err => console.log(err))
 }
+
+exports.updateUserPack = (req, res, next) => {
+
+    const packId = req.body.id
+    
+    CustomerPackage.findByIdAndUpdate( packId, { status : false })
+        .then( () => {
+
+            CustomerPackage.find({customerId : customerId})
+                .then( userPackData => {
+
+                    totalPack = userPackData.length
+                    const userAllPackData = []
+
+                    for(const pack of userPackData){
+
+                        Package.findById({ _id : pack.packageId})
+                            .then( packDeatails => {
+        
+                                const userPack = {
+                                    packData : packDeatails,
+                                    status : pack.status === true ? 'Active' : 'Expired',
+                                    buyAt : new Date(pack.create_at).toLocaleDateString(),
+                                    packId : pack._id
+                                }
+
+                                userAllPackData.push(userPack)
+                            
+                                if(totalPack == userAllPackData.length){
+                                    res.json({ userAllPackData : userAllPackData })
+                                }
+                            })
+                            .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Status!' }))
+                    } 
+                })  
+                .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Status!' }))       
+        })
+        .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Status!' }))
+} 

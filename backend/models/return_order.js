@@ -10,7 +10,22 @@ var returnOrderSchema = new Schema({
 
     return_book_Id:[ 
           
-        { bookId: { type: Schema.Types.ObjectId, ref: 'Book' } } 
+        { 
+            bookId : { 
+                type: Schema.Types.ObjectId, 
+                ref: 'Book' 
+            }
+        } 
+    ],
+
+    return_order_Id:[ 
+          
+        { 
+            orderId : {
+                type: Schema.Types.ObjectId,
+                ref : 'Order'
+            }
+        } 
     ],
 
     status:{

@@ -10,8 +10,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Book Name</th>
                     <th scope="col">Address</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Ordered Date</th>
+                    <th scope="col">Order Date</th>
 
                     <th class="text-center" scope="col">Action</th>
                 </tr>
@@ -20,19 +19,17 @@
                 <tr *ngFor="let book of orders; let i = index">
                     <th scope="row">{{i+1}}</th>
                     <td>{{book.customer}}</td>
-                    <td>{{book.book_rented[0]}} <br> {{book.book_rented[1]}}</td>
+                    <td>
+                       <div *ngFor="let book of book.book_rented" >
+                       -> {{ book.book_name }}
+                       </div> 
+                    </td>
                     <td>{{book.address[0].address}}, {{book.address[0].pincode}}, {{book.address[0].city}}</td>
-                    <td>{{book.category[0]}}<br> {{book.category[1]}}</td>
                     <td>{{book.create_at}}</td>
 
 
-                    <td class="text-center">
-                        <button class="btn btn-primary btn-sm btn-opr" (click)="approved_order(book.id)"> Approve</button> &nbsp;
-
-
-
-
-                        <!-- <button type="button" class="btn btn-danger btn-sm btn-opr" (click)="delete(book._id,1)">Delete</button> -->
+                    <td class="text-center" >
+                        <button class="btn btn-primary btn-sm btn-opr" (click)="getOrderIdForApprove(book.orderId)">Approve</button>
                     </td>
                 </tr>
             </tbody>

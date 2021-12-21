@@ -30,7 +30,7 @@
 .left-box{
     height: 180px;
     float: left;
-    width: 650px;
+    width: 700px;
     margin: 25px 0px 25px 45px;
     border: 1px solid rgb(238, 238, 238);
     box-shadow: 0 1px 2px 0 rgb(238, 238, 238);
@@ -97,7 +97,7 @@
     .left-box{
         margin: 20px 20px 20px 20px;
         height: 140px;
-        width: 450px;
+        width: 480px;
         padding: 5px;
     }
 

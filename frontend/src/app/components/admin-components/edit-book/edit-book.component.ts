@@ -1,8 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/services/crud.service';
 import Swal from 'sweetalert2';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-book',
@@ -12,60 +12,137 @@ import Swal from 'sweetalert2';
 
 export class EditBookComponent implements OnInit {
 
-  getId:any;
-  updateForm!: FormGroup;
-  constructor(private formBuilder:FormBuilder,
-    private router:Router,
-    private ngZone:NgZone,
-    private activatedRoute : ActivatedRoute,
-    private crudApi:CrudService ) { 
+  image : any
 
-      this.getId = this.activatedRoute.snapshot.paramMap.get('id');
+  bookData : any = {
+    bookName : '',
+    author : '',
+    category : '',
+    publishDate : '',
+    totalQuantity : ''
+  }
 
-      this.crudApi.getBook(this.getId).subscribe((res:any)=>{
-        this.updateForm.setValue({
-          name: res['book_name'],
-          author: res['author'],
-          category: res['category_name'],
-          publishDate: res['publish_date'],
-          totalQuantity: res['total_book_quantity']
-        })
-      });
+  url: any; 
+  msg = "";
+  bookId : any
 
-      this.updateForm = this.formBuilder.group({
-        name:[''],
-        author:[''],
-        category:[''],
-        publishDate:[''],
-        totalQuantity: []
+  constructor( private crudService : CrudService,
+               private router : Router,
+               private ngZone : NgZone,
+               private activatedRoute : ActivatedRoute,
+               private domSanitizer : DomSanitizer,
+               ) { }
+
+   ngOnInit(): void { 
+
+    this.bookId = this.activatedRoute.snapshot.paramMap.get('id');
+
+    this.crudService
+      .getBook(this.bookId)
+      .subscribe((res : any) => {
+
+        this.bookData.bookName = res.book_name
+        this.bookData.author = res.author
+        this.bookData.category = res.category_name
+        this.bookData.publishDate = res.publish_date
+        this.bookData.totalQuantity = res.total_book_quantity
+
+        if(res.book_cover != undefined){
+
+          let TYPED_ARRAY = new Uint8Array(res.book_cover.data.data)
+        
+          const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+            return data + String.fromCharCode(byte);
+          }, '')
+          
+          let base64String = btoa(STRING_CHAR);
+          
+          this.url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String)
+        }
       })
+  }
 
+  selectFile(event : any){
+
+    if(!event.target.files[0] || event.target.files[0].length == 0) {
+      this.msg = 'You must select an image!';
+      return;
     }
 
-  ngOnInit(): void { }
+    var mimeType = event.target.files[0].type;
+		
+		if (mimeType.match(/image\/*/) == null) {
+			this.msg = "Only images are supported!";
+			return;
+		}
 
-  onUpdate():any{
-    console.log(this.getId,this.updateForm.value);
-    this.crudApi.updateBook(this.getId, this.updateForm.value).subscribe((res:any)=>{
-      
-      if(res.status == 500){
-        alert(res.message)
-      }
+    if(event.target.files.length > 0){
 
-      if(res.status == 200){
+      const file = event.target.files[0]
+      this.image = file
+    }
 
-        Swal.fire({
-          icon: 'success',
-          text: res.message
-        })
-
-        this.ngZone.run(()=>{
-          this.router.navigateByUrl('/book-list')
-        })
-      }
-    }, (error:any)=>{
-      console.log(error);
-    })
+    var reader = new FileReader();
+    
+		reader.readAsDataURL(event.target.files[0]);
+		
+		reader.onload = (_event) => {
+			this.msg = "";
+      this.url = reader.result;
+    }
   }
- 
+
+  onSubmit(){
+
+    const formData = new FormData();
+
+    
+
+    if(this.image === undefined){
+
+      formData.append('bookName', this.bookData.bookName)
+      formData.append('author', this.bookData.author)
+      formData.append('category', this.bookData.category)
+      formData.append('publishDate', this.bookData.publishDate)
+      formData.append('totalQuantity', this.bookData.totalQuantity)
+
+    }else{
+      
+      formData.append('file', this.image);
+      formData.append('bookName', this.bookData.bookName)
+      formData.append('author', this.bookData.author)
+      formData.append('category', this.bookData.category)
+      formData.append('publishDate', this.bookData.publishDate)
+      formData.append('totalQuantity', this.bookData.totalQuantity)
+      
+    }
+    
+
+    this.crudService
+      .updateBook(formData, this.bookId)
+      .subscribe((res : any) => {
+        
+        if(res.status === 200){
+          
+          Swal.fire({
+            icon: 'success',
+            text: res.message
+          })
+  
+          this.ngZone.run(()=>{
+            this.router.navigateByUrl('/book-list')
+          })
+        }
+
+        if(res.status === 500){
+          
+          Swal.fire({
+            icon: 'error',
+            text: res.message
+          })
+
+        }  
+    })
+
+  }
 }

@@ -18,7 +18,8 @@ var bookSchema = new Schema({
     },
 
     book_cover: {
-        type: Buffer
+        data: Buffer,
+        contentType: String
     },
 
     total_book_quantity: {

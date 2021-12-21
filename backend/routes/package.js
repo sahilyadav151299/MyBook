@@ -7,4 +7,6 @@ router.get('/', packageController.getPackage);
 
 router.post('/', packageController.buyPackage);
 
+router.put('/', packageController.updateUserPack);
+
 module.exports = router;

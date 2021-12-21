@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-
+const multer = require('multer')
 const mongoose = require("mongoose");
 const { port, database, db_host } = require("./config/config");
 
@@ -15,15 +15,13 @@ const homeRoutes = require("./routes/dashboard")
 const accept_order_byAdminRoutes = require("./routes/accept_order_byAdmin");
 const returnOrdersRoutes = require("./routes/returnOrders")
 
-
-var cors = require('cors')
+const cors = require('cors')
 
 // Middlewares
+app.use(express.static(__dirname + '/uploads'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors())
-
-
 
 app.use((req, res, next) => {
 
@@ -37,8 +35,16 @@ app.use((req, res, next) => {
     next()
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname)
+  }
+});
 
-// routes
+app.use(multer({ storage: storage }).single('file'));
 
 app.use('/auth', authRoutes)
 app.use('/home', homeRoutes)
@@ -69,8 +75,8 @@ app.use((req, res, next) => {
     setImmediate(() => {
         next(new Error('Something went wrong'));
     });
-});
-
+  });
+  
 app.use(function(err, req, res, next) {
     console.error(err.message);
     if (!err.statusCode) err.statusCode = 500;

@@ -26,7 +26,6 @@
                 <p class="data">Buy On : {{ pack.buyAt }}</p>
                 <p class="data">Validity : {{ pack.packData.validity }} Days</p>
                 <p class="data">Status : <span [style.color]="pack.status === 'Active' ? 'green' : 'red' " style="font-weight: bold;">{{ pack.status }}</span></p>
-                <p class="data">Days Left : XY Days </p> 
             </div>
             <div class="card-body center">
                 <button type="button" class="btn btn-success btn-sm" (click)="purchase2(content)" (click)="purchase1(pack.packData._id)">Buy Again</button>

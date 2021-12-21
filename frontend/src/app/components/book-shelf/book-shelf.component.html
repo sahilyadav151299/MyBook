@@ -19,7 +19,10 @@
           <div class="left-box" *ngFor="let book of deliveredBookData">
   
             <div class="inner-box">
-              <img src="../../../assets/DemoBook.jpg" class="card-img-top book-cover" alt="...">
+              <img [src]="book.image" *ngIf="book.image else elseBlock"  class="card-img-top book-cover">
+              <ng-template #elseBlock>
+                <img src="../../../assets/No-Image.jpg" class="card-img-top book-cover">
+              </ng-template>
             </div>
           
             <div class="inner-box">
@@ -85,7 +88,10 @@
         <div class="left-box" *ngFor="let book of returnedBookData">
 
           <div class="inner-box">
-            <img src="../../../assets/DemoBook.jpg" class="card-img-top book-cover" alt="...">
+            <img [src]="book.image" *ngIf="book.image else elseBlock"  class="card-img-top book-cover">
+            <ng-template #elseBlock>
+              <img src="../../../assets/No-Image.jpg" class="card-img-top book-cover">
+            </ng-template>
           </div>
         
           <div class="inner-box">
@@ -107,7 +113,7 @@
           </div>
         
           <div class="inner-box-right">
-            <button class="btn btn-success btn-sm btn-buy" (click)="sendDataToCart(book.bookId)">Buy Again</button>
+            <button class="btn btn-success btn-sm btn-buy" (click)="sendDataToCart(book.bookId)">Rent Again</button>
           </div>
         </div>
       

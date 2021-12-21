@@ -21,35 +21,24 @@ export class AcceptOrdersComponent implements OnInit {
   ngOnInit():void {
      
     this.placedOrders.getplacedOrders().subscribe((allplacedOrders:any)=>{
-     console.warn(allplacedOrders);
+     
       this.orders = allplacedOrders;
       console.log(this.orders)
     })
-                 }
+  }
 
 
-  approved_order(id:any )
-    {
-      console.log(id);
-      this.placedOrders.getApproveOrder(id).subscribe(()=>{
 
+  getOrderIdForApprove(orderId : any){
 
-        // console.log(id);
-        // var reload = () => {
-        //   this.router.navigate(['/user-orders']);
-        // }
-  
-        // setTimeout(reload, 2000)
+        this.placedOrders.getApproveOrder(orderId)
+        .subscribe(()=> {
 
-
-        var reload = () => {
-          return window.location.reload()
-        }
-        setTimeout(reload, 1000)
-
-      }) 
-      
-      
+          var reload = () => {
+            return window.location.reload()
+          }
+          setTimeout(reload, 1000)
+        }) 
     }
 
 

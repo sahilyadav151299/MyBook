@@ -39,6 +39,38 @@ export class PackageDataComponent implements OnInit {
 
           this.packageData.push(packageObj)
         }
+
+        if(this.userPacks.length > 0){
+
+          for(const pack of this.userPacks){  
+
+            if(pack.status === 'Active'){  
+              
+              const buyDate = pack.buyAt
+              const validity = pack.packData.validity
+    
+              const expiryDD = new Date(buyDate).getDate() + validity
+              const expiryMM = new Date(buyDate).getMonth()
+              const expiryYY = new Date(buyDate).getFullYear()   
+                
+              const expiryDate = new Date(expiryYY, expiryMM, expiryDD).toLocaleDateString()
+              const today = new Date().toLocaleDateString() 
+
+              if(new Date(today) >= new Date(expiryDate)){
+      
+                this.userPackagesService
+                  .updateUserPack(pack.packId)
+                  .subscribe((res : any) => {
+  
+                    this.userPacks = res
+
+                    window.location.reload()
+                  })
+              }
+            }
+          }
+        }
+        
     })
   }
 

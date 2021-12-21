@@ -23,7 +23,10 @@
 
         <th>{{ order.count }}</th>
         <td>
-          <img src="../../../assets/DemoBook.jpg" alt="Invisible Planets" class="book-cover">
+          <img [src]="order.image" *ngIf="order.image else elseBlock"  class="book-cover">
+          <ng-template #elseBlock>
+            <img src="../../../assets/No-Image.jpg" class="book-cover">
+          </ng-template>
         </td>
         <td>{{ order.bookName }}</td>
         <td>{{ order.author }}</td>

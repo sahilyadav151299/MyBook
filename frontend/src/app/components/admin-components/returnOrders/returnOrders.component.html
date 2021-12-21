@@ -11,23 +11,26 @@
                   <th scope="col">Name</th>
                   <th scope="col">Book_Name</th>
                   <th scope="col">Address</th>
-                  <th scope="col">Return_Date</th>
-                  <th class="text-center" scope="col">Action</th>
+                  <th scope="col">Applied On</th>
+                  <th class="text-center" scope="col">Request</th>
               </tr>
           </thead>
           <tbody>
               <tr *ngFor="let book of orders; let i = index">
                   <th scope="row">{{i+1}}</th>
                   <td>{{book.customer}}</td>
-                  
-                  <td>{{book.book_rented[0]}} <br> {{book.book_rented[1]}} </td>
+                  <td>
+                    <div *ngFor="let book of book.book_rented" >
+                    -> {{ book.book_name }}
+                    </div> 
+                 </td>
 
                   <td>{{book.address[0].address}}, {{book.address[0].city}}, {{book.address[0].state}}</td>
                    <td>{{book.create_at}}</td>
         
                   <td class="text-center">
-                    <button type="button" class="btn btn-primary"(click)='closed_order(book.id)'>Approve Return</button> &nbsp; 
-                      </td>
+                    <button type="button" class="btn btn-danger btn-sm"(click)='closed_order(book.returnOrderId)'>Approve Return</button> &nbsp; 
+                  </td>
               </tr>
           </tbody>
       </table>
