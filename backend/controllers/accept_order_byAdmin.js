@@ -3,24 +3,22 @@ const CustomerSchema = require('../models/customer')
 const bookSchema = require('../models/book');
 const addressSchema = require('../models/address')
 
-// all placed orders
-
+// it will get information of customers ,who has placed the order... 
 exports.placedorders = async(req, res) => {
 
 
     try {
 
         const placedorders = await orderSchema.find({ flag: "Placed" })
-            // placedorders.forEach()
         var result = [];
-
+        // placedorder.forEach()
         for (let i = 0; i < placedorders.length; i++) {
             var books = [];
             var categories = [];
             const customer_name = await CustomerSchema.findById(placedorders[i].customerId)
 
             const date_ob = new Date(placedorders[i].create_at)
-
+                // date of order
             const date = date_ob.getDate();
             const month = date_ob.getMonth() + 1;
             const year = date_ob.getFullYear();
@@ -33,16 +31,6 @@ exports.placedorders = async(req, res) => {
                 books.push(rented_book.book_name)
 
                 categories.push(rented_book.category_name)
-
-
-
-
-
-
-
-                // result.push(newdata)
-
-
 
             }
 
@@ -63,10 +51,10 @@ exports.placedorders = async(req, res) => {
 
         }
 
-        console.log(result)
+        // console.log(result)   // for testing
         res.send(result)
 
-        console.log(placedorders.length) // for testing purpose
+        // console.log(placedorders.length) // for testing purpose
 
 
     } catch (error) {
@@ -82,15 +70,11 @@ exports.placedorders = async(req, res) => {
 
 //                      when admin  approved the placed order                            //
 
+// count of book_rented_quantity increased by 1
+
 exports.do_deliver = async(req, res) => {
 
-
     const order = await orderSchema.find({ _id: req.params.id })
-        // let bookdata = {
-        //     order: order.rented_book,
-        // };
-
-
     for (let i = 0; i < order[0].book_rented.length; i++) {
         const book_id = order[0].book_rented[i].bookId;
         const book = await bookSchema.findById(book_id);
@@ -98,19 +82,18 @@ exports.do_deliver = async(req, res) => {
             res.status(200).json()
         }).catch((err) => { console.warn(err) })
 
-        console.log(book.book_name, " approved")
+        // console.log(book.book_name, " approved")  //it is for testing purpose 
 
 
 
     }
 
 
-    // res.send(order[0].book_rented[0].bookId)
-
+    // in order collection,flag will change from "placed" to "delivered"
     const flage = "Delivered";
     const obj = orderSchema.updateOne({ _id: req.params.id }, { $set: { flag: flage } }).then(() => {
-            res.status(200).json()
-        }).catch((err) => { console.warn(err) })
-        // res.send(obj)
+        res.status(200).json()
+    }).catch((err) => { console.warn(err) })
+
 
 }
