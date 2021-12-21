@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from 'src/app/services/user.service';
 import { OrderDataService } from 'src/app/services/order-data.service';
 import { Component, OnInit } from '@angular/core';
@@ -24,8 +25,11 @@ export class BookShelfComponent implements OnInit {
     pincode: ''
   }
 
+  url : any
+
   constructor( private orderDataService : OrderDataService,
-               private userService : UserService ) { }
+               private userService : UserService,
+               private domSanitizer : DomSanitizer ) { }
 
   getData(type : any){
     this.bookType = type
@@ -41,6 +45,19 @@ export class BookShelfComponent implements OnInit {
 
         for(const order of data){
 
+          if(order.bookData.book_cover != undefined){
+
+            let TYPED_ARRAY = new Uint8Array(order.bookData.book_cover.data.data)
+          
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+              return data + String.fromCharCode(byte);
+            }, '')
+            
+            let base64String = btoa(STRING_CHAR);
+            
+            this.url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String)
+          }
+
           const orderObj = {
 
             bookId : order.bookData._id,
@@ -49,7 +66,8 @@ export class BookShelfComponent implements OnInit {
             category : order.bookData.category_name,
             publishDate : order.bookData.publish_date,
             orderDate : new Date(order.orderDate).toLocaleDateString(),
-            orderStatus : order.orderStatus
+            orderStatus : order.orderStatus,
+            image : this.url
           }
 
           if(orderObj.orderStatus === 'Delivered')
@@ -65,7 +83,7 @@ export class BookShelfComponent implements OnInit {
       .subscribe((res : any) => {
 
         if(res.errCode === 404)
-          console.log(res.message)
+          alert(res.message)
         else{
           this.custAddress.id = res.address._id
           this.custAddress.address = res.address.address

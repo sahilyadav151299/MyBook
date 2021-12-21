@@ -35,7 +35,12 @@
         <div class="image-data-box">
   
           <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
-          <div class="image-box"><img [src]="url" *ngIf="url" style="width:9em; height: 12em;"></div>
+          <div class="image-box">
+            <img [src]="url" *ngIf="url else elseBlock" style="width:9em; height: 12em;">
+            <ng-template #elseBlock>
+              <img src="../../../assets/No-Image.jpg" style="width:9em; height: 12em;">
+            </ng-template>
+          </div>
           <input type="file" name="image" (change)="selectFile($event)">
     
         </div>

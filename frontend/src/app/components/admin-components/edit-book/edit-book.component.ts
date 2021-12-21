@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit, Sanitizer } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrudService } from 'src/app/services/crud.service';
 import Swal from 'sweetalert2';
@@ -30,7 +30,8 @@ export class EditBookComponent implements OnInit {
                private router : Router,
                private ngZone : NgZone,
                private activatedRoute : ActivatedRoute,
-               private domSanitizer : DomSanitizer ) { }
+               private domSanitizer : DomSanitizer,
+               ) { }
 
    ngOnInit(): void { 
 
@@ -46,15 +47,18 @@ export class EditBookComponent implements OnInit {
         this.bookData.publishDate = res.publish_date
         this.bookData.totalQuantity = res.total_book_quantity
 
-        let TYPED_ARRAY = new Uint8Array(res.book_cover.data.data)
+        if(res.book_cover != undefined){
+
+          let TYPED_ARRAY = new Uint8Array(res.book_cover.data.data)
         
-        const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-          return data + String.fromCharCode(byte);
-        }, '')
-         
-        let base64String = btoa(STRING_CHAR);
-        
-        this.url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String)
+          const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+            return data + String.fromCharCode(byte);
+          }, '')
+          
+          let base64String = btoa(STRING_CHAR);
+          
+          this.url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String)
+        }
       })
   }
 

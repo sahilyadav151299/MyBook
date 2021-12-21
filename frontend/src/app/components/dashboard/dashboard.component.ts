@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/services/home.service';
 import Swal from 'sweetalert2';
@@ -10,13 +11,15 @@ import Swal from 'sweetalert2';
 
 export class DashboardComponent implements OnInit {
  
-  public bestSellerList : any;
+  public bestSellerList : any = [];
   public bookList : any;
   cartBookId : string[] = []
   filterStatus = false
   isData = true
+  url : any
 
-  constructor( private homeService : HomeService ){}
+  constructor( private homeService : HomeService,
+               private domSanitizer : DomSanitizer ){}
 
   totalLength: any;
   page: number = 1;
@@ -26,8 +29,36 @@ export class DashboardComponent implements OnInit {
     .displaySuggestedBooks()
       .subscribe( (data : any) => {
 
-        this.bestSellerList = data;
         this.totalLength = data.length;
+
+        for(const book of data){
+
+          if(book.book_cover != undefined){
+
+            let TYPED_ARRAY = new Uint8Array(book.book_cover.data.data)
+          
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+              return data + String.fromCharCode(byte);
+            }, '')
+            
+            let base64String = btoa(STRING_CHAR);
+            
+            this.url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String)
+          }
+
+          const bookObj = {
+
+            _id : book._id,
+            book_name : book.book_name,
+            author : book.author,
+            category_name : book.category_name,
+            publish_date : book.publish_date,
+            image : this.url
+          }
+
+          this.url = ''
+          this.bestSellerList.push(bookObj)
+        }
       })
   }
 
@@ -39,14 +70,47 @@ export class DashboardComponent implements OnInit {
       this.homeService
       .displayBook(filter)
         .subscribe( (data : any) => {
-          this.bookList = data;
+
+          const arr = []
+
+          for(const book of data){
+
+            if(book.book_cover != undefined){
+  
+              let TYPED_ARRAY = new Uint8Array(book.book_cover.data.data)
+            
+              const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+                return data + String.fromCharCode(byte);
+              }, '')
+              
+              let base64String = btoa(STRING_CHAR);
+              
+              this.url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String)
+            }
+  
+            const bookObj = {
+  
+              _id : book._id,
+              book_name : book.book_name,
+              author : book.author,
+              category_name : book.category_name,
+              publish_date : book.publish_date,
+              image : this.url
+            }
+  
+            this.url = ''
+            arr.push(bookObj)
+          }
+
+          this.bookList = arr
           this.totalLength = data.length;
           this.filterStatus = true
           this.isData = true
           
           if(data.length === 0){
             this.isData = false
-            // this.filterStatus = false
+            this.filterStatus = false
+            return
           }
        }) 
     }
