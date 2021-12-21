@@ -10,7 +10,7 @@ const returnordesController = require('../controllers/returnOrders');
 
 router.get('/', returnordesController.openReturnOrders);
 
-
+router.patch('/:id',returnordesController.returnOrderApprove)
 
 
 
