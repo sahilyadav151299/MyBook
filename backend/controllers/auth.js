@@ -3,6 +3,7 @@ const passport = require("passport");
 const router = express.Router();
 const User = require("../models/customer");
 const homeController = require('../controllers/dashboard')
+const package = require('../controllers/package')
 
 
 const jwt = require("jsonwebtoken");
@@ -30,29 +31,29 @@ router.post("/auth/register", async(req, res) => {
         //res.redirect('/register');
     }
 });
-// router.get('/auth/login', (req, res) => {
-//     if (req.isAuthenticated()) res.redirect("/suggested-books");
-//     else
-//         res.render('failed');
-// });
+router.get('/auth/login', (req, res) => {
+    if (req.isAuthenticated()) res.redirect("/package");
+    else
+        res.send('failed');
+});
 
-// router.post('/auth/login',
-//     // passport.authenticate('local', {
-//     //     failureRedirect: '/auth/login',
-//     //     successRedirect: '/suggested-books'
-//     // }),
-//     (req, res) => {
-//         console.log("auth hit ", req.body)
-//             //res.redirect("/");
-//         const token = jwt.sign({ _id: User._id }, "sssghhh");
-//         //put token in cookie
-//         res.cookie("token", token, { expire: new Date() + 9999 });
-//         //send response to frontend
-//         // const { _id, username, email, role } = User
-//         res.json({ token: token, message: "user login successfully", status: 200 });
+router.post('/auth/login',
+    passport.authenticate('local', {
+        failureRedirect: '/auth/login',
+        successRedirect: '/package'
+    }),
+    (req, res) => {
+        console.log("auth hit ", req.body)
+            //res.redirect("/");
+        const token = jwt.sign({ _id: User._id }, "sssghhh");
+        //put token in cookie
+        res.cookie("token", token, { expire: new Date() + 9999 });
+        //send response to frontend
+        // const { _id, username, email, role } = User
+        res.json({ token: token, message: "user login successfully", status: 200 });
 
-//     }
-// );
+    }
+);
 
 
 // router.post('/auth/login', (req, res, ) => {

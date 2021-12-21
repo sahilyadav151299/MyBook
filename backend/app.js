@@ -10,7 +10,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 //for passport things
-const PassportLocal = require("passport-local");
+const PassportLocal = require("passport-local").Strategy;
 const passport = require('passport')
 const session = require('express-session')
 
