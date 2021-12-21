@@ -17,6 +17,7 @@ exports.getOrderHistory = (req, res, next) => {
 
             for(const order of orderData){
 
+                const orderId = order._id
                 const bookIds = order.book_rented
                 const orderStatus = order.flag
                 const orderDate = order.create_at
@@ -31,6 +32,7 @@ exports.getOrderHistory = (req, res, next) => {
                             
                             const order = {
 
+                                orderId : orderId,
                                 bookData : bookData,
                                 orderStatus : orderStatus,
                                 orderDate : orderDate
@@ -125,22 +127,25 @@ exports.returnOrderedBooks = (req, res, next) => {
     const bookData = req.body.bookData
     const customerId = req.body.customerId
     const address = req.body.address
-    const bookIds = []
+
+    console.log(bookData)
+    
+    const bookIdOrderId = []
 
     for(const book of bookData){
 
-        const Id = {
-            bookId : book.bookId
+        const Ids = {
+            bookId : book.bookId,
+            orderId : book.orderId
         }
 
-        bookIds.push(Id)
+        bookIdOrderId.push(Ids)
     }
         
-
     const newReturnOrder = new ReturnOrder({
 
         customerId : customerId,
-        return_book_Id : bookIds,
+        return_book_order_Id : bookIdOrderId,
         status : 'Open',
         pickup_address : address
     })

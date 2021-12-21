@@ -60,6 +60,7 @@ export class BookShelfComponent implements OnInit {
 
           const orderObj = {
 
+            orderId : order.orderId,
             bookId : order.bookData._id,
             bookName : order.bookData.book_name,
             author : order.bookData.author,

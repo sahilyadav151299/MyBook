@@ -61,7 +61,7 @@ exports.updateBook = (req, res, next) => {
                
         BookModel.findByIdAndUpdate( id, { book_name, author, category_name, publish_date, total_book_quantity } )
             .then( () => res.json({ status : 200, message : 'Book Updated Successfully!' }))
-            .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Address!' }))
+            .catch(err => res.json({ errCode : 500, errMessage : 'Error In Updating Book Data!' }))
 
     }else{
         
