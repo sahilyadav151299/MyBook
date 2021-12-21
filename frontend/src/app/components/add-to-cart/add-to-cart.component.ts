@@ -139,8 +139,23 @@ export class AddToCartComponent implements OnInit {
 
   placeOrder(){
 
+    const newReduceCartData = []
+
+    for(const book of this.cartBookdata){
+      
+      const obj = {
+        author: book.author,
+        book_name: book.book_name,
+        category: book.category,
+        date: book.date,
+        id : book.id,
+      }
+
+      newReduceCartData.push(obj)
+    }
+
     this.orderDataService
-      .placeOrder(this.cartBookdata)
+      .placeOrder(newReduceCartData)
       .subscribe(( res : any ) => {
 
         if(res.status === 406){

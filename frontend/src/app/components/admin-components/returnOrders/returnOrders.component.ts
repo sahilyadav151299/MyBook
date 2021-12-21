@@ -21,5 +21,18 @@ export class ReturnOrdersComponent implements OnInit {
     })
 
   }
+   
 
+  closed_order(returnOrderId : any ){
+    
+    this.retOrders.getclosedorder(returnOrderId)
+      .subscribe(()=>{
+
+      var reload = () => {
+        return window.location.reload()
+      }
+      setTimeout(reload, 1000)
+
+    }) 
+  }
 }

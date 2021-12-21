@@ -75,7 +75,9 @@ export class BookShelfComponent implements OnInit {
             this.deliveredBookData.push(orderObj)
           
           if(orderObj.orderStatus === 'Returned')
-            this.returnedBookData.push(orderObj)    
+            this.returnedBookData.push(orderObj)  
+            
+          this.url = ''  
         }
     })
 
@@ -126,8 +128,28 @@ export class BookShelfComponent implements OnInit {
 
     const pickUpAddress = addressFormData
 
+    console.log(this.deliveredBookData)
+
+    const newReduceData = []
+
+    for(const book of this.deliveredBookData){
+      
+      const obj = {
+        author : book.author,
+        bookId : book.bookId,
+        bookName : book.bookName,
+        category : book.category,
+        orderDate : book.orderDate,
+        orderId : book.orderId,
+        orderStatus : book.orderStatus,
+        publishDate : book.publishDate
+      }
+
+      newReduceData.push(obj)
+    }
+
     this.orderDataService
-      .returnBooks( this.deliveredBookData, pickUpAddress )
+      .returnBooks( newReduceData, pickUpAddress )
       .subscribe((res : any) => {
 
         if(res.errCode === 500)

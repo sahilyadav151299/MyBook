@@ -53,7 +53,11 @@ export class SignUpComponent implements OnInit {
 
   success = '';
 
-  
+  Error = false;
+  Errmsg = '';
+
+  updated = false;
+  msg = '';
 
   //short hand index getters
 
@@ -86,21 +90,26 @@ export class SignUpComponent implements OnInit {
 
       if(response.errCode === 409){
         //Email Already Exists
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: response.errMessage,
-        })
+        // Swal.fire({
+        //   icon: 'error',
+        //   title: 'Oops...',
+        //   text: response.errMessage,
+        // })
+        this.Error = true;
+        this.updated = false;
+        this.Errmsg = 'Email Already Exist!!';
       }
 
       if(response.status === 200){
         //Registered successfully
-        Swal.fire({
-          icon: 'success',
-          title: 'Congratulations!!',
-          text: 'You have successfully Created your Account.',
-        })
-
+        // Swal.fire({
+        //   icon: 'success',
+        //   title: 'Congratulations!!',
+        //   text: 'You have successfully Created your Account.',
+        // })
+        this.updated = true;
+        this.Error = false;
+        this.msg = 'You have successfully Created your Account.'
         var reload = () => {
           this.router.navigate(['/login']);
         }

@@ -29,8 +29,8 @@
                    <td>{{book.create_at}}</td>
         
                   <td class="text-center">
-                 <button class="btn btn-danger btn-sm btn-opr">Approve Return</button> &nbsp; 
-                      </td>
+                    <button type="button" class="btn btn-danger btn-sm"(click)='closed_order(book.returnOrderId)'>Approve Return</button> &nbsp; 
+                  </td>
               </tr>
           </tbody>
       </table>
