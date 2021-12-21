@@ -19,13 +19,14 @@
               <tr *ngFor="let book of orders; let i = index">
                   <th scope="row">{{i+1}}</th>
                   <td>{{book.customer}}</td>
-                  <td>{{book.book_rented}}</td>
+                  
+                  <td>{{book.book_rented[0]}} <br> {{book.book_rented[1]}} </td>
 
                   <td>{{book.address[0].address}}, {{book.address[0].city}}, {{book.address[0].state}}</td>
                    <td>{{book.create_at}}</td>
         
                   <td class="text-center">
-                 <button class="btn btn-primary btn-sm btn-opr">Close</button> &nbsp; 
+                    <button type="button" class="btn btn-primary">Approve Return</button> &nbsp; 
                       </td>
               </tr>
           </tbody>

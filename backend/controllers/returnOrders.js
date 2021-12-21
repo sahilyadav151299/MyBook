@@ -11,34 +11,34 @@ exports.openReturnOrders = async (req, res) => {
 
     try {
 
-        const returnorders = await returnOrderSchema.find({ status: "Closed" })
+        const returnorders = await returnOrderSchema.find({ status: "Open" })
         // returnorders.forEach()
         var result = [];
         for (let i = 0; i < returnorders.length; i++) {
-        
+            Books =[];
             const customer_name = await CustomerSchema.findById(returnorders[i].customerId)
-
+            
             const add = await addressSchema.find({customerId:returnorders[i].customerId})
-
+            //date functionality
+            const date_ob = new Date(returnorders[i].create_at)
+            const date = date_ob.getDate();
+            const month = date_ob.getMonth() + 1;
+            const year = date_ob.getFullYear();
         
             for (let j = 0; j < returnorders[i].return_book_Id.length; j++) {
-
+               
               const return_book_Id = await bookSchema.findById(returnorders[i].return_book_Id[j].bookId)
-              const date_ob = new Date(returnorders[i].create_at)
-
-              const date = date_ob.getDate();
-              const month = date_ob.getMonth() + 1;
-              const year = date_ob.getFullYear();
-                let newdata = {
-                    customer: customer_name.name,
-                   address:add, 
-                    book_rented: return_book_Id.book_name,
-                    create_at: date + "-" + month + "-" + year
-
-                }
-                result.push(newdata)
-
+                Books.push(return_book_Id.book_name)
+             }
+             
+            let newdata = {
+                customer: customer_name.name,
+               address:add, 
+                book_rented: Books,
+                create_at: date + "-" + month + "-" + year,
             }
+            Books=[{}];
+            result.push(newdata)
 
         }
         res.send(result)
