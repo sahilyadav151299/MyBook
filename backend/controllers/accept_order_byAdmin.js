@@ -2,7 +2,7 @@ const orderSchema = require('../models/order');
 const CustomerSchema = require('../models/customer')
 const bookSchema = require('../models/book');
 const addressSchema = require('../models/address')
-const { Mongoose } = require('mongoose');
+
 // all placed orders
 
 exports.placedorders = async(req, res) => {
@@ -48,6 +48,7 @@ exports.placedorders = async(req, res) => {
 
 
             let newdata = {
+                id: placedorders[i]._id,
                 customer: customer_name.name,
                 book_rented: books,
                 category: categories,
@@ -72,5 +73,44 @@ exports.placedorders = async(req, res) => {
         console.log(error);
     }
 
+
+}
+
+
+
+
+
+//                      when admin  approved the placed order                            //
+
+exports.do_deliver = async(req, res) => {
+
+
+    const order = await orderSchema.find({ _id: req.params.id })
+        // let bookdata = {
+        //     order: order.rented_book,
+        // };
+
+
+    for (let i = 0; i < order[0].book_rented.length; i++) {
+        const book_id = order[0].book_rented[i].bookId;
+        const book = await bookSchema.findById(book_id);
+        await bookSchema.updateOne({ _id: book_id }, { $set: { total_book_rented: (book.total_book_rented + 1) } }).then(() => {
+            res.status(200).json()
+        }).catch((err) => { console.warn(err) })
+
+        console.log(book.book_name, " approved")
+
+
+
+    }
+
+
+    // res.send(order[0].book_rented[0].bookId)
+
+    const flage = "Delivered";
+    const obj = orderSchema.updateOne({ _id: req.params.id }, { $set: { flag: flage } }).then(() => {
+            res.status(200).json()
+        }).catch((err) => { console.warn(err) })
+        // res.send(obj)
 
 }

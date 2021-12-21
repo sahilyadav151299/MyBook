@@ -63,4 +63,11 @@ constructor( private http : HttpClient ) { }
 
     }
 
+ 
+  getApproveOrder( _id :any ){
+    const id=_id;
+    return this.http.patch(`http://localhost:3000/accept_order_byAdmin/${id}`,id)
+  }
+
+
 }
