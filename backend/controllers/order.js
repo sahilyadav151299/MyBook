@@ -130,22 +130,28 @@ exports.returnOrderedBooks = (req, res, next) => {
 
     console.log(bookData)
     
-    const bookIdOrderId = []
+    const bookIds = []
+    const orderIds = []
 
     for(const book of bookData){
 
-        const Ids = {
-            bookId : book.bookId,
+        const Id1 = {
+            bookId : book.bookId
+        }
+
+        const Id2 = {
             orderId : book.orderId
         }
 
-        bookIdOrderId.push(Ids)
+        bookIds.push(Id1)
+        orderIds.push(Id2)
     }
         
     const newReturnOrder = new ReturnOrder({
 
         customerId : customerId,
-        return_book_order_Id : bookIdOrderId,
+        return_book_Id : bookIds,
+        return_order_Id : orderIds,
         status : 'Open',
         pickup_address : address
     })

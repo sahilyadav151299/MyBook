@@ -19,7 +19,11 @@
               <tr *ngFor="let book of orders; let i = index">
                   <th scope="row">{{i+1}}</th>
                   <td>{{book.customer}}</td>
-                  <td>{{book.book_rented}}</td>
+                  <td>
+                    <div *ngFor="let book of book.book_rented" >
+                    -> {{ book.book_name }}
+                    </div> 
+                 </td>
 
                   <td>{{book.address[0].address}}, {{book.address[0].city}}, {{book.address[0].state}}</td>
                    <td>{{book.create_at}}</td>

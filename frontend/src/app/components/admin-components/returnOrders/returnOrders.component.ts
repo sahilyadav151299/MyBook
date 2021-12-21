@@ -18,7 +18,6 @@ export class ReturnOrdersComponent implements OnInit {
      //console.warn(allplacedOrders);
       this.orders = allplacedOrders;
       console.log(this.orders)
-      console.log(this.orders)
     })
 
   }

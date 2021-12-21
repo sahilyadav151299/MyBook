@@ -17,11 +17,14 @@ export class AcceptOrdersComponent implements OnInit {
   ngOnInit():void {
      
     this.placedOrders.getplacedOrders().subscribe((allplacedOrders:any)=>{
-     console.warn(allplacedOrders);
+     
       this.orders = allplacedOrders;
       console.log(this.orders)
     })
+  }
 
+  getOrderIdForApprove(orderId : any){
+    console.log(orderId)
   }
 
 }

@@ -8,14 +8,19 @@ var returnOrderSchema = new Schema({
         ref: 'Customer'
     },
 
-    return_book_order_Id:[ 
+    return_book_Id:[ 
           
         { 
             bookId : { 
                 type: Schema.Types.ObjectId, 
                 ref: 'Book' 
-            },
+            }
+        } 
+    ],
 
+    return_order_Id:[ 
+          
+        { 
             orderId : {
                 type: Schema.Types.ObjectId,
                 ref : 'Order'

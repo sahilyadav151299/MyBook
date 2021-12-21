@@ -21,29 +21,38 @@ exports.openReturnOrders = async (req, res) => {
         const returnorders = await returnOrderSchema.find({ status: "Open" })
         // returnorders.forEach()
         var result = [];
+        
         for (let i = 0; i < returnorders.length; i++) {
 
             const customer_name = await CustomerSchema.findById(returnorders[i].customerId)
 
             const add = await addressSchema.find({customerId:returnorders[i].customerId})
+
+            let bookIds = []
+
             for (let j = 0; j < returnorders[i].return_book_Id.length; j++) {
 
-              const return_book_Id = await bookSchema.findById(returnorders[i].return_book_Id[j].bookId)
-              const date_ob = new Date(returnorders[i].create_at)
+              const id = await bookSchema.findById(returnorders[i].return_book_Id[j].bookId)
+              bookIds.push(id)
+
+            }
+
+            const date_ob = new Date(returnorders[i].create_at)
 
               const date = date_ob.getDate();
               const month = date_ob.getMonth() + 1;
               const year = date_ob.getFullYear();
-                let newdata = {
-                    customer: customer_name.name,
-                   address:add, 
-                    book_rented: return_book_Id.book_name,
-                    create_at: date + "-" + month + "-" + year
 
-                }
-                result.push(newdata)
+              let newdata = {
 
-            }
+                customer: customer_name.name,
+                address:add, 
+                book_rented: bookIds,
+                create_at: date + "-" + month + "-" + year,
+                returnOrderId : returnorders[i]._id
+              }
+              
+              result.push(newdata)
 
         }
         res.send(result)
@@ -57,6 +66,5 @@ exports.openReturnOrders = async (req, res) => {
 
         console.log(error);
     }
-
-
 }
+

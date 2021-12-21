@@ -47,20 +47,15 @@ constructor( private http : HttpClient ) { }
     return this.http.post(`http://localhost:${PORT_NO}/orders/return-book`, body )
 
   }
-  returnOrders()
 
-  {
+  returnOrders(){
 
-     return this.http.get("http://localhost:3000/returnOrders")
-
-
+     return this.http.get(`http://localhost:${PORT_NO}/returnOrders`)
 
   }
 
-  getplacedOrders()
-    {
-       return this.http.get("http://localhost:3000/accept_order_byAdmin")
+  getplacedOrders(){
 
-    }
-
+       return this.http.get(`http://localhost:${PORT_NO}/accept_order_byAdmin`)
+  }
 }
