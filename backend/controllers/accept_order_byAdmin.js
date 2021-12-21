@@ -51,50 +51,6 @@ exports.placedorders = async(req, res) => {
     }
 }    
 
-                // result.push(newdata)
-
-
-// exports.closePlacedOrderRequest = (req, res, next) => {
-
-    
-
-
-//     try{
-//             let newdata = {
-//                 id: placedorders[i]._id,
-//                 customer: customer_name.name,
-//                 book_rented: books,
-//                 category: categories,
-//                 address: add,
-//                 create_at: date + "-" + month + "-" + year
-
-//             }
-
-//             books = [{}];
-//             books.push("#")
-//             result.push(newdata)
-
-//             console.log(result)
-//         res.send(result)
-
-//         console.log(placedorders.length) // for testing purpose
-
-//         }
-
-        
-
-
-//     }catch (error) {
-//         console.log(error);
-//     }
-
-
-// }
-
-
-
-
-
 // //                      when admin  approved the placed order                            //
 
 exports.do_deliver = async(req, res) => {
