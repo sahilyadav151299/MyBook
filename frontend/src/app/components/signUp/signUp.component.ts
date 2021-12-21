@@ -95,9 +95,9 @@ export class SignUpComponent implements OnInit {
         //   title: 'Oops...',
         //   text: response.errMessage,
         // })
-        // this.Error = true;
-        // this.updated = false;
-        // this.Errmsg = 'Email Already Exist!!';
+        this.Error = true;
+        this.updated = false;
+        this.Errmsg = 'Email Already Exist!!';
       }
 
       if(response.status === 200){
@@ -107,9 +107,9 @@ export class SignUpComponent implements OnInit {
         //   title: 'Congratulations!!',
         //   text: 'You have successfully Created your Account.',
         // })
-        // this.updated = true;
-        // this.Error = false;
-        // this.msg = 'You have successfully Created your Account.'
+        this.updated = true;
+        this.Error = false;
+        this.msg = 'You have successfully Created your Account.'
         var reload = () => {
           this.router.navigate(['/login']);
         }
