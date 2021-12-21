@@ -47,7 +47,7 @@ export class AcceptOrdersComponent implements OnInit {
         }
         setTimeout(reload, 1000)
 
-      })
+      }) 
       
       
     }

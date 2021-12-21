@@ -26,7 +26,7 @@
                    <td>{{book.create_at}}</td>
         
                   <td class="text-center">
-                    <button type="button" class="btn btn-primary">Approve Return</button> &nbsp; 
+                    <button type="button" class="btn btn-primary"(click)='closed_order(book.id)'>Approve Return</button> &nbsp; 
                       </td>
               </tr>
           </tbody>
