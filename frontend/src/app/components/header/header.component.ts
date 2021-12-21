@@ -29,6 +29,8 @@ export class HeaderComponent implements OnInit {
   onLogout(){
 
     localStorage.removeItem('userToken')
+    localStorage.removeItem("cartBookId")
+    localStorage.removeItem("flag")
 
     this.auth = false
     
