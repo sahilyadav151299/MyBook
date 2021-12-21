@@ -32,6 +32,7 @@ exports.openReturnOrders = async (req, res) => {
              }
              
             let newdata = {
+                id: returnorders[i]._id,
                 customer: customer_name.name,
                address:add, 
                 book_rented: Books,
@@ -52,6 +53,34 @@ exports.openReturnOrders = async (req, res) => {
 
         console.log(error);
     }
+}
+
+    exports.returnOrderApprove = async(req, res) => {
+    
+    
+        const order = await returnOrderSchema.find({ _id: req.params.id })
+    
+    
+        for (let i = 0; i < order[0].return_book_Id.length; i++) {
+            const book_id = order[0].return_book_Id[i].bookId;
+            const book = await bookSchema.findById(book_id);
+            await bookSchema.updateOne({ _id: book_id }, { $set: { total_book_rented: (book.total_book_rented - 1) } }).then(() => {
+                res.status(200).json()
+            }).catch((err) => { console.warn(err) })
+    
+           // console.log(book.book_name, " approved")
+    
+    
+    
+        }
+    
+    
+
+    
+        const flage = "Closed";
+        const obj = returnOrderSchema.updateOne({ _id: req.params.id }, { $set: { status : flage } }).then(() => {
+                res.status(200).json()
+            }).catch((err) => { console.warn(err) })
 
 
 }
