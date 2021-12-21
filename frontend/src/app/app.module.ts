@@ -14,8 +14,7 @@ import { SignUpComponent } from './components/signUp/signUp.component';
 
 import { OrdersComponent } from './components/orders/orders.component';
 import { PackageDataComponent } from './components/package-data/package-data.component';
-import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component'
-
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,9 +28,9 @@ import { OrderDataService } from './services/order-data.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
-
   declarations: [
     AppComponent,
     OrdersComponent,
@@ -48,7 +47,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     AddBookComponent,
     EditBookComponent,
     DashboardComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ForgotPasswordComponent,
   ],
 
   imports: [
@@ -57,12 +57,11 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     HttpClientModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
 
-  providers: [ OrderDataService ],
+  providers: [OrderDataService],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-
-export class AppModule { }
+export class AppModule {}

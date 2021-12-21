@@ -14,12 +14,13 @@ export class UserService {
 
   register(userData: User){
 
-    return this.http.post<any>(`http://localhost:${PORT_NO}/auth/signup`, userData);
+    return this.http.post<any>(`http://localhost:${PORT_NO}/auth/register`, userData);
   }
 
   authenticateUser(credentials : any){
-
-    return this.http.post(`http://localhost:${PORT_NO}/auth/login`, credentials)
+    console.log("login from frontendside",credentials)
+    credentials.username = credentials.email
+    return this.http.post<any>(`http://localhost:${PORT_NO}/auth/login`, credentials)
   }
   
   changeAddress(newAddress : any){

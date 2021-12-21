@@ -89,7 +89,7 @@ export class SignUpComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: response.errMessage,
+          text: `Email is already registered`,
         })
       }
 
