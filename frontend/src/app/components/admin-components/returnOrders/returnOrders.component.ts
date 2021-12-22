@@ -1,3 +1,4 @@
+import Swal  from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { OrderDataService } from 'src/app/services/order-data.service';
 
@@ -28,11 +29,15 @@ export class ReturnOrdersComponent implements OnInit {
     this.retOrders.getclosedorder(returnOrderId)
       .subscribe(()=>{
 
-      var reload = () => {
-        return window.location.reload()
-      }
-      setTimeout(reload, 1000)
+          Swal.fire({
+            icon: 'success',
+            text: 'Return order has been closed!'
+          })
 
+          var reload = () => {
+            return window.location.reload()
+          }
+          setTimeout(reload, 1000)
     }) 
   }
 }
