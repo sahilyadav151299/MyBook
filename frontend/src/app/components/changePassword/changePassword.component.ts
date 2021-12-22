@@ -46,6 +46,12 @@ export class ChangePasswordComponent implements OnInit {
 
   success = '';
 
+  Error = false;
+  Errmsg = '';
+  updated = false;
+  msg = '';
+
+
   get newPass(){return this.changeForm.get('password')}
   get confirmNewPass(){return this.changeForm.get('confirmPassword')}
 
@@ -74,32 +80,40 @@ export class ChangePasswordComponent implements OnInit {
         if(response.errCode === 422){
 
           //New Password is same as Old Password
-          Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: response.errMessage,
-              })
+          // Swal.fire({
+          //       icon: 'error',
+          //       title: 'Oops...',
+          //       text: response.errMessage,
+          //     })
+          this.Error = true;
+          this.updated = false;
+          this.Errmsg = 'New Password can not be same as Old Password' ;
         }
 
         if(response.errCode === 401){
 
           //password is wrong
-          Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: response.errMessage,
-              })
+          // Swal.fire({
+          //       icon: 'error',
+          //       title: 'Oops...',
+          //       text: response.errMessage,
+          //     })
+          this.Error = true;
+          this.updated = false;
+          this.Errmsg = 'Please enter the correct password' ;
         }
 
         if(response.status === 200){
 
           //Updated Successfully.
-          Swal.fire({
-            icon: 'success',
-            title: 'Congratulations!!',
-            text: 'Password Changed Succefully',
-          })
-
+          // Swal.fire({
+          //   icon: 'success',
+          //   title: 'Congratulations!!',
+          //   text: 'Password Changed Succefully',
+          // })
+          this.Error = false;
+          this.updated = true;
+          this.msg = 'Password Updated Successfully' ;
               var reload = () => {
                 this.router.navigate(['/dashboard']);
               }

@@ -26,12 +26,17 @@
         
           <ng-container *ngFor="let item of bestSellerList">
               <div class="card col-md-2 book-box" style="background-color: wheat;">
-                  <img src="../../../assets/b7.jpg" alt="" >
+                
+                  <img [src]="item.image" *ngIf="item.image else elseBlock">
+                  <ng-template #elseBlock>
+                    <img src="../../../assets/No-Image.jpg">
+                  </ng-template>
+
                   <h5 class="bname">{{item.book_name}}</h5>
                   <p class="aname">Author: {{item.author}}</p>
                   <p class="cname">Category: {{item.category_name}}</p>
                   <p class="yname">Published Year: {{item.publish_date}}</p>
-                  <button class="btn btn-primary btn-sm" (click)="sendDataToCart(item._id)"> Add to cart </button>
+                  <button type="button" class="btn btn-primary btn-sm" (click)="sendDataToCart(item._id)"> Add to cart </button>
               </div>
 
           </ng-container>
@@ -46,13 +51,19 @@
       <div class="row">
         
           <ng-container *ngFor="let item of bookList">
+            
               <div class="card col-md-2" style="background-color: wheat;">
-                  <img src="../../../assets/b7.jpg" alt="" >
+
+                  <img [src]="item.image" *ngIf="item.image else elseBlock">
+                  <ng-template #elseBlock>
+                    <img src="../../../assets/No-Image.jpg">
+                  </ng-template>
+
                   <h5 class="bname">{{item.book_name}}</h5>
                   <p class="aname">Author: {{item.author}}</p>
                   <p class="cname">Category: {{item.category_name}}</p>
                   <p class="yname">Published Year: {{item.publish_date}}</p>
-                  <button class="btn btn-primary btn-sm" (click)="sendDataToCart(item._id)"> Add to cart </button>
+                  <button type="button" class="btn btn-primary btn-sm" (click)="sendDataToCart(item._id)"> Add to cart </button>
               </div>
 
           </ng-container>

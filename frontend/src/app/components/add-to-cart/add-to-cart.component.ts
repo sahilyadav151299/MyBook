@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from 'src/app/services/user.service';
 import { OrderDataService } from 'src/app/services/order-data.service';
 import { Component, OnInit } from '@angular/core';
@@ -21,8 +22,11 @@ export class AddToCartComponent implements OnInit {
     pincode: ''
   }
 
+  url : any
+
   constructor( private orderDataService :OrderDataService,
-               private userService : UserService   ) { }
+               private userService : UserService,
+               private domSanitizer : DomSanitizer   ) { }
 
   ngOnInit() {
 
@@ -50,6 +54,19 @@ export class AddToCartComponent implements OnInit {
 
         for(const book of bookData){
 
+          if(book.book_cover != undefined){
+           
+            let TYPED_ARRAY = new Uint8Array(book.book_cover.data.data)
+        
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+              return data + String.fromCharCode(byte);
+            }, '')
+            
+            let base64String = btoa(STRING_CHAR);
+            
+            this.url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String)
+          } 
+
           const obj = {
             
             id : book._id,
@@ -57,8 +74,10 @@ export class AddToCartComponent implements OnInit {
             book_name : book.book_name,
             category : book.category_name,
             date : book.publish_date,
+            image : this.url
           }
 
+          this.url = ''
           this.cartBookdata.push(obj)
         }
 
@@ -120,8 +139,23 @@ export class AddToCartComponent implements OnInit {
 
   placeOrder(){
 
+    const newReduceCartData = []
+
+    for(const book of this.cartBookdata){
+      
+      const obj = {
+        author: book.author,
+        book_name: book.book_name,
+        category: book.category,
+        date: book.date,
+        id : book.id,
+      }
+
+      newReduceCartData.push(obj)
+    }
+
     this.orderDataService
-      .placeOrder(this.cartBookdata)
+      .placeOrder(newReduceCartData)
       .subscribe(( res : any ) => {
 
         if(res.status === 406){

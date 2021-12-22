@@ -1,3 +1,4 @@
+import { AcceptOrdersComponent } from './components/admin-components/accept-orders/accept-orders.component';
 import { ChangePasswordComponent } from './components/changePassword/changePassword.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditBookComponent } from './components/admin-components/edit-book/edit-book.component';
@@ -29,7 +30,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component'
+import { ReturnOrdersComponent } from './components/admin-components/returnOrders/returnOrders.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     DashboardComponent,
     ChangePasswordComponent,
     ForgotPasswordComponent, 
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    AcceptOrdersComponent,
+    ReturnOrdersComponent
   ],
 
   imports: [
@@ -60,6 +64,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+   
   ],
 
   providers: [OrderDataService],

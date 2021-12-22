@@ -29,4 +29,11 @@ export class UserPackagesService {
     return this.http.post(`http://localhost:${PORT_NO}/packages`, data)
   }
 
+  updateUserPack(packId : any){
+
+    const body = { id : packId }
+
+    return this.http.put(`http://localhost:${PORT_NO}/packages`, body)
+  }
+
 }

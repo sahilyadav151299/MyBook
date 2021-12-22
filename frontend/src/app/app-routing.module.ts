@@ -1,4 +1,5 @@
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { AcceptOrdersComponent } from './components/admin-components/accept-orders/accept-orders.component';
 import { ChangePasswordComponent } from './components/changePassword/changePassword.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditBookComponent } from './components/admin-components/edit-book/edit-book.component';
@@ -15,6 +16,7 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ReturnOrdersComponent } from './components/admin-components/returnOrders/returnOrders.component';
 
 
 let token = localStorage.getItem('userToken');
@@ -44,10 +46,15 @@ if (auth && role === 0) {
     { path: '', component: BookListComponent },
     { path: 'book-list', component: BookListComponent },
     { path: 'add-book', component: AddBookComponent },
-    { path: 'edit-book/:id', component: EditBookComponent },
-    { path: '**', component: PageNotFoundComponent },
-  ];
-} else {
+    { path: 'edit-book/:id', component: EditBookComponent},
+    { path: 'user-orders', component: AcceptOrdersComponent },
+    {path: 'return-orders', component: ReturnOrdersComponent},
+    { path: '**', component: PageNotFoundComponent }
+
+  ] 
+
+}else{
+
   routes = [
     { path: '', component: LoginComponent, pathMatch: 'full' },
     { path: 'login', component: LoginComponent },

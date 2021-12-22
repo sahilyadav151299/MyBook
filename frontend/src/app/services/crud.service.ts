@@ -20,10 +20,8 @@ export class CrudService {
   constructor(private httpClient:HttpClient) { }
 
   //add records 
-  AddBook(data:Book):Observable<any>{
-
-    let API_URL = `${this.REST_API}/add-book`;
-    return this.httpClient.post(API_URL,data).pipe(catchError(this.handleError))
+  AddBook(data : any){
+    return this.httpClient.post(`http://localhost:${PORT_NO}/admin/book/add-book`, data)
   }
 
   //get all records
@@ -33,7 +31,6 @@ export class CrudService {
 
   // get single book
   getBook(id:any): Observable<any>{
-  
     let API_URL =`${this.REST_API}/get-one-book/${id}`;
     return this.httpClient.get(API_URL,{headers:this.httpHeaders}).pipe(map((res:any)=>{
       return res || {}
@@ -42,12 +39,10 @@ export class CrudService {
     )
   } 
   
-  //update book data 
-  updateBook(id:any,data:any):Observable<any>{
-    let API_URl = `${this.REST_API}/update-book/${id}`;
-    return this.httpClient.put(API_URl, data, {headers:this.httpHeaders}).pipe(
-      catchError(this.handleError)
-    ) 
+  //update book data
+  updateBook(data : any, id : any){
+    return this.httpClient.put(`http://localhost:${PORT_NO}/admin/book/update-book/${id}`, data)
+    .pipe(catchError(this.handleError))
   }
 
   //delete

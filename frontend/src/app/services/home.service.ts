@@ -16,7 +16,6 @@ export class HomeService {
   }
 
   displayBook( filterby : string ) {
-
      return this.http.get(`http://localhost:${PORT_NO}/home/filtered-books/${filterby}`);
   }
 }

@@ -48,4 +48,29 @@ constructor( private http : HttpClient ) { }
 
   }
 
+  returnOrders(){
+
+     return this.http.get(`http://localhost:${PORT_NO}/returnOrders`)
+
+  }
+
+  getplacedOrders(){
+
+       return this.http.get(`http://localhost:${PORT_NO}/accept_order_byAdmin`)
+  }
+ 
+    
+  getclosedorder( returnOrderId :any ){
+
+    const id = returnOrderId;
+    return this.http.patch(`http://localhost:3000/returnOrders/${id}`, id)
+  }
+
+
+  getApproveOrder( orderId :any ){
+    const id = orderId;
+    return this.http.patch(`http://localhost:3000/accept_order_byAdmin/${id}`,id)
+  }
+
+
 }

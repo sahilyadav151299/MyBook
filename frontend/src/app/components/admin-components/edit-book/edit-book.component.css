@@ -1,18 +1,47 @@
 .outer{
     margin-bottom: 150px;
+    width: 660px;
 }
 
-.btn-update{
+.btn-add{
     margin-top: 20px;
     width: 200px;
 }
 
 .btn-box{
+    float: left;
+    width: 100%;
     text-align: center;
 }
 
 .data-box{
-    margin: 2px;
+    margin: 1px;
+    width: 300px;
+}
+
+.form-data{
+    float: left;
+    width: 300px;
+    margin: 0px 30px 0px 30px;
+}
+
+.image-data-box{
+    float: left;
+    width: 13em;
+    height: 400px;
+    margin: 0px 30px 0px 30px;
+}
+
+.image-box{
+    border: 1px solid rgb(238, 238, 238);
+    background-color: rgb(238, 238, 238);
+    height: 12em;
+    width: 9em;
+    margin: 23px 0px 30px 0px;
+}
+
+.img-file{
+    margin-top: 40px;
 }
 
 @media screen and (min-width: 0px) and (max-width: 600px){
@@ -20,5 +49,10 @@
     .outer{
         margin-bottom: 150px;
         padding: 0px 80px 0px 80px;
+    }
+
+    .image-data-box{
+        width: 300px;
+        height: 320px;
     }
 }

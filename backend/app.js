@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 const app = express();
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
+const multer = require('multer')
 const mongoose = require("mongoose");
 const { port, database, db_host } = require("./config/config");
 const jsonwebtoken = require("jsonwebtoken");
@@ -29,11 +30,22 @@ const bookRoutes = require("./routes/book");
 const homeRoutes = require("./routes/dashboard");
 
 var cors = require("cors");
+const packageRoutes = require("./routes/package")
+const authRoutes = require("./routes/authentication")
+const cartRoutes = require("./routes/cart")
+const userRoutes = require("./routes/user")
+const bookRoutes = require("./routes/book")
+const homeRoutes = require("./routes/dashboard")
+const accept_order_byAdminRoutes = require("./routes/accept_order_byAdmin");
+const returnOrdersRoutes = require("./routes/returnOrders")
+
+const cors = require('cors')
 
 // Middlewares
+app.use(express.static(__dirname + '/uploads'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors())
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -95,15 +107,50 @@ mongoose
     .connect(`${database}`, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("Database created and connected successfully!");
+        next()
+    });
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname)
+    }
+});
+
+app.use(multer({ storage: storage }).single('file'));
+
+app.use('/auth', authRoutes)
+app.use('/home', homeRoutes)
+app.use('/user', userRoutes)
+app.use('/cart', cartRoutes)
+app.use('/orders', orderRoutes)
+app.use('/packages', packageRoutes)
+app.use('/admin/book', bookRoutes)
+app.use('/accept_order_byAdmin', accept_order_byAdminRoutes)
+app.use('/returnOrders', returnOrdersRoutes)
+
+
+// Database creation and connection
+mongoose.connect(`${database}`, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('Database created and connected successfully!')
     })
     .then(() => {
         app.listen(port, () => {
             console.log(`serve at http://${db_host}:${port}`);
         });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
 
 // Error
+app.use((req, res, next) => {
+    // Error goes via `next()` method
+    setImmediate(() => {
+        next(new Error('Something went wrong'));
+    });
+});
 
 app.use(function(err, req, res, next) {
     console.error(err.message);
