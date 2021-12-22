@@ -11,9 +11,11 @@ dotenv.config();
 
 //for passport things
 //const PassportLocal = require("passport-local").Strategy;
-const PassportLocal = require("passport-local");
+// const PassportLocal = require("passport-local");
 const passport = require("passport");
 const session = require("express-session");
+const LocalStrategy = require('passport-local').Strategy;
+
 
 const User = require("./models/customer");
 const forgotPassword = require("./routes/forgot_Password");
@@ -57,20 +59,26 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new PassportLocal(User.authenticate()));
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-passport.serializeUser(function(user, done) {
-    done(null, user);
-});
-passport.deserializeUser(async function(user, done) {
-    try {
-        const { _id } = user;
-        user = await User.findById(_id);
-        done(null, user);
-    } catch (err) {
-        done(err);
-    }
-});
+
+
+// passport.use(new PassportLocal(User.authenticate()));
+
+// passport.serializeUser(function(user, done) {
+//     done(null, user);
+// });
+// passport.deserializeUser(async function(user, done) {
+//     try {
+//         const { _id } = user;
+//         user = await User.findById(_id);
+//         done(null, user);
+//     } catch (err) {
+//         done(err);
+//     }
+// });
 
 // routes
 app.use("/", forgotPassword);

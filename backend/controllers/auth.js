@@ -39,89 +39,29 @@ router.get("/auth/login", (req, res) => {
 });
 
 
-// router.post('/auth/login', (req, res) => {
-//     passport.authenticate(
-//         'local', { session: false },
-//         (error, user) => {
-
-//             if (error || !user) {
-//                 res.status(400).json({ errMessage: error });
-//             }
-
-//             /** This is what ends up in our JWT */
-//             const payload = {
-//                 username: user.username,
-//                 expires: Date.now() + parseInt(30000),
-//             };
-
-//             /** assigns payload to req.user */
-//             req.login(payload, { session: false }, (error) => {
-//                 if (error) {
-//                     res.status(400).send({ error });
-//                 }
-
-//                 /** generate a signed json web token and return it in the response */
-//                 const token = jwt.sign(JSON.stringify(payload), keys.secret);
-//                 //console.log('token'+token);
-//                 /** assign our jwt to the cookie */
-//                 //res.cookie('jwt', token, { httpOnly: true, secure: true });
-//                 res.cookie('jwt', token);
-//                 //res.send(token);
-//                 //res.status(200).send(payload.username);
-//                 res.redirect("/suggested-books");
-//             });
-//         },
-//     )(req, res);
-// });
-
-router.post(
-    "/auth/login", (req, res, next) => {
-        console.log("auth hit ", req.body);
-        next();
-    },
-    passport.authenticate("local", {
-            failureRedirect: "/auth/register",
-            successRedirect: "/suggested-books", //re-direction issue
-            // console.log('authentication called')
+router.post('/auth/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        console.log(req.body)
+        if (err) {
+            console.log("error found")
+            return next(err);
         }
+        if (!user) {
+            console.log("User not found")
+            res.json({ errCode: 409, errMessage: info.message })
+            return;
+        }
+        console.log(user)
+        const token = jwt.sign({
+            id: user._id,
+            name: user.name,
+            auth: true,
+            role: user.role
+        }, "sjfldjfdfs", { expiresIn: "1h" })
+        res.json({ status: 200, userToken: token, message: "You have Successfully Logged In" })
+    })(req, res, next);
+});
 
-    )
-);
 
-
-
-// passport.use(
-//     new LocalStrategy(function(email, password, done) {
-//         User.findOne({ email: email }, function(err, user) {
-//             if (err) {
-//                 return done(err);
-//             }
-//             if (!user) {
-//                 return done(null, false);
-//             }
-//             if (!user.verifyPassword(password)) {
-//                 return done(null, false);
-//             }
-//             return done(null, user);
-//         });
-//     })
-// );
-
-// router.post("/auth/login", function(req, res, next) {
-//     console.log(req.body);
-//     passport.authenticate("local", function(err, user, info) {
-//         if (err) {
-//             console.log("err:" + err);
-//         }
-//         if (!user) {
-//             console.log("info :" + info.message);
-//             return;
-//         }
-//         //   createSendToken(req.user, res);
-//         console.log(user);
-//     })(req, res, next);
-// });
-
-router.get("/suggested-books", homeController.getSuggestedBooks);
 
 module.exports = router;

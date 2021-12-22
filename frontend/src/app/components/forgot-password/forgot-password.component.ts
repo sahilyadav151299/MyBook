@@ -1,5 +1,7 @@
+import { UserService } from './../../services/user.service';
 import { FormGroup, FormControl,Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -8,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
   submitted = false;
   success = ''
 
@@ -30,7 +34,10 @@ export class ForgotPasswordComponent implements OnInit {
    this.success = JSON.stringify(this.forgotPassword.value);
    console.log(this.success)
    alert('Link has been sent to your email')
- }
+   this.router.navigate(['/resetPassword'])
+  }
+
+  
   ngOnInit(): void {
   }
 

@@ -18,7 +18,8 @@ const CustomerSchema = new mongoose.Schema({
         required: true,
     },
     role: {
-        type: Boolean,
+        type: Number,
+        default: 0
     },
     create_at: {
         type: String,
