@@ -5,17 +5,18 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const { port, database, db_host } = require("./config/config");
-const jsonwebtoken = require('jsonwebtoken')
+const jsonwebtoken = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 
 //for passport things
-const PassportLocal = require("passport-local").Strategy;
-const passport = require('passport')
-const session = require('express-session')
+//const PassportLocal = require("passport-local").Strategy;
+const PassportLocal = require("passport-local");
+const passport = require("passport");
+const session = require("express-session");
 
-const User = require('./models/customer')
-const forgotPassword = require('./routes/forgot_Password')
+const User = require("./models/customer");
+const forgotPassword = require("./routes/forgot_Password");
 const orderRoutes = require("./routes/order");
 const packageRoutes = require("./routes/package");
 //const authRoutes = require("./routes/authentication")
@@ -43,7 +44,7 @@ app.use((req, res, next) => {
     next();
 });
 
-//session 
+//session
 app.use(
     session({
         secret: process.env.secret,
@@ -59,23 +60,20 @@ app.use(passport.session());
 passport.use(new PassportLocal(User.authenticate()));
 
 passport.serializeUser(function(user, done) {
-
     done(null, user);
 });
 passport.deserializeUser(async function(user, done) {
     try {
         const { _id } = user;
-        user = await User.findById(_id)
+        user = await User.findById(_id);
         done(null, user);
-
     } catch (err) {
         done(err);
     }
-
 });
 
 // routes
-app.use("/", forgotPassword)
+app.use("/", forgotPassword);
 app.use(authRoutes);
 //app.use("/auth", authRoutes);
 app.use("/home", homeRoutes);

@@ -1,7 +1,7 @@
 const BookModel = require('../models/book')
 
 exports.getSuggestedBooks = (req, res, next) => {
-
+    // console.log('/book route hit')
     BookModel.find({ $where: "this.total_book_quantity !==0 " })
         .then(allBooks => {
             res.status(200).send(allBooks);

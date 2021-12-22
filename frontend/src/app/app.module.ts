@@ -29,6 +29,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     EditBookComponent,
     DashboardComponent,
     ChangePasswordComponent,
-    ForgotPasswordComponent,
+    ForgotPasswordComponent, 
+    ResetPasswordComponent
   ],
 
   imports: [

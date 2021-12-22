@@ -45,9 +45,11 @@ exports.forgotPassword = (req, res) => {
     })
 }
 exports.resetPassword = (req, res) => {
-    const { resetLink, newPass } = req.body;
-    if (resetLink) {
-        jwt.verify(resetLink, process.env.JWT_SECRET, (err, decodedData) => {
+    const { newPass } = req.body;
+    const utoken = req.params.utoken
+    console.log('utoken ', utoken)
+    if (utoken) {
+        jwt.verify(utoken, process.env.JWT_SECRET, (err, decodedData) => {
             if (err) {
                 return res.json({
                     status: 401,
@@ -55,7 +57,7 @@ exports.resetPassword = (req, res) => {
                 })
             }
             //verfying the user based on reset link
-            User.findOne({ resetLink }, (err, user) => {
+            User.findOne({ resetLink: utoken }, (err, user) => {
                 if (err || !user) {
                     return res.json({ status: 409, error: "user with this token is not exists" })
                 }
