@@ -19,6 +19,17 @@ export class UserProfileComponent implements OnInit {
     private router:ActivatedRoute,
   ){}
 
+  //Fetch Customer data from database:
+  userData : any;
+
+  ngOnInit(){
+   
+   this.userSignupService.getUserById().subscribe((data : any) =>{ 
+     this.userData=data  
+     // console.log(data);
+    })
+  }
+
   manageprofileForm=new FormGroup({
     name:new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
     email:new FormControl('', [Validators.required, Validators.email]),
@@ -38,17 +49,6 @@ export class UserProfileComponent implements OnInit {
    get state(){return this.manageprofileForm.get('state')}
    get pincode(){return this.manageprofileForm.get('pincode')}
 
-   ngOnInit(){
-    
-    this.userSignupService.getUserById().subscribe((data : any) =>{ 
-      this.userData=data  
-      console.log(data);
-     })
-   }
-
-  //Fetch Customer data from database:
-  userData : any;
-   
   
   get f() {
     return this.manageprofileForm.controls;
