@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 exports.getPackage = (req, res, next) => {
 
     const customerId = mongoose.Types.ObjectId(req.query.customerId)
-    let totoalPack = 0
+    let totalPack = 0
 
     Package.find()
         .then( packageData => {
