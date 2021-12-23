@@ -44,10 +44,11 @@ exports.forgotPassword = (req, res) => {
         })
     })
 }
+
 exports.resetPassword = (req, res) => {
     const { newPass } = req.body;
     const utoken = req.params.utoken
-    console.log('utoken ', utoken)
+        //console.log('utoken ', utoken)
     if (utoken) {
         jwt.verify(utoken, process.env.JWT_SECRET, (err, decodedData) => {
             if (err) {
@@ -63,14 +64,15 @@ exports.resetPassword = (req, res) => {
                 }
                 const obj = {
                     password: newPass,
-                    // resetLink: ''
+                    resetLink: ''
                 }
-                user = _.extend(user, obj);
+                user = _.extend(user, obj); //obj is assigning to user
+                //user.setPassword(newPass)
                 user.save((err, result) => {
                     if (err) {
                         return res.json({ err: "reset password Error" })
                     } else {
-                        user.updateOne({ password: this.newPass })
+                        //user.updateOne({ password: this.newPass })
                         return res.json({ message: 'Your password has been changed', newPassword: newPass })
                     }
                 })

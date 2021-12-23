@@ -5,11 +5,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const p = require("passport-local-mongoose");
 const router = express.Router();
 const User = require("../models/customer");
-const homeController = require("../controllers/dashboard");
-var flash = require("connect-flash");
 
-const jwt = require("jsonwebtoken");
-const expressJwt = require("express-jwt");
+const jwt = require("jsonwebtoken")
 
 router.post("/auth/register", async(req, res) => {
     //res.send('route hit ')
@@ -19,7 +16,7 @@ router.post("/auth/register", async(req, res) => {
             email: req.body.email,
             username: req.body.email, //
             name: req.body.name,
-            contactNo: req.body.contactNumber,
+            contact: req.body.contactNumber,
         });
         const regUser = await User.register(newUser, req.body.password);
         //console.log("regUser", regUser)
@@ -53,7 +50,7 @@ router.post('/auth/login', function(req, res, next) {
         }
         console.log(user)
         const token = jwt.sign({
-            id: user._id,
+            userId: user._id,
             name: user.name,
             auth: true,
             role: user.role

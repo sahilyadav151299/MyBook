@@ -5,6 +5,7 @@ function getToken() {
     const token = localStorage.getItem('userToken')
 
     if(token){
+        console.log(token)
         return JSON.parse(token)
     }
 

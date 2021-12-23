@@ -29,13 +29,6 @@ const userRoutes = require("./routes/user");
 const bookRoutes = require("./routes/book");
 const homeRoutes = require("./routes/dashboard");
 
-var cors = require("cors");
-const packageRoutes = require("./routes/package")
-const authRoutes = require("./routes/authentication")
-const cartRoutes = require("./routes/cart")
-const userRoutes = require("./routes/user")
-const bookRoutes = require("./routes/book")
-const homeRoutes = require("./routes/dashboard")
 const accept_order_byAdminRoutes = require("./routes/accept_order_byAdmin");
 const returnOrdersRoutes = require("./routes/returnOrders")
 
@@ -102,13 +95,7 @@ app.use("/cart", cartRoutes);
 app.use("/orders", orderRoutes);
 app.use("/packages", packageRoutes);
 app.use("/admin/book", bookRoutes);
-// Database creation and connection
-mongoose
-    .connect(`${database}`, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log("Database created and connected successfully!");
-        next()
-    });
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

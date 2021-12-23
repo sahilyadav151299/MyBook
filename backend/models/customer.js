@@ -13,7 +13,7 @@ const CustomerSchema = new mongoose.Schema({
         required: true,
     },
 
-    contactNo: {
+    contact: {
         type: Number,
         required: true,
     },
