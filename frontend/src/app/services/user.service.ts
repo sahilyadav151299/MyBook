@@ -18,7 +18,7 @@ export class UserService {
   }
 
   authenticateUser(credentials: any) {
-    console.log(credentials);
+    //console.log(credentials);
     const body = { username: credentials.email, password: credentials.password };
     return this.http.post<any>(`http://localhost:${PORT_NO}/auth/login`, body);
   }
@@ -76,9 +76,3 @@ export class UserService {
     
 
 }
-// forgotPassword(data:User){
-// const body = {
-// email : User.email
-// }
-// return this.http.get(`http://localhost:${PORT_NO}/auth/changepassword`)
-// }

@@ -46,6 +46,8 @@ exports.addBook = (req, res, next) => {
 }
 
 exports.updateBook = (req, res, next) => {
+    // console.log("updatebook: " + req.body.bookName)
+    // console.log(req.body.)
 
     const id = req.params.id
     const bookData = req.body
@@ -57,25 +59,26 @@ exports.updateBook = (req, res, next) => {
     const total_book_quantity = bookData.totalQuantity
     console.log(id)
     console.log(book_name)
+    console.log(author, category_name, publish_date, total_book_quantity)
 
 
-    if (req.file === undefined) {
+    // if (req.file === undefined) {
 
-        BookModel.findByIdAndUpdate(id, { book_name, author, category_name, publish_date, total_book_quantity })
-            .then(() => res.json({ status: 200, message: 'Book Updated Successfully!' }))
-            .catch(err => res.json({ errCode: 500, errMessage: 'Error In Updating Book Data!' }))
+    //     BookModel.findByIdAndUpdate(id, { book_name, author, category_name, publish_date, total_book_quantity })
+    //         .then(() => res.json({ status: 200, message: 'Book Updated Successfully!' }))
+    //         .catch(err => res.json({ errCode: 500, errMessage: 'Error In Updating Book Data!' }))
 
-    } else {
+    // } else {
 
-        const book_cover = {
-            data: fs.readFileSync(path.join(__dirname.split('controllers')[0] + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
+    //     const book_cover = {
+    //         data: fs.readFileSync(path.join(__dirname.split('controllers')[0] + '/uploads/' + req.file.filename)),
+    //         contentType: 'image/png'
+    //     }
 
-        BookModel.findByIdAndUpdate(id, { book_name, author, category_name, publish_date, total_book_quantity, book_cover })
-            .then(() => res.json({ status: 200, message: 'Book Updated Successfully!' }))
-            .catch(err => res.json({ errCode: 500, errMessage: 'Error In Updating Address!' }))
-    }
+    //     BookModel.findByIdAndUpdate(id, { book_name, author, category_name, publish_date, total_book_quantity, book_cover })
+    //         .then(() => res.json({ status: 200, message: 'Book Updated Successfully!' }))
+    //         .catch(err => res.json({ errCode: 500, errMessage: 'Error In Updating Address!' }))
+    // }
 
 }
 

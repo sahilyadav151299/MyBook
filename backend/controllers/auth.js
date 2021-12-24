@@ -11,10 +11,10 @@ const jwt = require("jsonwebtoken")
 router.post("/auth/register", async(req, res) => {
     //res.send('route hit ')
     try {
-        console.log(req.body);
+        // console.log(req.body);
         const newUser = new User({
             email: req.body.email,
-            username: req.body.email, //
+            username: req.body.email,
             name: req.body.name,
             contact: req.body.contactNumber,
         });
@@ -30,15 +30,15 @@ router.post("/auth/register", async(req, res) => {
         //res.redirect('/register');
     }
 });
-router.get("/auth/login", (req, res) => {
-    if (req.isAuthenticated()) res.redirect("/suggested-books");
-    else res.send("failed");
-});
+// router.get("/auth/login", (req, res) => {
+//     if (req.isAuthenticated()) res.redirect("/suggested-books");
+//     else res.send("failed");
+// });
 
 
 router.post('/auth/login', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
-        console.log(req.body)
+        //console.log(req.body)
         if (err) {
             console.log("error found")
             return next(err);
@@ -48,7 +48,7 @@ router.post('/auth/login', function(req, res, next) {
             res.json({ errCode: 409, errMessage: info.message })
             return;
         }
-        console.log(user)
+        //console.log(user)
         const token = jwt.sign({
             userId: user._id,
             name: user.name,
@@ -57,8 +57,49 @@ router.post('/auth/login', function(req, res, next) {
         }, "sjfldjfdfs", { expiresIn: "1h" })
         res.json({ status: 200, userToken: token, message: "You have Successfully Logged In" })
     })(req, res, next);
-});
+})
 
+router.put('/auth/changepassword', function(req, res) {
+    if (!req.isAuthenticated()) {
+        return res.status(403).json({
+            success: false
+        });
+    }
+    User.findById(req.params.user._id, function(err, user) {
+        if (err) return res.status(200).json({ success: false });
+
+        user.changePassword(req.body.oldPassword, req.body.newPassword, function(err) {
+
+            if (err) {
+                return res.status(200).json({
+                    success: false
+                });
+            }
+
+            user.setPassword(req.body.newPassword, function() {
+                if (err || !user) {
+                    return res.status(200).json({
+                        success: false
+                    })
+                }
+
+                user.save(function(err) {
+                    if (err) return res.status(200).json({ success: false });
+
+                    req.login(user, function(err) {
+                        if (err) return res.status(200).json({ success: false });
+                        return res.status(200).json({ success: true });
+                    });
+
+                });
+            });
+
+
+        });
+
+
+    });
+});
 
 
 module.exports = router;

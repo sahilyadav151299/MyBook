@@ -1,3 +1,4 @@
+import { CrudService } from './services/crud.service';
 import { AcceptOrdersComponent } from './components/admin-components/accept-orders/accept-orders.component';
 import { ChangePasswordComponent } from './components/changePassword/changePassword.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -67,7 +68,7 @@ import { ReturnOrdersComponent } from './components/admin-components/returnOrder
    
   ],
 
-  providers: [OrderDataService],
+  providers: [OrderDataService,CrudService],
 
   bootstrap: [AppComponent],
 })

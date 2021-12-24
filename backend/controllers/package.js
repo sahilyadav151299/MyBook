@@ -6,7 +6,6 @@ exports.getPackage = (req, res, next) => {
 
     const customerId = mongoose.Types.ObjectId(req.query.customerId)
     let totalPack = 0
-    console.log(customerId)
 
     Package.find()
         .then(packageData => {

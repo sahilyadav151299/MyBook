@@ -86,9 +86,8 @@ passport.deserializeUser(User.deserializeUser());
 // });
 
 // routes
-app.use("/", forgotPassword);
 app.use(authRoutes);
-//app.use("/auth", authRoutes);
+app.use("/", forgotPassword);
 app.use("/home", homeRoutes);
 app.use("/user", userRoutes);
 app.use("/cart", cartRoutes);
@@ -108,7 +107,7 @@ const storage = multer.diskStorage({
 
 app.use(multer({ storage: storage }).single('file'));
 
-app.use('/auth', authRoutes)
+
 app.use('/home', homeRoutes)
 app.use('/user', userRoutes)
 app.use('/cart', cartRoutes)

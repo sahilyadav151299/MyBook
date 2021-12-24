@@ -69,7 +69,7 @@ exports.placeOrder = (req, res, next) => {
                     const max_book = packData.max_book
                     const pack = packData.package_name
                     
-                    OrderSchema.find({ customerId : customerId }, "flag" )
+                    OrderSchema.find({ customerId : customerId }, "flag book_rented" )
                         .then(userOrders => {
 
                             let placedBookCount = 0
@@ -78,12 +78,15 @@ exports.placeOrder = (req, res, next) => {
                             for(const order of userOrders){
 
                                 if(order.flag === 'Placed')
-                                    placedBookCount++
+                                    placedBookCount = placedBookCount + order.book_rented.length
                                 if(order.flag === 'Delivered')
-                                    deliveredBookCount++
+                                    deliveredBookCount = deliveredBookCount + order.book_rented.length
                             }
 
-                            if(max_book === deliveredBookCount || max_book === placedBookCount){
+                            if(max_book <= deliveredBookCount || 
+                               max_book <= placedBookCount ||
+                               max_book < orderData.length ){
+
                                 res.json({ status : 406, message : `You can only order upto ${max_book} books at once with your ${pack} pack. Either reduce the books in cart or return the delivered books before!`})
                             }else{
 
@@ -127,8 +130,6 @@ exports.returnOrderedBooks = (req, res, next) => {
     const bookData = req.body.bookData
     const customerId = req.body.customerId
     const address = req.body.address
-
-    console.log(bookData)
     
     const bookIds = []
     const orderIds = []
