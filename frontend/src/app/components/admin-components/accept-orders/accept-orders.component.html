@@ -3,43 +3,43 @@
 </div>
 <ng-template #elseBlock>
 
-    
-<div class="container outer">
-    <div class="row d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
-        <h2 class="h2">List of placed orders</h2>
+
+    <div class="container outer">
+        <div class="row d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+            <h2 class="h2">List of placed orders</h2>
+        </div>
+        <div class="table-responsive book-data">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th scope="col">S.no</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Book Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Order Date</th>
+
+                        <th class="text-center" scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of orders; let i = index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{book.customer}}</td>
+                        <td>
+                            <div *ngFor="let book of book.book_rented">
+                                -> {{ book.book_name }}
+                            </div>
+                        </td>
+                        <td>{{book.address[0].address}}, {{book.address[0].pincode}}, {{book.address[0].city}}</td>
+                        <td>{{book.create_at}}</td>
+
+
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm btn-opr" (click)="getOrderIdForApprove(book.orderId)">Approve</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="table-responsive book-data">
-        <table class="table table-bordered ">
-            <thead>
-                <tr>
-                    <th scope="col">S.no</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Book Name</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Order Date</th>
-
-                    <th class="text-center" scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let book of orders; let i = index">
-                    <th scope="row">{{i+1}}</th>
-                    <td>{{book.customer}}</td>
-                    <td>
-                       <div *ngFor="let book of book.book_rented" >
-                       -> {{ book.book_name }}
-                       </div> 
-                    </td>
-                    <td>{{book.address[0].address}}, {{book.address[0].pincode}}, {{book.address[0].city}}</td>
-                    <td>{{book.create_at}}</td>
-
-
-                    <td class="text-center" >
-                        <button class="btn btn-primary btn-sm btn-opr" (click)="getOrderIdForApprove(book.orderId)">Approve</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 </ng-template>

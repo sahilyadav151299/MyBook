@@ -1,3 +1,4 @@
+import { CrudService } from './services/crud.service';
 import { AcceptOrdersComponent } from './components/admin-components/accept-orders/accept-orders.component';
 import { ChangePasswordComponent } from './components/changePassword/changePassword.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -15,8 +16,7 @@ import { SignUpComponent } from './components/signUp/signUp.component';
 
 import { OrdersComponent } from './components/orders/orders.component';
 import { PackageDataComponent } from './components/package-data/package-data.component';
-import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component'
-
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,10 +30,11 @@ import { OrderDataService } from './services/order-data.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component'
 import { ReturnOrdersComponent } from './components/admin-components/returnOrders/returnOrders.component';
 
 @NgModule({
-
   declarations: [
     AppComponent,
     OrdersComponent,
@@ -51,6 +52,8 @@ import { ReturnOrdersComponent } from './components/admin-components/returnOrder
     EditBookComponent,
     DashboardComponent,
     ChangePasswordComponent,
+    ForgotPasswordComponent, 
+    ResetPasswordComponent,
     AcceptOrdersComponent,
     ReturnOrdersComponent
   ],
@@ -65,9 +68,8 @@ import { ReturnOrdersComponent } from './components/admin-components/returnOrder
    
   ],
 
-  providers: [ OrderDataService ],
+  providers: [OrderDataService,CrudService],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-
-export class AppModule { }
+export class AppModule {}

@@ -1,45 +1,36 @@
-var mongoose = require('mongoose')
-const Schema = mongoose.Schema
-
-var customerSchema = new Schema({
-
-    name:{
+const mongoose = require("mongoose");
+const PassportLocalMongoose = require("passport-local-mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+const CustomerSchema = new mongoose.Schema({
+    email: {
         type: String,
         required: true,
-        maxlength: 50,
-        trim: true
+        unique: true,
     },
-
-    email:{
-        type: String,
-        trim: true,
-        required: true,
-        index: {
-            unique: true, 
-        },
-        match:/[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-    
-    },
-
-    encry_password:{
+    name: {
         type: String,
         required: true,
     },
 
-    role:{
+    contact: {
         type: Number,
-        default: 0 
+        required: true,
     },
-
-    contact:{
+    role: {
         type: Number,
-        required: true
+        default: 0
     },
-
-    create_at:{
+    create_at: {
         type: String,
-        default: new Date()
+        default: new Date(),
+    },
+    resetLink: {
+        data: String,
+        default: ''
     }
-})
+});
 
-module.exports = mongoose.model('Customer',customerSchema)
+CustomerSchema.plugin(PassportLocalMongoose);
+const User = new mongoose.model("Customer", CustomerSchema);
+module.exports = User;

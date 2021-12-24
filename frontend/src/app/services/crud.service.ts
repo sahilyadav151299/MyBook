@@ -41,6 +41,7 @@ export class CrudService {
   
   //update book data
   updateBook(data : any, id : any){
+    console.log(data)
     return this.httpClient.put(`http://localhost:${PORT_NO}/admin/book/update-book/${id}`, data)
     .pipe(catchError(this.handleError))
   }

@@ -1,75 +1,95 @@
 <p *ngIf="cartBookdata.length == 0 else elseBlock" class="no-order">
-  Your cart is empty !
+    Your cart is empty !
 </p>
+
+
 
 <ng-template #elseBlock>
 
-  <div class="outer-container">
 
-    <div class="outer-left-box">
-    
-      <div class="left-box" *ngFor="let book of cartBookdata">
-        <div class="inner-box">
-          <img [src]="book.image" *ngIf="book.image else elseBlock"  class="card-img-top book-cover">
-          <ng-template #elseBlock>
-            <img src="../../../assets/No-Image.jpg" class="card-img-top book-cover">
-          </ng-template>
+
+    <div class="outer-container">
+
+
+
+        <div class="outer-left-box">
+
+            <div class="left-box" *ngFor="let book of cartBookdata">
+                <div class="inner-box">
+                    <img [src]="book.image" *ngIf="book.image else elseBlock" class="card-img-top book-cover">
+                    <ng-template #elseBlock>
+                        <img src="../../../assets/No-Image.jpg" class="card-img-top book-cover">
+                    </ng-template>
+                </div>
+
+                <div class="inner-box">
+                    <p class="book-data"><strong>Book Name</strong></p>
+                    <p class="book-data">{{ book.book_name }}</p>
+                    <p class="book-data"><strong>Author</strong></p>
+                    <p class="book-data">{{ book.author }}</p>
+                </div>
+
+                <div class="inner-box">
+                    <p class="book-data"><strong>Category</strong></p>
+                    <p class="book-data">{{ book.category }}</p>
+                    <p class="book-data"><strong>Published Date</strong></p>
+                    <p class="book-data">{{ book.date }}</p>
+                </div>
+
+                <div class="inner-box-right">
+                    <button class="btn btn-danger btn-sm" (click)="removeItem(book.id)">Remove</button>
+                </div>
+            </div>
+
         </div>
-      
-        <div class="inner-box">
-          <p class="book-data"><strong>Book Name</strong></p>
-          <p class="book-data">{{ book.book_name }}</p>
-          <p class="book-data"><strong>Author</strong></p>
-          <p class="book-data">{{ book.author }}</p>
+
+
+
+        <div class="right-box">
+
+
+
+            <h2 class="address-title">Shipping Address</h2>
+
+
+
+            <form #addressForm="ngForm" (ngSubmit)="onSubmit(addressForm.value)">
+
+
+
+                <div class="mb-3">
+                    <input type="text" [(ngModel)]="custAddress.address" name="address" class="form-control input-box address-input" placeholder="House No, Colony">
+                </div>
+
+
+
+                <div class="mb-3">
+                    <input type="text" [(ngModel)]="custAddress.city" name="city" class="form-control input-box address-input" placeholder="City">
+                </div>
+
+
+
+                <div class="mb-3">
+                    <input type="text" [(ngModel)]="custAddress.state" name="state" class="form-control input-box address-input" placeholder="State">
+                </div>
+
+
+
+                <div class="mb-3">
+                    <input type="text" [(ngModel)]="custAddress.pincode" name="pincode" class="form-control input-box address-input" placeholder="Pincode">
+                </div>
+
+
+
+                <button type="submit" class="btn btn-success btn-sm">Change Address</button>
+
+            </form>
+
+            <button type="button" (click)="placeOrder()" class="btn btn-success btn-sm" style="width: 118px;">Place Order</button>
+
         </div>
-      
-        <div class="inner-box">
-          <p class="book-data"><strong>Category</strong></p>
-          <p class="book-data">{{ book.category }}</p>
-          <p class="book-data"><strong>Published Date</strong></p>
-          <p class="book-data">{{ book.date }}</p>
-        </div>
-      
-        <div class="inner-box-right">
-          <button class="btn btn-danger btn-sm" (click)="removeItem(book.id)">Remove</button>
-        </div>
-      </div>
-    
     </div>
 
-    <div class="right-box">
 
-      <h2 class="address-title">Shipping Address</h2>
-
-      <form #addressForm="ngForm" (ngSubmit)="onSubmit(addressForm.value)">
-
-        <div class="mb-3">
-          <input type="text" [(ngModel)]="custAddress.address" name="address" class="form-control input-box address-input" placeholder="House No, Colony">
-        </div>
-
-        <div class="mb-3">
-          <input type="text" [(ngModel)]="custAddress.city" name="city" class="form-control input-box address-input" placeholder="City">
-        </div>
-
-        <div class="mb-3">
-          <input type="text" [(ngModel)]="custAddress.state" name="state"  class="form-control input-box address-input" placeholder="State">
-        </div>
-
-        <div class="mb-3">
-          <input type="text" [(ngModel)]="custAddress.pincode" name="pincode" class="form-control input-box address-input" placeholder="Pincode">
-        </div>
-
-        <button type="submit" class="btn btn-success btn-sm">Change Address</button>
-        
-      </form>
-    
-      <button type="button" (click)="placeOrder()" class="btn btn-success btn-sm" style="width: 118px;">Place Order</button>
-      
-    </div>
-  </div>
 
 </ng-template>
-
-
-
-

@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit {
           })
           
           const userToken = jwt_decode(JSON.stringify(res.userToken));
+          console.log(userToken)
       
           localStorage.setItem('userToken', JSON.stringify(userToken))
 

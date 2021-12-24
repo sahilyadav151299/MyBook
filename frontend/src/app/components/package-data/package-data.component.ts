@@ -19,11 +19,12 @@ export class PackageDataComponent implements OnInit {
                private modalService: NgbModal ) { }
 
     ngOnInit() {
+      
 
     this.userPackagesService
       .getPackageData()
       .subscribe( (data : any ) => { 
-
+        console.log(data)
         this.userPacks = data.userAllPackData
 
         for(const pack of data.packageData){

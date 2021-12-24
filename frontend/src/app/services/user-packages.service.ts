@@ -14,6 +14,7 @@ export class UserPackagesService {
   getPackageData()  {
 
     const params = new HttpParams().set('customerId', userToken.userId)
+    console.log(userToken.userId)
 
     return this.http.get(`http://localhost:${PORT_NO}/packages`, { params : params })
   }
