@@ -49,9 +49,7 @@ export class LoginComponent implements OnInit {
     //form value in success variable
     this.success = this.logInForm.value
 
-    this.userService
-      .authenticateUser(this.success)
-      .subscribe((res : any) => {
+    this.userService.authenticateUser(this.success).subscribe((res : any) => {
 
         if(res.errCode === 422){
 
