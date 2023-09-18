@@ -1,0 +1,10 @@
+1) Database setup
+
+Create database : mybook
+Import Data     : collections in Models folder
+
+2) Open Local Server in VS Code
+
+run : Local Server\backend> npm start
+
+
